@@ -182,6 +182,9 @@ CREATE TABLE Evaluacion
     CONSTRAINT Fk_Evaluacion_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
 );
 
+
+
+
 ----------------------------------------------------------------
 ---- Tabla: Pregunta
 ----------------------------------------------------------------
