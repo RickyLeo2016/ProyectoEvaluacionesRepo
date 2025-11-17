@@ -7,11 +7,14 @@ GO
 CREATE PROCEDURE dbo.spActualizarTipoCatalogo
 @tipCatId bigint,
 @tipCatDescripcion varchar(200),
-@tipCatEstado char(1)
+@tipCatEstado char(1),
+@usuIdReg int
 AS        
 BEGIN      
 	update TipoCatalogo
-		set tipCatDescripcion=@tipCatDescripcion,
+		set 
+		tipCatNombre=@tipCatDescripcion,
+		tipCatDescripcion=@tipCatDescripcion,
 		tipCatEstado=@tipCatEstado,
 		tipCatFechaAct=SYSDATETIME()
 	where tipCatId=@tipCatId

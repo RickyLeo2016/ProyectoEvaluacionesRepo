@@ -5,11 +5,12 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROCEDURE dbo.spEliminarTipoCatalogo
-@tipCatId bigint
+@tipCatId bigint,
+@usuIdReg int
 AS        
 BEGIN      
 	update TipoCatalogo
-		set tipCatEstado='I',
+		set tipCatEstado='A',
 		tipCatFechaAct=SYSDATETIME()
 	where tipCatId=@tipCatId
 END

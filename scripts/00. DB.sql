@@ -4,8 +4,8 @@ go
 -- Base de Datos Testify
 -- Sistema de Evaluaciones Psicometricas y Técnicas
 -- ======================================
-create database TestifyDB
-go 
+--create database TestifyDB
+--go 
 use TestifyDB
 go
 --------------------------------------------------------------
@@ -17,9 +17,9 @@ CREATE TABLE TipoCatalogo
     tipCatNombre NVARCHAR(150) NOT NULL,
     tipCatDescripcion NVARCHAR(500) NULL,
     tipCatEstado CHAR(1) NOT NULL DEFAULT 'A',
-    tipCatIdReg BIGINT NOT NULL,
+    usuIdReg BIGINT NOT NULL,
     tipCatFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
-    tipCatIdAct BIGINT NULL,
+    usuIdAct BIGINT NULL,
     tipCatFechaAct DATETIME NULL,
     CONSTRAINT Pk_TipoCatalogo PRIMARY KEY (tipCatId)
 );
@@ -34,9 +34,9 @@ CREATE TABLE Catalogo
     catNombre NVARCHAR(150) NOT NULL,
     catDescripcion NVARCHAR(500) NULL,
     catEstado CHAR(1) NOT NULL DEFAULT 'A',
-    catIdReg BIGINT NOT NULL,
+    usuIdReg BIGINT NOT NULL,
     catFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
-    catIdAct BIGINT NULL,
+    usuIdAct BIGINT NULL,
     catFechaAct DATETIME NULL,
     CONSTRAINT Pk_Catalogo PRIMARY KEY (catId),
     CONSTRAINT Fk_Catalogo_TipoCatalogo FOREIGN KEY (tipCatId) REFERENCES TipoCatalogo(tipCatId)
