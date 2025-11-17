@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.2" />
+    <PackageReference Include="MediatR" Version="12.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Testify.Domain\Testify.Domain.csproj" />
+    <ProjectReference Include="..\..\Infraestructure\Testify.Persistence\Testify.Persistence.csproj" />
+    <ProjectReference Include="..\..\Utilities\Testify.Utilities\Testify.Utilities.csproj" />
+    <ProjectReference Include="..\Testify.Application.Dto\Testify.Application.Dto.csproj" />
+    <ProjectReference Include="..\Testify.Application.Interface\Testify.Application.Interface.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UseCase\Catalogo\Commands\DeleteCommand\" />
+  </ItemGroup>
+
+</Project>

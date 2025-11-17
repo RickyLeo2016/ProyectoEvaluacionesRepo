@@ -10,3 +10,7 @@ out-tsc/
 # Otros 
 .vscode/ 
 *.log 
+
+# Ignorar carpetas de Visual Studio
+.vs/
+api/Testify/.vs/
