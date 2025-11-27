@@ -16,9 +16,9 @@
 
         public const string spCrearCatalogo = "spCrearCatalogo";
 
-
-
         public const string spListarCatalogo = "spListarCatalogo";
+
+
         public const string spListarPorIdCatalogo = "spListarPorIdCatalogo";
         public const string spActualizarCatalogo = "spActualizarCatalogo";
         public const string spEliminarCatalogo = "spEliminarCatalogo";

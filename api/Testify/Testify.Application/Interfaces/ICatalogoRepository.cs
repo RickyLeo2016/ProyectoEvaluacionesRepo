@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Testify.Domain.Entities;
 
 namespace Testify.Application.Interfaces
 {
-    internal class ICatalogoRepository
+    public interface ICatalogoRepository : IGenericRepository<Catalogo>
     {
+        // Método específico para paginación
+        Task<IEnumerable<Catalogo>> GetAllPaginatedAsync(int pageNumber, int pageSize);
+        
     }
 }

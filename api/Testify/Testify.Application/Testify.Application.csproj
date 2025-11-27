@@ -12,8 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Catalogo\Commands\" />
-    <Folder Include="Features\Catalogo\Queries\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 

@@ -1,6 +1,4 @@
-﻿using Testify.Domain.Common;
-
-namespace Testify.Domain.Entities
+﻿namespace Testify.Domain.Entities
 {
     public class TipoCatalogo 
     {
