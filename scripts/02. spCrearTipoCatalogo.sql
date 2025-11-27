@@ -12,4 +12,6 @@ AS
 BEGIN      
 	insert into TipoCatalogo(tipCatNombre,tipCatDescripcion,tipCatEstado,tipCatFechaReg,usuIdReg)
 	values(@tipCatDescripcion,@tipCatDescripcion,@tipCatEstado,GETDATE(),@usuIdReg)
+
+	 SELECT @@ROWCOUNT AS RowsAffected;
 END
