@@ -18,7 +18,7 @@ BEGIN
 		empDireccion,
 		empEstado,
 		usuIdReg,
-		usuFechaReg
+		empFechaReg
 		)
 	values(
 		@empNombre,

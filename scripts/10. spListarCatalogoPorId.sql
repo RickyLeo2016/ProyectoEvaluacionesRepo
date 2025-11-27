@@ -1,12 +1,12 @@
 use TestifyDB
 go
-CREATE PROCEDURE [dbo].spListarCatalogoPorId
+Create PROCEDURE [dbo].spListarCatalogoPorId
 @catId bigint
 AS        
 BEGIN      
 	select 
-		catId codigo,
-		catDescripcion descripcion,
+		catId,
+		catNombre,
 		case
 			when catEstado = 'A' tHen 'Activo' else 'Inactivo'
 		end catEstado,
