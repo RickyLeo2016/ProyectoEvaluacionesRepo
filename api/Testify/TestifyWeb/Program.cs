@@ -1,3 +1,5 @@
+using Testify.Application.Interfaces;
+using Testify.Infrastructure.Services;
 using TestifyWeb.Extensions;
 using TestifyWeb.Middleware;
 
@@ -9,7 +11,9 @@ builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddSwaggerWithJwt();
 
 // MediatR, FluentValidation, Repositorios, etc.
-builder.Services.AddApplicationServices(); // opcional si quieres centralizar todo aquí
+builder.Services.AddApplicationServices(); 
+
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 var app = builder.Build();
 

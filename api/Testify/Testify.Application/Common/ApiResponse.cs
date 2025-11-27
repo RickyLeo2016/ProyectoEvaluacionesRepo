@@ -11,7 +11,7 @@
         public ApiResponse() { }
 
         // Respuesta exitosa
-        public ApiResponse(T data, string message = "Operación exitosa", bool isSuccess = true)
+        public ApiResponse(T? data, string message = "Operación exitosa", bool isSuccess = true)
         {
             Data = data;
             Message = message;
