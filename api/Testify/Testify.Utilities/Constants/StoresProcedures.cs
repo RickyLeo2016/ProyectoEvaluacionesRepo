@@ -23,6 +23,21 @@
 
         #endregion 
 
+        #region Table Empresa
+
+        public const string spCrearEmpresa = "spCrearEmpresa";
+        public const string spActualizarEmpresa = "spActualizarEmpresa";
+        public const string spEliminarEmpresa = "spEliminarEmpresa";
+        public const string spListarEmpresa = "spListarEmpresa";
+        public const string spListarEmpresaPorId = "spListarEmpresaPorId";
+
+
+        #endregion 
+
+
+
+
+
         #region Table Menu
 
         public const string spListarMenu = "spListarMenu";
