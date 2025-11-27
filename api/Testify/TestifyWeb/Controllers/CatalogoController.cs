@@ -1,11 +1,12 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Testify.Application.Features.Catalogo.Commands;
 using Testify.Application.Features.Catalogo.Queries;
 
 namespace TestifyWeb.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CatalogoController : ControllerBase
