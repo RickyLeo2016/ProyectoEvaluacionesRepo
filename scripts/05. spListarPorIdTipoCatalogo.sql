@@ -14,4 +14,5 @@ BEGIN
 	from TipoCatalogo
 	where tipCatEstado='A'
 	and tipCatId=@tipCatId
+
 END
