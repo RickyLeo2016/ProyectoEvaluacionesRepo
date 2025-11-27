@@ -2,9 +2,9 @@
 
 namespace Testify.Application.Features.TipoCatalogo.Commands
 {
-    public class UpdateTipoCatalogoCommandValidator : AbstractValidator<UpdateTipoCatalogoCommand>
+    public class UpdateTipoCatalogoValidator : AbstractValidator<UpdateTipoCatalogoCommand>
     {
-        public UpdateTipoCatalogoCommandValidator()
+        public UpdateTipoCatalogoValidator()
         {
             RuleFor(x => x.tipCatId)
                 .GreaterThan(0)

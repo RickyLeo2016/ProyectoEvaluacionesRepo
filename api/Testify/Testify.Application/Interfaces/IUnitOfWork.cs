@@ -3,5 +3,6 @@
     public interface IUnitOfWork
     {
         ITipoCatalogoRepository TipoCatalogo { get; }
+        ICatalogoRepository Catalogo { get; }
     }
 }

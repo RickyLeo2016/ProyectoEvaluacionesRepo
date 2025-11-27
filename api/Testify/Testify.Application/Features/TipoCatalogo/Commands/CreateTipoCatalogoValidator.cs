@@ -4,9 +4,9 @@ using Testify.Application.Features.TipoCatalogo.Commands;
 
 namespace Testify.Application.Features.TipoCatalogo.Validators
 {
-    public class CreateTipoCatalogoCommandValidator : AbstractValidator<CreateTipoCatalogoCommand>
+    public class CreateTipoCatalogoValidator : AbstractValidator<CreateTipoCatalogoCommand>
     {
-        public CreateTipoCatalogoCommandValidator()
+        public CreateTipoCatalogoValidator()
         {
             RuleFor(x => x.tipCatDescripcion)
                 .NotEmpty().WithMessage("La descripción es obligatoria.")

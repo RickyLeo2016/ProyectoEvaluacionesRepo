@@ -4,8 +4,7 @@ using Testify.Application.Dtos;
 using Testify.Application.Features.TipoCatalogo.Queries;
 using Testify.Application.Interfaces;
 
-public class GetAllTipoCatalogoHandler
-    : IRequestHandler<GetAllTipoCatalogoQuery, PagedResponse<IEnumerable<TipoCatalogoDto>>>
+public class GetAllTipoCatalogoHandler : IRequestHandler<GetAllTipoCatalogoQuery, PagedResponse<IEnumerable<TipoCatalogoDto>>>
 {
     private readonly IUnitOfWork _unit;
 

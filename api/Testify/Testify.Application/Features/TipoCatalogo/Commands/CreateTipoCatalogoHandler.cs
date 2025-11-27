@@ -7,19 +7,16 @@ using Testify.Utilities.Constants;
 
 namespace Testify.Application.Features.TipoCatalogo.Commands
 {
-    public class CreateTipoCatalogoHandler
-        : IRequestHandler<CreateTipoCatalogoCommand, ApiResponse<bool>>
+    public class CreateTipoCatalogoHandler : IRequestHandler<CreateTipoCatalogoCommand, ApiResponse<bool>>
     {
         private readonly IUnitOfWork _unit;
 
-        public CreateTipoCatalogoHandler(IUnitOfWork unit)
+        public CreateTipoCatalogoHandler(IUnitOfWork unitOfWork)
         {
-            _unit = unit;
+            _unit = unitOfWork;
         }
 
-        public async Task<ApiResponse<bool>> Handle(
-            CreateTipoCatalogoCommand request,
-            CancellationToken cancellationToken)
+        public async Task<ApiResponse<bool>> Handle(CreateTipoCatalogoCommand request,CancellationToken cancellationToken)
         {
             var parameters = new
             {
