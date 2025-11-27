@@ -26,4 +26,6 @@ BEGIN
 		@catEstado,
 		GETDATE(),
 		@usuIdReg)
+
+	 SELECT @@ROWCOUNT AS RowsAffected;
 END
