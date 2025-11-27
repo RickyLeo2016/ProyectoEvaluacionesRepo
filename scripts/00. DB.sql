@@ -27,7 +27,7 @@ CREATE TABLE TipoCatalogo
 --------------------------------------------------------------
 -- Tabla: Catalogo
 --------------------------------------------------------------
-CREATE TABLE Catalogo
+create TABLE Catalogo
 (
     catId BIGINT IDENTITY(1,1) NOT NULL,
     tipCatId BIGINT NOT NULL,
@@ -46,141 +46,143 @@ CREATE TABLE Catalogo
 --------------------------------------------------------------
 -- Tabla: Empresa
 --------------------------------------------------------------
-CREATE TABLE Empresa
+create TABLE Empresa
 (
     empId BIGINT IDENTITY(1,1) NOT NULL,
     empNombre NVARCHAR(150) NOT NULL,
     empRuc NVARCHAR(13) NOT NULL,
     empDireccion NVARCHAR(250) NOT NULL,
-    catIdEstado BIGINT NOT NULL,
+    empEstado BIGINT NOT NULL,
     usuIdReg BIGINT NOT NULL,
-    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
+    empFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
     usuIdAct BIGINT NULL,
-    usuFechaAct DATETIME NULL,
+    empFechaAct DATETIME NULL,
+    usuIdEli BIGINT NULL,
+    empFechaEli DATETIME NULL,
     CONSTRAINT Pk_Empresa PRIMARY KEY (EmpId),
-    CONSTRAINT Fk_Empresa_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
+    CONSTRAINT Fk_Empresa_Catalogo FOREIGN KEY (empEstado) REFERENCES Catalogo(CatId)
 );
 
---------------------------------------------------------------
--- Tabla: Usuario
--- Usuarios globales, único por email y dni
---------------------------------------------------------------
-CREATE TABLE Usuario
-(
-    usuId BIGINT IDENTITY(1,1) NOT NULL,
-    usuNombre NVARCHAR(150) NOT NULL,
-    usuEmail NVARCHAR(150) NOT NULL UNIQUE,
-    usuPassHash NVARCHAR(250) NOT NULL,
-    catIdEstado BIGINT NOT NULL,
-    usuIdReg BIGINT NOT NULL,
-    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
-    usuIdAct BIGINT NULL,
-    usuFechaAct DATETIME NULL,
-    CONSTRAINT Pk_Usuario PRIMARY KEY (UsuId),
-    CONSTRAINT Fk_Usuario_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
-);
+----------------------------------------------------------------
+---- Tabla: Usuario
+---- Usuarios globales, único por email y dni
+----------------------------------------------------------------
+--drop TABLE Usuario
+--(
+--    usuId BIGINT IDENTITY(1,1) NOT NULL,
+--    usuNombre NVARCHAR(150) NOT NULL,
+--    usuEmail NVARCHAR(150) NOT NULL UNIQUE,
+--    usuPassHash NVARCHAR(250) NOT NULL,
+--    catIdEstado BIGINT NOT NULL,
+--    usuIdReg BIGINT NOT NULL,
+--    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
+--    usuIdAct BIGINT NULL,
+--    usuFechaAct DATETIME NULL,
+--    CONSTRAINT Pk_Usuario PRIMARY KEY (UsuId),
+--    CONSTRAINT Fk_Usuario_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
+--);
 
---------------------------------------------------------------
--- Tabla: UsuarioDetalle
---------------------------------------------------------------
-CREATE TABLE UsuarioDetalle
-(
-    usuDetId BIGINT IDENTITY(1,1) NOT NULL,
-    usuId BIGINT NOT NULL,
-    empId BIGINT NOT NULL,
-    usuDetDNI NVARCHAR(20) NOT NULL,
-    usuNombres NVARCHAR(150) NOT NULL,
-    usuApellidos NVARCHAR(150) NOT NULL,
-    usuTelefono NVARCHAR(15) NULL,
-    usuCelular NVARCHAR(15) NULL,
-    usuDireccion NVARCHAR(500) NULL,
-    catIdEstado BIGINT NOT NULL,
-    usuIdReg BIGINT NOT NULL,
-    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
-    usuIdAct BIGINT NULL,
-    usuFechaAct DATETIME NULL,
-    CONSTRAINT Pk_UsuarioDetalle PRIMARY KEY (UsuDetId),
-    CONSTRAINT Fk_UsuarioDetalle_Usuario FOREIGN KEY (usuId) REFERENCES Usuario(usuId),
-    CONSTRAINT Fk_UsuarioDetalle_Empresa FOREIGN KEY (empId) REFERENCES Empresa(empId),
-    CONSTRAINT Fk_UsuarioDetalle_Catalogo FOREIGN KEY (catIdEstado) REFERENCES Catalogo(CatId)
-);
+----------------------------------------------------------------
+---- Tabla: UsuarioDetalle
+----------------------------------------------------------------
+--drop TABLE UsuarioDetalle
+--(
+--    usuDetId BIGINT IDENTITY(1,1) NOT NULL,
+--    usuId BIGINT NOT NULL,
+--    empId BIGINT NOT NULL,
+--    usuDetDNI NVARCHAR(20) NOT NULL,
+--    usuNombres NVARCHAR(150) NOT NULL,
+--    usuApellidos NVARCHAR(150) NOT NULL,
+--    usuTelefono NVARCHAR(15) NULL,
+--    usuCelular NVARCHAR(15) NULL,
+--    usuDireccion NVARCHAR(500) NULL,
+--    catIdEstado BIGINT NOT NULL,
+--    usuIdReg BIGINT NOT NULL,
+--    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
+--    usuIdAct BIGINT NULL,
+--    usuFechaAct DATETIME NULL,
+--    CONSTRAINT Pk_UsuarioDetalle PRIMARY KEY (UsuDetId),
+--    CONSTRAINT Fk_UsuarioDetalle_Usuario FOREIGN KEY (usuId) REFERENCES Usuario(usuId),
+--    CONSTRAINT Fk_UsuarioDetalle_Empresa FOREIGN KEY (empId) REFERENCES Empresa(empId),
+--    CONSTRAINT Fk_UsuarioDetalle_Catalogo FOREIGN KEY (catIdEstado) REFERENCES Catalogo(CatId)
+--);
 
---------------------------------------------------------------
--- Tabla: Rol
---------------------------------------------------------------
-CREATE TABLE Rol
-(
-    rolId BIGINT IDENTITY(1,1) NOT NULL,
-    rolNombre NVARCHAR(150) NOT NULL,
-    catIdEstado BIGINT NOT NULL,
-    usuIdReg BIGINT NOT NULL,
-    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
-    usuIdAct BIGINT NULL,
-    usuFechaAct DATETIME NULL,
-    CONSTRAINT Pk_Rol PRIMARY KEY (RolId),
-    CONSTRAINT Fk_Rol_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
-);
+----------------------------------------------------------------
+---- Tabla: Rol
+----------------------------------------------------------------
+--drop TABLE Rol
+--(
+--    rolId BIGINT IDENTITY(1,1) NOT NULL,
+--    rolNombre NVARCHAR(150) NOT NULL,
+--    catIdEstado BIGINT NOT NULL,
+--    usuIdReg BIGINT NOT NULL,
+--    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
+--    usuIdAct BIGINT NULL,
+--    usuFechaAct DATETIME NULL,
+--    CONSTRAINT Pk_Rol PRIMARY KEY (RolId),
+--    CONSTRAINT Fk_Rol_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
+--);
 
---------------------------------------------------------------
--- Tabla: UsuarioRol
---------------------------------------------------------------
-CREATE TABLE UsuarioRol
-(
-    usuRolId BIGINT IDENTITY(1,1) NOT NULL,
-    usuId BIGINT NOT NULL,
-    rolId BIGINT NOT NULL,
-    catIdEstado BIGINT NOT NULL,
-    usuIdReg BIGINT NOT NULL,
-    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
-    usuIdAct BIGINT NULL,
-    usuFechaAct DATETIME NULL,
-    CONSTRAINT Pk_UsuarioRol PRIMARY KEY (UsuRolId),
-    CONSTRAINT Fk_UsuarioRol_Usuario FOREIGN KEY (UsuId) REFERENCES Usuario(UsuId),
-    CONSTRAINT Fk_UsuarioRol_Rol FOREIGN KEY (RolId) REFERENCES Rol(RolId),
-    CONSTRAINT Fk_UsuarioRol_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
-);
+----------------------------------------------------------------
+---- Tabla: UsuarioRol
+----------------------------------------------------------------
+--drop TABLE UsuarioRol
+--(
+--    usuRolId BIGINT IDENTITY(1,1) NOT NULL,
+--    usuId BIGINT NOT NULL,
+--    rolId BIGINT NOT NULL,
+--    catIdEstado BIGINT NOT NULL,
+--    usuIdReg BIGINT NOT NULL,
+--    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
+--    usuIdAct BIGINT NULL,
+--    usuFechaAct DATETIME NULL,
+--    CONSTRAINT Pk_UsuarioRol PRIMARY KEY (UsuRolId),
+--    CONSTRAINT Fk_UsuarioRol_Usuario FOREIGN KEY (UsuId) REFERENCES Usuario(UsuId),
+--    CONSTRAINT Fk_UsuarioRol_Rol FOREIGN KEY (RolId) REFERENCES Rol(RolId),
+--    CONSTRAINT Fk_UsuarioRol_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
+--);
 
---------------------------------------------------------------
--- Tabla: Menu
--- Control de menú y submenús por nivel
---------------------------------------------------------------
-CREATE TABLE Menu
-(
-    menuId BIGINT IDENTITY(1,1) NOT NULL,
-    menuPadreId BIGINT NULL, -- NULL = menú principal
-    menuNombre NVARCHAR(150) NOT NULL,
-    menuUrl NVARCHAR(250) NULL,
-    nivel INT NOT NULL,
-    orden INT NOT NULL,
-    catIdEstado BIGINT NOT NULL,
-    usuIdReg BIGINT NOT NULL,
-    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
-    usuIdAct BIGINT NULL,
-    usuFechaAct DATETIME NULL,
-    CONSTRAINT Pk_Menu PRIMARY KEY (MenuId),
-    CONSTRAINT Fk_Menu_MenuPadre FOREIGN KEY (MenuPadreId) REFERENCES Menu(MenuId),
-    CONSTRAINT Fk_Menu_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
-);
+----------------------------------------------------------------
+---- Tabla: Menu
+---- Control de menú y submenús por nivel
+----------------------------------------------------------------
+--drop TABLE Menu
+--(
+--    menuId BIGINT IDENTITY(1,1) NOT NULL,
+--    menuPadreId BIGINT NULL, -- NULL = menú principal
+--    menuNombre NVARCHAR(150) NOT NULL,
+--    menuUrl NVARCHAR(250) NULL,
+--    nivel INT NOT NULL,
+--    orden INT NOT NULL,
+--    catIdEstado BIGINT NOT NULL,
+--    usuIdReg BIGINT NOT NULL,
+--    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
+--    usuIdAct BIGINT NULL,
+--    usuFechaAct DATETIME NULL,
+--    CONSTRAINT Pk_Menu PRIMARY KEY (MenuId),
+--    CONSTRAINT Fk_Menu_MenuPadre FOREIGN KEY (MenuPadreId) REFERENCES Menu(MenuId),
+--    CONSTRAINT Fk_Menu_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
+--);
 
 
---------------------------------------------------------------
--- Tabla: Evaluacion
---------------------------------------------------------------
-CREATE TABLE Evaluacion
-(
-    evalId BIGINT IDENTITY(1,1) NOT NULL,
-    empId BIGINT NOT NULL,
-    evalNombre NVARCHAR(150) NOT NULL,
-    evalDescripcion NVARCHAR(500) NULL,
-    catIdEstado BIGINT NOT NULL,
-    usuIdReg BIGINT NOT NULL,
-    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
-    usuIdAct BIGINT NULL,
-    usuFechaAct DATETIME NULL,
-    CONSTRAINT Pk_Evaluacion PRIMARY KEY (EvalId),
-    CONSTRAINT Fk_Evaluacion_Empresa FOREIGN KEY (EmpId) REFERENCES Empresa(EmpId),
-    CONSTRAINT Fk_Evaluacion_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
-);
+----------------------------------------------------------------
+---- Tabla: Evaluacion
+----------------------------------------------------------------
+--drop TABLE Evaluacion
+--(
+--    evalId BIGINT IDENTITY(1,1) NOT NULL,
+--    empId BIGINT NOT NULL,
+--    evalNombre NVARCHAR(150) NOT NULL,
+--    evalDescripcion NVARCHAR(500) NULL,
+--    catIdEstado BIGINT NOT NULL,
+--    usuIdReg BIGINT NOT NULL,
+--    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
+--    usuIdAct BIGINT NULL,
+--    usuFechaAct DATETIME NULL,
+--    CONSTRAINT Pk_Evaluacion PRIMARY KEY (EvalId),
+--    CONSTRAINT Fk_Evaluacion_Empresa FOREIGN KEY (EmpId) REFERENCES Empresa(EmpId),
+--    CONSTRAINT Fk_Evaluacion_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
+--);
 
 
 
