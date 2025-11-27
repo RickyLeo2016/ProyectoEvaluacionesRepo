@@ -10,7 +10,10 @@ CREATE PROCEDURE dbo.spEliminarTipoCatalogo
 AS        
 BEGIN      
 	update TipoCatalogo
-		set tipCatEstado='A',
+		set tipCatEstado='I',
 		tipCatFechaAct=SYSDATETIME()
 	where tipCatId=@tipCatId
+
+
+	 SELECT @@ROWCOUNT AS RowsAffected;
 END
