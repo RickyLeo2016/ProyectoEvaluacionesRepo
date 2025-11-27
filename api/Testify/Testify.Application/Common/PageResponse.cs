@@ -1,4 +1,6 @@
-﻿namespace Testify.Application.Common
+﻿using Testify.Infrastructure.Constants;
+
+namespace Testify.Application.Common
 {
     public class PagedResponse<T>
     {
@@ -16,14 +18,14 @@
         // Constructor para respuesta paginada
         public PagedResponse() { }
 
-        public PagedResponse(T data, int pageNumber, int pageSize, int totalCount, string message = "Consulta Exitosa.")
+        public PagedResponse(T data, int pageNumber, int pageSize, int totalCount)
         {
             Data = data;
             PageNumber = pageNumber;
             PageSize = pageSize;
             TotalCount = totalCount;
-            Message = message;
             IsSuccess = true;
+            Message = totalCount > 0 ? GlobalMessages.MESSAGE_QUERY : GlobalMessages.MESSAGE_QUERY_EMPTY;
         }
 
         // Constructor para errores

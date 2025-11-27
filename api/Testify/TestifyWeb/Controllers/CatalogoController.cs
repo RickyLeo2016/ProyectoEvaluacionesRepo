@@ -30,13 +30,13 @@ namespace TestifyWeb.Controllers
             return Ok(response);
         }
 
-        //[HttpGet("ObtenerTipoCatalogo/{id}")]
-        //public async Task<IActionResult> ObtenerTipoCatalogo(long id)
-        //{
-        //    var query = new GetTipoCatalogoByIdQuery { tipCatId = id };
-        //    var result = await _mediator.Send(query);
-        //    return Ok(result);
-        //}
+        [HttpGet("ObtenerCatalogo/{id}")]
+        public async Task<IActionResult> ObtenerCatalogo(long id)
+        {
+            var query = new GetCatalogoByIdQuery { catId = id };
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
 
 
         [HttpPost("RegistrarCatalogo")]

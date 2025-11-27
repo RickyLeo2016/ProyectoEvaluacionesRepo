@@ -6,8 +6,7 @@ using Testify.Utilities.Constants;
 
 namespace Testify.Application.Features.TipoCatalogo.Queries
 {
-    public class GetTipoCatalogoByIdHandler
-        : IRequestHandler<GetTipoCatalogoByIdQuery, ApiResponse<TipoCatalogoDto>>
+    public class GetTipoCatalogoByIdHandler : IRequestHandler<GetTipoCatalogoByIdQuery, ApiResponse<TipoCatalogoDto>>
     {
         private readonly IUnitOfWork _unit;
 
