@@ -20,7 +20,7 @@ BEGIN
 		empDireccion=@empDireccion,
 		empEstado=@empEstado,
 		usuIdAct=@usuIdReg,
-		usuFechaReg=SYSDATETIME()
+		empFechaReg=SYSDATETIME()
 	where empId=@empId
 
 	SELECT @@ROWCOUNT AS RowsAffected;

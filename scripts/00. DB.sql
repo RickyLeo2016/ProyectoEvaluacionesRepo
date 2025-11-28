@@ -4,8 +4,8 @@ go
 -- Base de Datos Testify
 -- Sistema de Evaluaciones Psicometricas y Técnicas
 -- ======================================
---create database TestifyDB
---go 
+create database TestifyDB
+go 
 use TestifyDB
 go
 --------------------------------------------------------------
