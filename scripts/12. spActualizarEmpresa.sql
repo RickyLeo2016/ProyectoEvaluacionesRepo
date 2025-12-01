@@ -9,7 +9,6 @@ Create PROCEDURE dbo.spActualizarEmpresa
 @empNombre varchar(150),
 @empRuc varchar(13),
 @empDireccion varchar(200),
-@empEstado smallint,
 @usuIdReg int
 AS        
 BEGIN      
@@ -18,9 +17,8 @@ BEGIN
 		empNombre=@empNombre,
 		empRuc=@empRuc,
 		empDireccion=@empDireccion,
-		empEstado=@empEstado,
 		usuIdAct=@usuIdReg,
-		usuFechaReg=SYSDATETIME()
+		empFechaReg=SYSDATETIME()
 	where empId=@empId
 
 	SELECT @@ROWCOUNT AS RowsAffected;
