@@ -14,7 +14,7 @@ namespace Testify.Infrastructure.Repositories
         public async Task<IEnumerable<Empresa>> GetAllPaginatedAsync(int pageNumber, int pageSize)
         {
             var parameters = new { PageNumber = pageNumber, PageSize = pageSize };
-            return await GetAllAsync(SP.spListarTipoCatalogo, parameters);
+            return await GetAllAsync(SP.spListarEmpresa, parameters);
         }
 
     }

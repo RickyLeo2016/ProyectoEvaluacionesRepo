@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Testify.Application.Common;
 using Testify.Application.Interfaces;
+using Testify.Infrastructure.Constants;
 using Testify.Utilities.Constants;
 
 namespace Testify.Application.Features.TipoCatalogo.Commands
@@ -27,10 +28,10 @@ namespace Testify.Application.Features.TipoCatalogo.Commands
 
             if (rows == 0)
             {
-                return new ApiResponse<bool>(false, "No se encontró el registro o no se pudo eliminar.");
+                return new ApiResponse<bool>(false, GlobalMessages.MESSAGE_DELETE_ERROR);
             }
 
-            return new ApiResponse<bool>(true, "Registro eliminado correctamente.");
+            return new ApiResponse<bool>(true, GlobalMessages.MESSAGE_SAVE);
         }
     }
 }

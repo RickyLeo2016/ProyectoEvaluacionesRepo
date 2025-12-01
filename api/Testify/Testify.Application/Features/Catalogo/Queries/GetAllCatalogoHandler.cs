@@ -1,8 +1,6 @@
 ﻿using MediatR;
 using Testify.Application.Common;
 using Testify.Application.Dtos;
-using Testify.Application.Features.Catalogo.Queries;
-using Testify.Application.Features.TipoCatalogo.Queries;
 using Testify.Application.Interfaces;
 
 namespace Testify.Application.Features.Catalogo.Queries

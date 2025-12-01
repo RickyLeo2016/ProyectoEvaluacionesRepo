@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Empresa\Queries\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 
