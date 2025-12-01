@@ -13,7 +13,7 @@ BEGIN
 	set
 		empEstado=2,
 		usuIdEli=@usuIdReg,
-		usuFechaEli=SYSDATETIME()
+		empFechaEli=SYSDATETIME()
 	where empId=@empId
 
 	SELECT @@ROWCOUNT AS RowsAffected;

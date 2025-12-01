@@ -1,18 +1,18 @@
 use TestifyDB
 go
-CREATE PROCEDURE [dbo].spListarEmpresaPorId
+Create PROCEDURE [dbo].spListarEmpresaPorId
 @empId bigint
 AS        
 BEGIN      
 	select 
-		empId codigo,
-		empNombre descripcion,
+		empId,
+		empNombre,
 		case
-			when empEstado = 'A' tHen 'Activo' else 'Inactivo'
+			when empEstado = 1 tHen 'Activo' else 'Inactivo'
 		end catEstado,
 		convert(varchar,empFechaReg,25) catFechaRegistro
 	from Empresa
-	where empEstado='A'
+	where empEstado=1
 	and empId=@empId
 
 END

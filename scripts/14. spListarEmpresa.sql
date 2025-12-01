@@ -1,6 +1,6 @@
 use TestifyDB
 go
-CREATE PROCEDURE [dbo].[spListarEmpresa]
+Create PROCEDURE [dbo].[spListarEmpresa]
 @PageNumber int=null,
 @PageSize int=null
 AS        
@@ -12,11 +12,11 @@ BEGIN
 		empNombre,
 		empDireccion,
 		case
-			when empEstado = 'A' tHen 'Activo' else 'Inactivo'
-		end empEstado,
-		convert(varchar,empFechaReg,25) empFechaRegistro
+			when empEstado = 1 tHen 'Activo' else 'Inactivo'
+		end empEstadoDesc,
+		convert(varchar,empFechaReg,25) empFechaReg
 	from Empresa 
-	where empEstado='A'
+	where empEstado=1
 	order by empNombre
 	OFFSET (@PageNumber-1) * @PageSize ROWS
 	FETCH NEXT @PageSize ROWS ONLY;
