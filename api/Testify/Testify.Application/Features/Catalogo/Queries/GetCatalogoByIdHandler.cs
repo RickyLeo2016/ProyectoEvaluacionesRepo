@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using System.Globalization;
 using Testify.Application.Common;
 using Testify.Application.Dtos;
-using Testify.Application.Features.TipoCatalogo.Queries;
 using Testify.Application.Interfaces;
+using Testify.Infrastructure.Constants;
 using Testify.Utilities.Constants;
 
 namespace Testify.Application.Features.Catalogo.Queries
@@ -23,7 +24,7 @@ namespace Testify.Application.Features.Catalogo.Queries
                 new { catId = request.catId }
             );
             if (result == null)
-                return new ApiResponse<CatalogoDto>(null, "No se encontró el registro.", false);
+                return new ApiResponse<CatalogoDto>(null, GlobalMessages.MESSAGE_QUERY_EMPTY, false);
 
             var dto = new CatalogoDto
             {
@@ -32,7 +33,7 @@ namespace Testify.Application.Features.Catalogo.Queries
                 catEstado = result.catEstado
             };
 
-            return new ApiResponse<CatalogoDto>(dto, "Consulta exitosa.");
+            return new ApiResponse<CatalogoDto>(dto, GlobalMessages.MESSAGE_QUERY);
         }
     }
 }

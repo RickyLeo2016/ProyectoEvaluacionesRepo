@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Testify.Application.Features.Empresa.Commands;
+using Testify.Application.Features.Empresa.Queries;
 
 namespace TestifyWeb.Controllers
 {
@@ -15,26 +16,26 @@ namespace TestifyWeb.Controllers
             _mediator = mediator;
         }
 
-        //[HttpGet("ListarTipoCatalogo")]
-        //public async Task<IActionResult> ListarTipoCatalogo(int pageNumber = 1, int pageSize = 10)
-        //{
-        //    var query = new GetAllTipoCatalogoQuery
-        //    {
-        //        PageNumber = pageNumber,
-        //        PageSize = pageSize
-        //    };
+        [HttpGet("ListarEmpresa")]
+        public async Task<IActionResult> ListarEmpresa(int pageNumber = 1, int pageSize = 10)
+        {
+            var query = new GetAllEmpresaQuery
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
 
-        //    var response = await _mediator.Send(query);
-        //    return Ok(response);
-        //}
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
 
-        //[HttpGet("ObtenerTipoCatalogo/{id}")]
-        //public async Task<IActionResult> ObtenerTipoCatalogo(long id)
-        //{
-        //    var query = new GetTipoCatalogoByIdQuery { tipCatId = id };
-        //    var result = await _mediator.Send(query);
-        //    return Ok(result);
-        //}
+        [HttpGet("ObtenerEmpresa/{id}")]
+        public async Task<IActionResult> ObtenerEmpresa(long id)
+        {
+            var query = new GetEmpresaByIdQuery { empId = id };
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
 
 
         [HttpPost("RegistrarEmpresa")]
@@ -44,20 +45,20 @@ namespace TestifyWeb.Controllers
         }
 
 
-        //[HttpPut("ActualizarTipoCatalogo")]
-        //public async Task<IActionResult> ActualizarTipoCatalogo([FromBody] UpdateTipoCatalogoCommand cmd)
-        //{
-        //    var response = await _mediator.Send(cmd);
-        //    return Ok(response);
-        //}
+        [HttpPut("ActualizarEmpresa")]
+        public async Task<IActionResult> ActualizarEmpresa([FromBody] UpdateEmpresaCommand cmd)
+        {
+            var response = await _mediator.Send(cmd);
+            return Ok(response);
+        }
 
 
-        //[HttpDelete("EliminarTipoCatalogo/{id}")]
-        //public async Task<IActionResult> EliminarTipoCatalogo(long id)
-        //{
-        //    var command = new DeleteTipoCatalogoCommand { tipCatId = id };
-        //    var result = await _mediator.Send(command);
-        //    return Ok(result);
-        //}
+        [HttpDelete("EliminarEmpresa/{id}")]
+        public async Task<IActionResult> EliminarEmpresa(long id)
+        {
+            var command = new DeleteEmpresaCommand { empId = id };
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
     }
 }

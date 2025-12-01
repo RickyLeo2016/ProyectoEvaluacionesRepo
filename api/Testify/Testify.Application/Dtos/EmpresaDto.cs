@@ -6,7 +6,9 @@
         public string? empNombre { get; init; } = string.Empty;
         public string? empRuc { get; init; } = string.Empty;
         public string? empDireccion { get; init; } = string.Empty;
-        public string? empEstado { get; init; } = "A";
+        public string? empEstadoDesc { get; init; }
+
+        public DateTime? empFechaReg { get; init; }
         public int? usuIdReg { get; init; }
         
     }

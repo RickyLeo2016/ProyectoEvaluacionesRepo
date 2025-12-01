@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Testify.Application.Common;
 using Testify.Application.Interfaces;
+using Testify.Infrastructure.Constants;
 using Testify.Utilities.Constants;
 
 namespace Testify.Application.Features.TipoCatalogo.Commands
@@ -16,7 +17,6 @@ namespace Testify.Application.Features.TipoCatalogo.Commands
 
         public async Task<ApiResponse<bool>> Handle(UpdateTipoCatalogoCommand request, CancellationToken cancellationToken)
         {
-            // Ejecutar UPDATE directamente
             var rowsAffected = await _unit.TipoCatalogo.ExecuteAsync(
                 SP.spActualizarTipoCatalogo,
                 new
@@ -28,12 +28,11 @@ namespace Testify.Application.Features.TipoCatalogo.Commands
                 }
             );
 
-            // Retornar respuesta
             if (rowsAffected > 0)
             {
                 return new ApiResponse<bool>(
                     true,
-                    "Actualizado correctamente",
+                     GlobalMessages.MESSAGE_UPDATE,
                     true
                 );
             }
@@ -41,7 +40,7 @@ namespace Testify.Application.Features.TipoCatalogo.Commands
             {
                 return new ApiResponse<bool>(
                     false,
-                    "No se encontró el registro o no se pudo actualizar",
+                    GlobalMessages.MESSAGE_UPDATE_ERROR,
                     false
                 );
             }
