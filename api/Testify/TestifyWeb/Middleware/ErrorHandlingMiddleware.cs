@@ -38,7 +38,6 @@ namespace TestifyWeb.Middleware
             }
             catch (Exception ex)
             {
-                // Manejo de errores generales
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 context.Response.ContentType = "application/json";
 

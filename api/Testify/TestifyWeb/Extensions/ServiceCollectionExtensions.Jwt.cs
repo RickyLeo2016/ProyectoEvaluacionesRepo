@@ -2,7 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Http;
 using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace TestifyWeb.Extensions
 {
@@ -31,38 +34,64 @@ namespace TestifyWeb.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
 
-                // Eventos para interceptar respuestas de autenticación
                 options.Events = new JwtBearerEvents
                 {
                     OnChallenge = context =>
                     {
-                        context.HandleResponse(); // Evita la respuesta predeterminada
-                        context.Response.StatusCode = 401;
+                        // Evitar la respuesta por defecto (header WWW‑Authenticate, etc.)
+                        context.HandleResponse();
+
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                         context.Response.ContentType = "application/json";
 
-                        var result = System.Text.Json.JsonSerializer.Serialize(new
+                        // Agregar cabeceras CORS necesarias
+                        context.Response.Headers["Access-Control-Allow-Origin"] = "*";
+                        context.Response.Headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS";
+                        context.Response.Headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization";
+
+                        var result = JsonSerializer.Serialize(new
                         {
                             isSuccess = false,
-                            data = (object)null,
+                            data = (object?)null,
                             message = "No autorizado. Token inválido o ausente.",
-                            errors = new object[] { }
+                            errors = new string[] { }
                         });
+                        return context.Response.WriteAsync(result);
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        context.Response.ContentType = "application/json";
 
+                        context.Response.Headers["Access-Control-Allow-Origin"] = "*";
+                        context.Response.Headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS";
+                        context.Response.Headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization";
+
+                        var result = JsonSerializer.Serialize(new
+                        {
+                            isSuccess = false,
+                            data = (object?)null,
+                            message = "Error de autenticación. Token inválido o expirado.",
+                            errors = new string[] { }
+                        });
                         return context.Response.WriteAsync(result);
                     },
                     OnForbidden = context =>
                     {
-                        context.Response.StatusCode = 403;
+                        context.Response.StatusCode = StatusCodes.Status403Forbidden;
                         context.Response.ContentType = "application/json";
 
-                        var result = System.Text.Json.JsonSerializer.Serialize(new
+                        context.Response.Headers["Access-Control-Allow-Origin"] = "*";
+                        context.Response.Headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS";
+                        context.Response.Headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization";
+
+                        var result = JsonSerializer.Serialize(new
                         {
                             isSuccess = false,
-                            data = (object)null,
+                            data = (object?)null,
                             message = "No tienes permisos para acceder a este recurso.",
-                            errors = new object[] { }
+                            errors = new string[] { }
                         });
-
                         return context.Response.WriteAsync(result);
                     }
                 };
