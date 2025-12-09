@@ -1,0 +1,76 @@
+// Backdrop negro translúcido
+.backdrop {
+  position: fixed;
+  inset: 0;                 // cubre todo
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  transition: opacity 0.3s ease;
+  z-index: 1060;            // mayor que el sidebar
+}
+
+// Modal centrado con animación desde la izquierda
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: auto;
+  width: auto;             // tamaño del modal
+  max-width: 90vw;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  transform: translate(-50%, -50%);
+  z-index: 1070;            // mayor que el backdrop
+  display: flex;
+  flex-direction: column;
+  animation: slideFromLeft 0.35s ease-out forwards;   // nueva animación
+  outline: none;
+}
+
+// Header con título y botón cerrar
+.modal-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: #1a202c;
+}
+
+.close-btn {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.2s ease;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.close-btn:hover {
+  color: #ff4d4f;
+}
+
+// Cuerpo del modal
+.modal-body {
+  padding: 1rem 1.5rem;
+  color: #4a5568;
+  font-size: 0.95rem;
+  overflow-y: auto;
+  max-height: 40vh;
+}
+
+// Nueva animación desde la izquierda
+@keyframes slideFromLeft {
+  0% {
+    opacity: 0;
+    transform: translate(-70%, -50%);   // más hacia la izquierda
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);   // posición final
+  }
+}

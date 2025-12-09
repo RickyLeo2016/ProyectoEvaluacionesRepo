@@ -1,0 +1,80 @@
+<app-spinner #spinnerExterno [manual]="true"></app-spinner>
+
+
+<div class="row">
+  <!-- Formulario -->
+  <div class="col-sm-6">
+    <app-card cardTitle="Registrar Tipo Catálogo">
+      <form (submit)="guardar(); $event.preventDefault()">
+
+        <div class="mb-3">
+          <label class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            [value]="nombre()"
+            (input)="nombre.set($any($event.target).value)"
+            (blur)="nombreTocado.set(true)"
+          />
+          <div class="text-danger mt-1" *ngIf="nombreTocado() && !nombre()">
+            El nombre es obligatorio
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Descripción</label>
+          <textarea
+            class="form-control"
+            [value]="descripcion()"
+            (input)="descripcion.set($any($event.target).value)"
+            (blur)="descripcionTocado.set(true)"
+          ></textarea>
+          <div class="text-danger mt-1" *ngIf="descripcionTocado() && !descripcion()">
+            La descripción es obligatoria
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Estado</label>
+          <select
+            class="form-select"
+            [value]="estado()"
+            (change)="estado.set($any($event.target).value)"
+          >
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+          Guardar
+        </button>
+        <button type="button" class="btn btn-secondary ms-2" (click)="limpiarCampos()">
+          Limpiar
+        </button>
+      </form>
+    </app-card>
+  </div>
+
+  <!-- Tabla -->
+  <div class="col-sm-6">
+    <app-card cardTitle="Lista de Tipos de Catálogo">
+
+      <!-- Asegúrate de enviar el ng-template correcto al grid -->
+      <app-grid
+        [columnas]="columnas"
+        [datos]="tiposFiltrados()"
+        [templates]="{ acciones: accionesTemplate }">
+      </app-grid>
+
+      <ng-template #accionesTemplate let-item>
+        <button *ngFor="let accion of accionesTabla"
+                class="{{ accion.class }} me-1"
+                (click)="accion.callback(item)">
+          {{ accion.label }}
+        </button>
+      </ng-template>
+
+    </app-card>
+  </div>
+</div>
