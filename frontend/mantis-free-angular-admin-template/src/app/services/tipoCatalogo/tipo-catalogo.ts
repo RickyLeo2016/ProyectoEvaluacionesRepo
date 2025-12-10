@@ -46,7 +46,7 @@ export class TipoCatalogoService {
 
   // Actualizar un registro existente
   actualizar(tipo: TipoCatalogo): Observable<ApiResponse<boolean>> {
-    return this.http.put<ApiResponse<boolean>>(`${this.apiUrl}/EditarTipoCatalogo`, tipo);
+    return this.http.put<ApiResponse<boolean>>(`${this.apiUrl}/ActualizarTipoCatalogo`, tipo);
   }
 
   // Eliminar un registro

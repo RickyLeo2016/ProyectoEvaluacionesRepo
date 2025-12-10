@@ -1,1 +1,17 @@
 // This file is intentionally left empty to allow customers to add custom CSS if needed.
+.navbar-wrapper {
+  .m-header {
+    .b-brand {
+      display: flex;
+      justify-content: flex-start; // Alinea el logo a la izquierda
+      align-items: center;         // Centra verticalmente
+      
+      img {
+        display: block;  // Evita espacios extra alrededor de la imagen
+        margin-left: 0;  // Alinea a la izquierda
+        height: 160px;
+        width: 200px;
+      }
+    }
+  }
+}

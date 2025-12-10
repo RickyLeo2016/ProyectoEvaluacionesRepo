@@ -1,112 +1,97 @@
-@import '../../../../../scss/settings/color-variables.scss';
-
 .auth-main {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('~src/assets/images/authentication/testifyFondo.png') no-repeat center center;
+  background-size: cover;
   position: relative;
 
-  .auth-wrapper {
-    height: 100%;
-    width: 100%;
-    min-height: 100vh;
 
-    .saprator {
-      position: relative;
-      display: flex;
-      align-self: center;
-      justify-content: center;
-
-      &:after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        height: 1px;
-        background: var(--bs-border-color);
-        z-index: 1;
-      }
-
-      span {
-        font-size: 0.875rem;
-        padding: 8px 24px;
-        background: $white;
-        z-index: 5;
-        text-transform: capitalize;
-        color: $gray-800;
-        font-weight: 500;
-      }
-    }
-
-    &.v3 {
-      display: flex;
-      align-items: center;
-
-      .auth-form {
-        flex-direction: column;
-        background: url('../../../../../assets/images/authentication/img-auth-bg.svg');
-        min-height: 100vh;
-        padding: 24px;
-        background-repeat: no-repeat;
-        background-size: auto 82%;
-        background-position: left bottom;
-        position: relative;
-        justify-content: space-between;
-        > * {
-          position: relative;
-          z-index: 5;
-        }
-        &:after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba($white, 0.2);
-          backdrop-filter: blur(16px);
-        }
-      }
-    }
-    .auth-form {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-grow: 1;
-
-      .card {
-        width: 100%;
-        max-width: 495px;
-        box-shadow: none;
-      }
-
-      img + span {
-        padding-left: 15px;
-      }
-
-      h5 {
-        span {
-          text-decoration: underline;
-        }
-      }
-    }
-    .auth-footer,
-    .auth-header {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-  }
+  .fixed-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;  // Ajusta según el tamaño que quieras
+  height: auto;
+  z-index: 1000;  // Encima de todo
+  pointer-events: none; // No interfiere con clicks
+  border-radius: 48%;
 }
 
-form i {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0px -12px 0px 0px;
-  cursor: pointer;
-  padding: 12px;
-  font-size: 18px;
-  position: absolute;
-  top: 203px;
-  right: 45px;
+
+  .auth-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+
+    .auth-form {
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+
+      .auth-header {
+        margin-bottom: 20px;
+
+        .logo {
+          width: 200px;
+          height: auto;
+          margin-bottom: 15px;
+        }
+      }
+
+      .login-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        padding: 30px;
+
+        h3 {
+          color: #333;
+        }
+
+        .form-control {
+          border-radius: 8px;
+          border: 1px solid #ccc;
+          padding: 12px;
+          transition: all 0.3s;
+
+          &:focus {
+            border-color: #199ba1;
+            box-shadow: 0 0 8px rgba(37,117,252,0.5);
+          }
+        }
+
+        .btn-login {
+          background: #199ba1;
+          border: none;
+          border-radius: 8px;
+          font-weight: bold;
+          padding: 12px;
+          transition: all 0.3s;
+
+          &:hover {
+            background: #343dc4;
+          }
+        }
+      }
+
+      .auth-footer {
+        margin-top: 20px;
+        color: #fff;
+
+        a {
+          color: #fff;
+          text-decoration: underline;
+
+          &:hover {
+            color: #ffd700;
+          }
+        }
+      }
+    }
+  }
 }
