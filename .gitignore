@@ -5,6 +5,7 @@ obj/
 # Angular / Node 
 node_modules/ 
 dist/ 
+.angular/
 out-tsc/ 
  
 # Otros 
@@ -14,3 +15,16 @@ out-tsc/
 # Ignorar carpetas de Visual Studio
 .vs/
 api/Testify/.vs/
+
+
+# Archivos temporales de Angular/IDE
+*.tmp
+*.swp
+*.sublime-workspace
+*.sublime-project
+.DS_Store          # Mac
+Thumbs.db          # Windows
+
+# Archivos de prueba / cobertura
+coverage/
+test-results/
