@@ -8,15 +8,29 @@
   position: relative;
 
 
-  .fixed-icon {
+
+
+.fixed-icon {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 50px;  // Ajusta según el tamaño que quieras
+  width: 50px;
   height: auto;
-  z-index: 1000;  // Encima de todo
-  pointer-events: none; // No interfiere con clicks
+  z-index: 1000;
+  pointer-events: none;
   border-radius: 48%;
+  
+  /* Animación de giro horizontal */
+  animation: rotateY360 4s linear infinite;
+}
+
+@keyframes rotateY360 {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
 }
 
 
