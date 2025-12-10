@@ -1,111 +1,151 @@
-.auth-main {
-  min-height: 100vh;
+.login-container {
+  height: 100vh;
+  width: 100vw;
+  background: url('~src/assets/images/authentication/testifyFondo.png') no-repeat center center;
+  background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('~src/assets/images/authentication/testifyFondo.png') no-repeat center center;
-  background-size: cover;
-  position: relative;
-
-
-
-
-.fixed-icon {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: auto;
-  z-index: 1000;
-  pointer-events: none;
-  border-radius: 48%;
-  
-  /* Animación de giro horizontal */
-  animation: rotateY360 4s linear infinite;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-@keyframes rotateY360 {
-  from {
-    transform: rotateY(0deg);
-  }
-  to {
-    transform: rotateY(360deg);
-  }
-}
+/* ------------------------- */
+/* LOGIN BOX */
+/* ------------------------- */
+.login-box {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 40px 60px;
+  width: 420px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: #ffffff;
 
+  .logo-wrapper {
+    img.logo {
+      width: 80px;
+      margin-bottom: 10px;
+    }
 
-  .auth-wrapper {
+    p {
+      font-weight: 300;
+      font-size: 14px;
+      margin: 0 0 30px 0;
+      opacity: 0.85;
+    }
+  }
+
+  /* Inputs */
+  .form-control {
+    border-radius: 25px;
+    border: 2px solid transparent;
+    padding: 12px 20px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.6);
+    color: #333;
+    margin-bottom: 20px;
     width: 100%;
+    transition: 0.3s;
+
+    &::placeholder {
+      color: #666;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #05c6f7;
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
+    }
+  }
+
+  .actions {
     display: flex;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 15px;
 
-    .auth-form {
-      width: 100%;
-      max-width: 500px;
-      text-align: center;
-      position: relative;
+    a {
+      color: #fff;
+      text-decoration: none;
+      opacity: 0.8;
 
-      .auth-header {
-        margin-bottom: 20px;
-
-        .logo {
-          width: 200px;
-          height: auto;
-          margin-bottom: 15px;
-        }
-      }
-
-      .login-card {
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        padding: 30px;
-
-        h3 {
-          color: #333;
-        }
-
-        .form-control {
-          border-radius: 8px;
-          border: 1px solid #ccc;
-          padding: 12px;
-          transition: all 0.3s;
-
-          &:focus {
-            border-color: #199ba1;
-            box-shadow: 0 0 8px rgba(37,117,252,0.5);
-          }
-        }
-
-        .btn-login {
-          background: #199ba1;
-          border: none;
-          border-radius: 8px;
-          font-weight: bold;
-          padding: 12px;
-          transition: all 0.3s;
-
-          &:hover {
-            background: #343dc4;
-          }
-        }
-      }
-
-      .auth-footer {
-        margin-top: 20px;
-        color: #fff;
-
-        a {
-          color: #fff;
-          text-decoration: underline;
-
-          &:hover {
-            color: #ffd700;
-          }
-        }
+      &:hover {
+        text-decoration: underline;
+        opacity: 1;
       }
     }
+  }
+
+  .btn-login {
+    background: linear-gradient(90deg, #007cf0, #00dfd8);
+    border: none;
+    border-radius: 25px;
+    padding: 12px 0;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+
+    &:hover {
+      background: linear-gradient(90deg, #00dfd8, #007cf0);
+    }
+  }
+}
+
+
+/* ------------------------- */
+/* TÍTULO GLOW STROKE ANIMADO */
+/* ------------------------- */
+.glow-stroke-title {
+  font-size: 42px;
+  font-weight: 700;
+  display: inline-block;
+  letter-spacing: 3px;
+  color: transparent;
+  -webkit-text-stroke: 1.6px #00bfff; // borde azul neón
+  margin-bottom: 10px;
+
+  span {
+    opacity: 0.15;
+    display: inline-block;
+    animation: strokeGlowBlue 0.9s forwards;
+  }
+
+  span:nth-child(1) { animation-delay: 0.1s; }
+  span:nth-child(2) { animation-delay: 0.25s; }
+  span:nth-child(3) { animation-delay: 0.4s; }
+  span:nth-child(4) { animation-delay: 0.55s; }
+  span:nth-child(5) { animation-delay: 0.7s; }
+  span:nth-child(6) { animation-delay: 0.85s; }
+  span:nth-child(7) { animation-delay: 1s; }
+}
+
+@keyframes strokeGlowBlue {
+  0% {
+    opacity: 0.15;
+    text-shadow: none;
+    -webkit-text-stroke: 1.6px rgba(0, 191, 255, 0.25);
+  }
+
+  60% {
+    opacity: 1;
+    -webkit-text-stroke: 2px #00d4ff; // más brillante
+    text-shadow:
+      0 0 6px rgba(0, 212, 255, 0.7),
+      0 0 14px rgba(0, 212, 255, 0.5),
+      0 0 22px rgba(0, 212, 255, 0.4);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-text-stroke: 2px #00eaff;
+    text-shadow:
+      0 0 12px rgba(0, 234, 255, 0.9),
+      0 0 20px rgba(0, 200, 255, 0.7),
+      0 0 28px rgba(0, 234, 255, 0.6);
   }
 }
