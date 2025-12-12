@@ -252,4 +252,62 @@ select.form-control {
 
   // ===========
 }
-// switch v1 end
+
+/* ============================= */
+/* Altura y estilo global de inputs, selects y textareas */
+/* ============================= */
+
+input.form-control,
+select.form-control,
+textarea.form-control {
+  height: 30px;             // altura de los campos
+  font-size: 12px;          // tamaño de letra
+  border-radius: 4px;       // esquinas redondeadas
+  padding: 6px 12px;        // espacio interno
+  border: 1px solid #ccc;   // borde gris claro
+  transition: all 0.3s ease;
+  box-sizing: border-box;   // evita problemas de padding + height
+}
+
+/* Textarea más grande */
+textarea.form-control {
+  min-height: 80px;        // altura mínima
+  height: auto;             // se adapta al contenido
+}
+
+/* Efecto al enfocar */
+input.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+  border-color: #007cf0;
+  box-shadow: 0 0 5px rgba(0, 124, 240, 0.5);
+  outline: none;
+}
+
+/* Alinear altura de los selects con los inputs */
+select.form-control,
+select.form-select {
+  height: 30px;           // misma altura que los inputs
+  font-size: 12px;          // tamaño de letra
+}
+
+/* Para todos los labels del formulario */
+label.form-label {
+  font-size: 12px;       // tamaño de la letra
+  font-weight: 500;      // grosor de la letra
+  color: #333333;        // color del texto
+  margin-bottom: 0.25rem; // espacio inferior
+  display: inline-block; // asegurar que respeta margen y padding
+}
+
+/* Estilo para inputs en error */
+input.form-control.is-invalid,
+textarea.form-control.is-invalid,
+select.form-select.is-invalid {
+  border-color: #dc3545;   /* rojo bootstrap */
+  box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+}
+
+.text-danger {
+  font-size: 12px; // tamaño más pequeño
+}

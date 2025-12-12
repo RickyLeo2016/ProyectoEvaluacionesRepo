@@ -7,7 +7,8 @@
 
         public string? catNombre { get; init; } = string.Empty;
         public string? catDescripcion { get; init; } = string.Empty;
-        public int? catEstado { get; init; } = 1;
+        public string? catEstado { get; init; }
+        
         public int? usuIdReg { get; init; }
         public DateTime? catFechaReg { get; init; }
 

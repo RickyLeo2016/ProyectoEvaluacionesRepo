@@ -1,2 +1,115 @@
-<p>se actualiza</p>
+<app-spinner #spinnerExterno [manual]="true"></app-spinner>
 
+<div class="row">
+  <div class="col-12 d-flex justify-content-end mb-2">
+    <button type="button" class="btn btn-primary btn-sm" (click)="abrirModal()">
+      <i class="f-16"></i> Nuevo
+    </button>
+  </div>
+
+  <div class="col-sm-12">
+    <app-card cardTitle="Lista de Catálogo">
+      <app-grid
+        [columnas]="columnas"
+        [datos]="tiposFiltrados()"
+        [templates]="{ acciones: accionesTemplate }">
+      </app-grid>
+
+      <ng-template #accionesTemplate let-item>
+        <button *ngFor="let accion of accionesTabla"
+                class="{{ accion.class }} me-1"
+                (click)="accion.callback(item)">
+          {{ accion.label }}
+        </button>
+      </ng-template>
+    </app-card>
+
+    <!-- ============================
+         MODAL
+    ============================ -->
+    <app-modal
+      [title]="'Nuevo Catálogo'"
+      [visible]="modalVisible"
+      (closed)="cerrarModal()">
+
+      <div class="container">
+        <div class="row">
+
+          <!-- Columna izquierda -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Tipo de Catálogo</label>
+            <select class="form-select"
+                    [value]="tipoSeleccionado()"
+                    (change)="tipoSeleccionado.set($any($event.target).value)">
+              <option value="">Seleccione...</option>
+              <option 
+                *ngFor="let item of tipoCatalogoList()" 
+                [value]="item.tipCatId">
+                {{ item.tipCatDescripcion }}
+              </option>
+            </select>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': nombreTocado() && !nombre(),
+                'is-valid': nombreTocado() && nombre()
+              }"
+              [value]="nombre()"
+              (input)="nombre.set($any($event.target).value)"
+              (blur)="nombreTocado.set(true)"
+            />
+            <div class="text-danger mt-1" *ngIf="nombreTocado() && !nombre()">
+              El nombre es obligatorio
+            </div>
+          </div>
+          
+
+
+          
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Descripción</label>
+              <textarea
+                class="form-control"
+                [ngClass]="{
+                'is-invalid': descripcionTocado() && !descripcion(),
+                'is-valid': descripcionTocado() && descripcion()
+              }"
+                [value]="descripcion()"
+                (input)="descripcion.set($any($event.target).value)"
+                (blur)="descripcionTocado.set(true)"
+              ></textarea>
+              <div class="text-danger mt-1" *ngIf="descripcionTocado() && !descripcion()">
+                La descripción es obligatoria
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Estado</label>
+              <select
+                class="form-select"
+                [value]="estado()"
+                (change)="estado.set($any($event.target).value)">
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+            </div>
+
+
+        </div>
+
+        <!-- Botones -->
+        <div class="mt-4 text-end">
+          <button class="btn btn-secondary me-2" (click)="cerrarModal()">Cancelar</button>
+          <button class="btn btn-success" (click)="guardar()">Guardar</button>
+        </div>
+      </div>
+
+    </app-modal>
+  </div>
+</div>
