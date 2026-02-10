@@ -114,8 +114,15 @@
 
         <!-- Botones -->
         <div class="mt-4 text-end">
-          <button class="btn btn-secondary me-2" (click)="cerrarModal()">Cancelar</button>
-          <button class="btn btn-success" (click)="guardar()">Guardar</button>
+
+          <button class="btn btn-success me-2" (click)="guardar()">
+            <i class="fas fa-save"></i>
+            Guardar
+          </button>
+          <button class="btn btn-danger" (click)="cerrarModal()">
+            <i class="fas fa-ban"></i>
+            Cancelar
+          </button>
         </div>
       </div>
 

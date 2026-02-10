@@ -12,9 +12,8 @@ import { CatalogoService } from 'src/app/services/catalogo/catalogo';
 import { TipoCatalogoService } from 'src/app/services/tipoCatalogo/tipo-catalogo';
 import { AuthService } from 'src/app/services/auth/auth-service';
 
-/* =========================
-        INTERFACES
-========================= */
+//#region Interfaces
+
 export interface ICatalogo {
   catId?: number;
   tipCatId?: number;
@@ -37,9 +36,8 @@ export interface AccionTabla<T> {
   title?: string;
 }
 
-/* =========================
-        COMPONENT
-========================= */
+//#endregion
+
 @Component({
   selector: 'app-catalogo',
   standalone: true,
@@ -55,26 +53,24 @@ export interface AccionTabla<T> {
 })
 export class Catalogo implements OnInit {
 
-  /* =========================
-          STATE
-  ========================== */
+  //#region    STATE
   modalVisible = false;
   spinnerVisible = signal(false); // ✔️ control de spinner
-
+  
   tipos = signal<ICatalogo[]>([]);
   tipoCatalogoList = signal<ITipoCatalogo[]>([]);
-
+  
   tipoSeleccionado = signal<string>('');
   nombre = signal<string>('');
   descripcion = signal<string>('');
   estado = signal<string>('A');
   editandoId = signal<number | null>(null);
   usuIdReg = signal<number>(1);
-
+  
   tipoTocado = signal<boolean>(false);
   nombreTocado = signal<boolean>(false);
   descripcionTocado = signal<boolean>(false);
-
+  
   filtro = signal<string>('');
   tiposFiltrados = computed(() => {
     const f = this.filtro().toLowerCase();
@@ -83,10 +79,10 @@ export class Catalogo implements OnInit {
       t.tipCatDescripcion?.toLowerCase().includes(f)
     );
   });
+  //#endregion
 
-  /* =========================
-          TABLE
-  ========================== */
+  //#region TABLE
+
   columnas = [
     { header: 'ID', field: 'catId' },
     { header: 'Tipo Catálogo', field: 'tipCatDescripcion' },
@@ -95,38 +91,41 @@ export class Catalogo implements OnInit {
     { header: 'Estado', field: 'catEstado' },
     { header: 'Acciones', field: 'acciones' }
   ];
-
+  
   accionesTabla: AccionTabla<ICatalogo>[] = [
     { icon: 'fas fa-edit', title: 'Editar', color: '#3d5bbe', callback: item => this.seleccionarParaEditar(item) },
     { icon: 'fas fa-trash', title: 'Eliminar', color: '#dc3545', callback: item => this.eliminar(item) }
   ];
+  
+  //#endregion
 
-  /* =========================
-        CONSTRUCTOR
-  ========================== */
+  //#region CONSTRUCTOR
   constructor(
     private catService: CatalogoService,
     private tipCatService: TipoCatalogoService,
     private auth: AuthService
   ) {}
+  
+  //#endregion
 
-  /* =========================
-        LIFECYCLE
-  ========================== */
+  //#region LIFECYCLE
+
   ngOnInit(): void {
     this.cargarListaCatalogo();
     this.cargarTipoCatalogoDrop();
   }
 
-  /* =========================
-        MODAL
-  ========================== */
+  //#endregion
+
+  //#region MODAL
+
   abrirModal(): void { this.modalVisible = true; }
   cerrarModal(): void { this.modalVisible = false; this.limpiarCampos(); }
 
-  /* =========================
-        DATA LOAD
-  ========================== */
+  //#endregion
+
+  //#region Métodos  
+
   cargarListaCatalogo(): void {
     this.spinnerVisible.set(true);
     this.catService.obtenerTodos().subscribe({
@@ -164,20 +163,15 @@ export class Catalogo implements OnInit {
     this.tipoTocado.set(true);
   }
 
-  /* =========================
-        EDITAR
-  ========================== */
   seleccionarParaEditar(item: ICatalogo): void {
     this.editandoId.set(item.catId ?? null);
     this.nombre.set(item.catNombre);
     this.descripcion.set(item.catDescripcion);
     this.estado.set(item.catEstado === 'Activo' ? 'A' : 'I');
     this.tipoSeleccionado.set(String(item.tipCatId));
-
     this.tipoTocado.set(false);
     this.nombreTocado.set(false);
     this.descripcionTocado.set(false);
-
     this.modalVisible = true;
   }
 
@@ -192,9 +186,9 @@ export class Catalogo implements OnInit {
     this.descripcionTocado.set(false);
   }
 
-  /* =========================
-        GUARDAR
-  ========================== */
+  //#endregion
+
+  //#region Guardar
   guardar(): void {
     this.tipoTocado.set(true);
     this.nombreTocado.set(true);
@@ -239,10 +233,10 @@ export class Catalogo implements OnInit {
       }
     });
   }
+  //#endregion
 
-  /* =========================
-        ELIMINAR
-  ========================== */
+  //#region Eliminar
+
   eliminar(item: ICatalogo): void {
     Swal.fire({
       title: '¿Eliminar?',
@@ -269,4 +263,6 @@ export class Catalogo implements OnInit {
       }
     });
   }
+  //#endregion
+  
 }
