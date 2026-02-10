@@ -43,7 +43,7 @@ export class TipoCatalogo implements OnInit {
 
   nombre = signal<string>('');
   descripcion = signal<string>('');
-  estado = signal<string>('Activo');
+  estado = signal<string>('A');
   editandoId = signal<number | null>(null);
   usuIdReg = signal<number>(1);
 
@@ -124,7 +124,7 @@ export class TipoCatalogo implements OnInit {
     this.editandoId.set(null);
     this.nombre.set('');
     this.descripcion.set('');
-    this.estado.set('Activo');
+    this.estado.set('A');
     this.nombreTocado.set(false);
     this.descripcionTocado.set(false);
   }

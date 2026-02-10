@@ -3,10 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+
 export interface Catalogo {
-  tipCatId?: number;
-  tipCatDescripcion: string;
-  tipCatEstado: string;
+  catId?: number;
+  tipCatId?: number;   
+  catNombre: string;
+  catDescripcion: string;
+  catEstado: string;
   usuIdReg: number;
 }
 
@@ -34,16 +37,16 @@ export class CatalogoService {
 
   // Guardar un nuevo registro
   guardar(tipo: Catalogo): Observable<ApiResponse<boolean>> {
-    return this.http.post<ApiResponse<boolean>>(`${this.apiUrl}/RegistrarTipoCatalogo`, tipo);
+    return this.http.post<ApiResponse<boolean>>(`${this.apiUrl}/RegistrarCatalogo`, tipo);
   }
 
   // Actualizar un registro existente
   actualizar(tipo: Catalogo): Observable<ApiResponse<boolean>> {
-    return this.http.put<ApiResponse<boolean>>(`${this.apiUrl}/ActualizarTipoCatalogo`, tipo);
+    return this.http.put<ApiResponse<boolean>>(`${this.apiUrl}/ActualizarCatalogo`, tipo);
   }
 
   // Eliminar un registro
   eliminar(id: number): Observable<ApiResponse<boolean>> {
-    return this.http.delete<ApiResponse<boolean>>(`${this.apiUrl}/EliminarTipoCatalogo/${id}`);
+    return this.http.delete<ApiResponse<boolean>>(`${this.apiUrl}/EliminarCatalogo/${id}`);
   }
 }

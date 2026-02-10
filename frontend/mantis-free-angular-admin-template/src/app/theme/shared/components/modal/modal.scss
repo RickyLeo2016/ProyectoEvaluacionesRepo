@@ -61,11 +61,16 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 10px;
-  background-color: #0082aa;
+  height: 5px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   z-index: 1;
+  background: linear-gradient(
+    90deg,
+    #056297 0%,
+    #3078b3 50%,
+    #5ea1d8 100%
+  );
 }
 
 /* El contenido del header va encima de la línea */

@@ -25,7 +25,10 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/assets/fontawesome/css/all.min.css",
+              "src/styles.scss"
+            ],
             "scripts": [
                 "node_modules/feather-icons/dist/feather.min.js"
             ]

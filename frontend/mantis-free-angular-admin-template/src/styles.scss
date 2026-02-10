@@ -36,3 +36,120 @@ File: style.css
 @import 'scss/themes/layouts/footer/footer.scss';
 
 @import 'scss/themes/preset-style.scss';
+
+@import 'scss/themes/layouts/botones.scss';
+
+.swal2-container {
+  z-index: 2000 !important;
+}
+
+
+
+.app-grid {
+  table.custom-grid {
+    thead {
+      th {
+        background: #056297;
+        color: #f0f4f7;
+        font-weight: 600;
+        text-align: center;
+        font-weight: bold;
+        vertical-align: middle;
+        padding: 0.5rem 1rem;
+        border-bottom: 2px solid #297099;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        transition: background 0.3s ease;
+        cursor: pointer; // hace visible que es clickable
+        &.orden-asc {
+          background-color: rgba(28, 132, 211, 0.8);
+          color: #fff;
+        }
+
+        &.orden-desc {
+          background-color: rgba(28, 132, 211, 0.8);
+          color: #fff;
+        }
+      }
+    }
+
+    tbody {
+      td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 0.5rem 1rem;
+        border-top: 1px solid #e5e9ed;
+        transition: background-color 0.2s ease;
+      }
+
+      tr {
+        border-radius: 0.5rem;
+        overflow: hidden;
+
+      tbody tr:hover {
+          background-color: rgba(224, 233, 228, 0.6); // tono medio transparente
+          transition: background-color 0.2s ease;
+        }
+
+      }
+    }
+  }
+}
+
+.sortable-th {
+  cursor: pointer;
+  user-select: none;
+}
+
+.icons {
+  display: inline-flex;
+  flex-direction: column;
+  margin-left: 4px;
+  font-weight: bold;
+}
+
+.icons svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* por defecto */
+.icon {
+  display: none;
+}
+
+/* icono inicial */
+.sortable-th:not(.active) .icon.default {
+  display: inline-flex;
+}
+
+/* columna activa */
+.sortable-th.active .icon.default {
+  display: none;
+}
+
+.sortable-th.active.asc .icon.asc {
+  display: inline-flex;
+}
+
+.sortable-th.active.desc .icon.desc {
+  display: inline-flex;
+}
+
+
+.accion-icono {
+  cursor: pointer;     // indica que es clickable
+  margin-right: 0.5rem;
+  color: inherit;       // hereda color del texto o del contexto
+  display: inline-block;
+  font-size: 30px;      // puedes ajustar tamaño
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #0288d1;     // cambia color al pasar el mouse
+  }
+}
+.accion-icono i {
+  font-size: 20px;
+}

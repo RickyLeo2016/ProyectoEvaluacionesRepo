@@ -1,0 +1,60 @@
+// Variables de color
+$btn-primary-bg: #056297;
+$btn-info-bg: #17a2b8;
+$btn-danger-bg: #dc3545;
+$btn-warning-bg: #f0ad4e;
+$btn-success-bg: #0e7927cb;
+
+$btn-color: #fff; // color del texto
+$btn-hover-lighten: 10%; // porcentaje para aclarar al hover
+
+// Mixin para botones
+@mixin btn-style($bg-color) {
+  background-color: $bg-color;
+  border-color: $bg-color;
+  color: $btn-color;
+  border-radius: 7%;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+
+  i {
+    line-height: 1;
+  }
+
+  &:hover {
+    background-color: lighten($bg-color, $btn-hover-lighten);
+    border-color: lighten($bg-color, $btn-hover-lighten);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    background-color: lighten($bg-color, $btn-hover-lighten / 2); // un poco menos claro que hover
+    border-color: lighten($bg-color, $btn-hover-lighten / 2);
+    transform: translateY(1px);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba($bg-color, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+// Aplicar el mixin a todos los botones
+.btn-primary { @include btn-style($btn-primary-bg); }
+.btn-info { @include btn-style($btn-info-bg); }
+.btn-danger { @include btn-style($btn-danger-bg); }
+.btn-warning { @include btn-style($btn-warning-bg); }
+.btn-success { @include btn-style($btn-success-bg); }

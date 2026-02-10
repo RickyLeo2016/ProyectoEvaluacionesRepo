@@ -1,11 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, signal, SimpleChanges, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-
-import { TemplateRef } from '@angular/core';
-
-
+import { IconsFather } from 'src/app/services/iconsFather/icons-father';
 
 
 interface Columna {
@@ -19,9 +15,14 @@ interface Columna {
   templateUrl: './grid.html',
 })
 export class Grid implements OnChanges {
+
+  constructor(
+    private iconFather: IconsFather
+
+  ) {}
+
   @Input() columnas: Columna[] = [];
   @Input() datos: any[] = [];
-
   @Input() templates: { [field: string]: TemplateRef<any> } = {};
 
   filtro: string = '';
@@ -36,6 +37,69 @@ export class Grid implements OnChanges {
 
   mostrandoDesde: number = 0;
   mostrandoHasta: number = 0;
+
+  // Ordenamiento
+  columnaOrden = signal<string>(''); 
+  ordenAscendente = signal<boolean>(true);
+esColumnaActiva(col: string) {
+  return this.columnaOrden() === col;
+}
+
+esAsc(col: string) {
+  return this.esColumnaActiva(col) && this.ordenAscendente();
+}
+
+esDesc(col: string) {
+  return this.esColumnaActiva(col) && !this.ordenAscendente();
+}
+
+
+ordenarPor(columna: string) {
+  if (this.columnaOrden() === columna) {
+    this.ordenAscendente.set(!this.ordenAscendente());
+  } else {
+    this.columnaOrden.set(columna);
+    this.ordenAscendente.set(true);
+  }
+
+  const asc = this.ordenAscendente();
+  this.datosFiltrados.sort((a, b) => {
+    const valA = a[columna] ?? '';
+    const valB = b[columna] ?? '';
+    if (valA < valB) return asc ? -1 : 1;
+    if (valA > valB) return asc ? 1 : -1;
+    return 0;
+  });
+
+  this.actualizarPaginaDatos();
+}
+
+
+
+  // ordenarPor(columna: string) {
+  //   if (this.columnaOrden() === columna) {
+  //     this.ordenAscendente.set(!this.ordenAscendente());
+  //   } else {
+  //     this.columnaOrden.set(columna);
+  //     this.ordenAscendente.set(true);
+  //   }
+
+  //   const asc = this.ordenAscendente();
+  //   this.datosFiltrados.sort((a, b) => {
+  //     const valA = a[columna] ?? '';
+  //     const valB = b[columna] ?? '';
+  //     if (valA < valB) return asc ? -1 : 1;
+  //     if (valA > valB) return asc ? 1 : -1;
+  //     return 0;
+  //   });
+
+  //   this.actualizarPaginaDatos();
+  // }
+
+  ngAfterViewInit() {
+    this.iconFather.init(); 
+  }
+
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['datos']) {

@@ -2,10 +2,13 @@
 
 <div class="row">
   <div class="col-12 d-flex justify-content-end mb-2">
-    <button type="button" class="btn btn-primary btn-sm" (click)="abrirModal()">
-      <i class="f-16"></i> Nuevo
-    </button>
+
+   <button type="button" class="btn btn-primary btn-sm" (click)="abrirModal()">
+    <i class="fas fa-plus"></i>
+    Nuevo
+  </button>
   </div>
+
 
   <div class="col-sm-12">
     <app-card cardTitle="Lista de Catálogo">
@@ -16,11 +19,13 @@
       </app-grid>
 
       <ng-template #accionesTemplate let-item>
-        <button *ngFor="let accion of accionesTabla"
-                class="{{ accion.class }} me-1"
-                (click)="accion.callback(item)">
-          {{ accion.label }}
-        </button>
+        <span *ngFor="let accion of accionesTabla"
+              class="accion-icono"
+              [title]="accion.title"
+              (click)="accion.callback(item)"
+              [style.color]="accion.color">
+          <i [class]="accion.icon"></i>
+        </span>
       </ng-template>
     </app-card>
 
@@ -35,21 +40,30 @@
       <div class="container">
         <div class="row">
 
-          <!-- Columna izquierda -->
           <div class="col-md-6 mb-3">
             <label class="form-label">Tipo de Catálogo</label>
-            <select class="form-select"
-                    [value]="tipoSeleccionado()"
-                    (change)="tipoSeleccionado.set($any($event.target).value)">
+            <select
+              class="form-select"
+              [value]="tipoSeleccionado()"
+              (change)="onTipoChange($event)"
+              (blur)="tipoTocado.set(true)"
+              [class.is-invalid]="tipoTocado() && !tipoSeleccionado()"
+            >
               <option value="">Seleccione...</option>
-              <option 
-                *ngFor="let item of tipoCatalogoList()" 
-                [value]="item.tipCatId">
+              <option
+                *ngFor="let item of tipoCatalogoList()"
+                [value]="item.tipCatId"
+              >
                 {{ item.tipCatDescripcion }}
               </option>
             </select>
-          </div>
 
+            @if (tipoTocado() && !tipoSeleccionado()) {
+              <div class="invalid-feedback">
+                Debe seleccionar un tipo de catálogo
+              </div>
+            }
+          </div>
           <div class="col-md-6 mb-3">
             <label class="form-label">Nombre</label>
             <input
@@ -67,12 +81,7 @@
               El nombre es obligatorio
             </div>
           </div>
-          
-
-
-          
-
-            <div class="col-md-6 mb-3">
+          <div class="col-md-6 mb-3">
               <label class="form-label">Descripción</label>
               <textarea
                 class="form-control"
@@ -95,8 +104,8 @@
                 class="form-select"
                 [value]="estado()"
                 (change)="estado.set($any($event.target).value)">
-                <option value="Activo">Activo</option>
-                <option value="Inactivo">Inactivo</option>
+                <option value="A">Activo</option>
+                <option value="I">Inactivo</option>
               </select>
             </div>
 
