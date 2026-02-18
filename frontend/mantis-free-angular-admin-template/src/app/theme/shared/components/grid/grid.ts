@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, signal, SimpleChanges, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IconsFather } from 'src/app/services/iconsFather/icons-father';
-
 
 interface Columna {
   header: string;
@@ -17,8 +15,6 @@ interface Columna {
 export class Grid implements OnChanges {
 
   constructor(
-    private iconFather: IconsFather
-
   ) {}
 
   @Input() columnas: Columna[] = [];
@@ -95,10 +91,6 @@ ordenarPor(columna: string) {
 
   //   this.actualizarPaginaDatos();
   // }
-
-  ngAfterViewInit() {
-    this.iconFather.init(); 
-  }
 
 
   ngOnChanges(changes: SimpleChanges) {

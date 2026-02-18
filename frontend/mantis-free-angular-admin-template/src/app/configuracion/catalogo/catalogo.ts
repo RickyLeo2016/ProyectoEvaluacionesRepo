@@ -87,7 +87,7 @@ export class Catalogo implements OnInit {
     { header: 'ID', field: 'catId' },
     { header: 'Tipo Catálogo', field: 'tipCatDescripcion' },
     { header: 'Catálogo', field: 'catNombre' },
-    { header: 'Descripción', field: 'catDescripcion' },
+    // { header: 'Descripción', field: 'catDescripcion' },
     { header: 'Estado', field: 'catEstado' },
     { header: 'Acciones', field: 'acciones' }
   ];
