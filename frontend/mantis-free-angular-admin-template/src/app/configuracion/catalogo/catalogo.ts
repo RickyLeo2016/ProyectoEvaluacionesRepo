@@ -79,6 +79,15 @@ export class Catalogo implements OnInit {
       t.tipCatDescripcion?.toLowerCase().includes(f)
     );
   });
+
+  modo = signal<'nuevo' | 'editar'>('nuevo');
+
+  tituloModal = computed(() => 
+    this.modo() === 'nuevo' 
+      ? 'Nuevo Catálogo' 
+      : 'Actualizar Catálogo'
+  );
+
   //#endregion
 
   //#region TABLE
@@ -119,7 +128,11 @@ export class Catalogo implements OnInit {
 
   //#region MODAL
 
-  abrirModal(): void { this.modalVisible = true; }
+  abrirModal(): void { 
+    this.limpiarCampos();
+    this.modo.set('nuevo');
+    this.modalVisible = true; 
+  }
   cerrarModal(): void { this.modalVisible = false; this.limpiarCampos(); }
 
   //#endregion
@@ -164,6 +177,7 @@ export class Catalogo implements OnInit {
   }
 
   seleccionarParaEditar(item: ICatalogo): void {
+    this.modo.set('editar');
     this.editandoId.set(item.catId ?? null);
     this.nombre.set(item.catNombre);
     this.descripcion.set(item.catDescripcion);

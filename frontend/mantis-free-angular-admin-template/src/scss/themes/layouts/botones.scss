@@ -37,7 +37,7 @@ $btn-height-lg: 44px;
   background-color: $bg-color;
   border: 1px solid $bg-color;
   color: $btn-color;
-  border-radius: 6px;
+  border-radius: 4px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -122,4 +122,12 @@ $btn-height-lg: 44px;
 
 .btn-lg { 
   @include btn-size($btn-padding-lg, $btn-font-lg, $btn-height-lg);
+}
+
+
+
+.mt-4.text-end {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem; // espacio entre botones
 }

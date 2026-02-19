@@ -223,6 +223,14 @@ export const NavigationItems: NavigationItem[] = [
         classes: 'nav-item',
         url: '/catalogo',
         icon: 'bg-colors'
+      },
+      {
+        id: 'empresa',
+        title: 'Empresa',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/empresa',
+        icon: 'bg-colors'
       }
     ]
   },

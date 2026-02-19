@@ -5,21 +5,22 @@
   [visible]="spinnerVisible()">
 </app-spinner>
 
+
 <div class="row">
   <div class="col-12 d-flex justify-content-end mb-2">
 
    <button type="button" class="btn btn-primary btn-sm" (click)="abrirModal()">
     <i class="fas fa-plus"></i>
-    Nuevos
+    Nueva
   </button>
   </div>
 
 
   <div class="col-sm-12">
-    <app-card cardTitle="Lista de Catálogo">
+    <app-card cardTitle="Lista de Empresas">
       <app-grid
         [columnas]="columnas"
-        [datos]="tiposFiltrados()"
+        [datos]="tiposFiltrados()" 
         [templates]="{ acciones: accionesTemplate }">
       </app-grid>
 
@@ -44,31 +45,25 @@
 
       <div class="container">
         <div class="row">
-
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Tipo de Catálogo</label>
-            <select
-              class="form-select"
-              [value]="tipoSeleccionado()"
-              (change)="onTipoChange($event)"
-              (blur)="tipoTocado.set(true)"
-              [class.is-invalid]="tipoTocado() && !tipoSeleccionado()"
-            >
-              <option value="">Seleccione...</option>
-              <option
-                *ngFor="let item of tipoCatalogoList()"
-                [value]="item.tipCatId"
-              >
-                {{ item.tipCatDescripcion }}
-              </option>
-            </select>
-
-            @if (tipoTocado() && !tipoSeleccionado()) {
-              <div class="invalid-feedback">
-                Debe seleccionar un tipo de catálogo
-              </div>
-            }
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Ruc</label>
+                <input
+                type="text"
+                class="form-control"
+                [ngClass]="{
+                    'is-invalid': rucTocado() && !ruc(),
+                    'is-valid': rucTocado() && ruc()
+                }"
+                [value]="ruc()"
+                (input)="ruc.set($any($event.target).value)"
+                (blur)="rucTocado.set(true)"
+                />
+                <div class="text-danger mt-1" *ngIf="rucTocado() && !ruc()">
+                El ruc es obligatorio
+                </div>
           </div>
+
+
           <div class="col-md-6 mb-3">
             <label class="form-label">Nombre</label>
             <input
@@ -87,18 +82,18 @@
             </div>
           </div>
           <div class="col-md-6 mb-3">
-              <label class="form-label">Descripción</label>
+              <label class="form-label">Dirección</label>
               <textarea
                 class="form-control"
                 [ngClass]="{
-                'is-invalid': descripcionTocado() && !descripcion(),
-                'is-valid': descripcionTocado() && descripcion()
+                'is-invalid': direccionTocado() && !direccion(),
+                'is-valid': direccionTocado() && direccion()
               }"
-                [value]="descripcion()"
-                (input)="descripcion.set($any($event.target).value)"
-                (blur)="descripcionTocado.set(true)"
+                [value]="direccion()"
+                (input)="direccion.set($any($event.target).value)"
+                (blur)="direccionTocado.set(true)"
               ></textarea>
-              <div class="text-danger mt-1" *ngIf="descripcionTocado() && !descripcion()">
+              <div class="text-danger mt-1" *ngIf="direccionTocado() && !direccion()">
                 La descripción es obligatoria
               </div>
             </div>
@@ -119,7 +114,6 @@
 
         <!-- Botones -->
         <div class="mt-4 text-end">
-
           <button class="btn btn-success btn-sm" (click)="guardar()">
             <i class="fas fa-save"></i>
             Guardar

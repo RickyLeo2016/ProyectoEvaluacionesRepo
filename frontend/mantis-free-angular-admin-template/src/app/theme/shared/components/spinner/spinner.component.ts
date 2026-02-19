@@ -1,6 +1,18 @@
-// Angular imports
-import { Component, OnDestroy, ViewEncapsulation, inject, input } from '@angular/core';
-import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
+import {
+  Component,
+  OnDestroy,
+  ViewEncapsulation,
+  inject,
+  input,
+  effect
+} from '@angular/core';
+import {
+  Router,
+  NavigationStart,
+  NavigationEnd,
+  NavigationCancel,
+  NavigationError
+} from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 
 import { Spinkit } from './spinkits';
@@ -8,16 +20,27 @@ import { Spinkit } from './spinkits';
 @Component({
   selector: 'app-spinner',
   templateUrl: './spinner.component.html',
-  styleUrls: ['./spinner.component.scss', './spinkit-css/sk-line-material.scss'],
+  styleUrls: [
+    './spinner.component.scss',
+    './spinkit-css/sk-line-material.scss'
+  ],
   encapsulation: ViewEncapsulation.None
 })
 export class SpinnerComponent implements OnDestroy {
-  
-  // Permite activar/desactivar spinner desde afuera
+
+  /**
+   * Si manual = true → el spinner se controla desde afuera
+   * Si manual = false → el spinner se controla por navegación
+   */
   manual = input<boolean>(false);
 
-  // Props existentes
-  isSpinnerVisible = true;
+  /**
+   * Visible solo cuando manual = true
+   */
+  visible = input<boolean>(false);
+
+  isSpinnerVisible = false; // 🔥 IMPORTANTE: inicia oculto
+
   Spinkit = Spinkit;
   backgroundColor = input('#1890ff');
   spinner = input(Spinkit.skLine);
@@ -27,23 +50,40 @@ export class SpinnerComponent implements OnDestroy {
 
   constructor() {
 
+    // 👇 Control automático por navegación
     this.router.events.subscribe(event => {
-      if (!this.manual()) {   // 👉 Si el control NO es manual, funciona como antes
-        if (event instanceof NavigationStart) this.isSpinnerVisible = true;
-        else if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError)
+
+      if (!this.manual()) {
+
+        if (event instanceof NavigationStart) {
+          this.isSpinnerVisible = true;
+        }
+
+        if (
+          event instanceof NavigationEnd ||
+          event instanceof NavigationCancel ||
+          event instanceof NavigationError
+        ) {
           this.isSpinnerVisible = false;
+        }
       }
     });
 
+    // 👇 Control manual reactivo
+    effect(() => {
+      if (this.manual()) {
+        this.isSpinnerVisible = this.visible();
+      }
+    });
   }
 
-  // Public API: funciones para activar/desactivar spinner
-  show() { 
-    this.isSpinnerVisible = true; 
+  // API pública opcional
+  show() {
+    this.isSpinnerVisible = true;
   }
 
-  hide() { 
-    this.isSpinnerVisible = false; 
+  hide() {
+    this.isSpinnerVisible = false;
   }
 
   ngOnDestroy(): void {
