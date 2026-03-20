@@ -1,4 +1,3 @@
-
 <app-spinner
     #spinnerExterno
   [manual]="true"
@@ -104,9 +103,10 @@
                 class="form-select"
                 [value]="estado()"
                 (change)="estado.set($any($event.target).value)">
-                <option value="A">Activo</option>
-                <option value="I">Inactivo</option>
+                <option [selected]="estado() === '1'" value="1">Activo</option>
+                <option [selected]="estado() === '2'" value="2">Inactivo</option>
               </select>
+
             </div>
 
 

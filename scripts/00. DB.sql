@@ -65,47 +65,50 @@ create TABLE Empresa
 
 ----------------------------------------------------------------
 ---- Tabla: Usuario
----- Usuarios globales, único por email y dni
+---- Usuarios globales, único por email
 ----------------------------------------------------------------
---drop TABLE Usuario
---(
---    usuId BIGINT IDENTITY(1,1) NOT NULL,
---    usuNombre NVARCHAR(150) NOT NULL,
---    usuEmail NVARCHAR(150) NOT NULL UNIQUE,
---    usuPassHash NVARCHAR(250) NOT NULL,
---    catIdEstado BIGINT NOT NULL,
---    usuIdReg BIGINT NOT NULL,
---    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
---    usuIdAct BIGINT NULL,
---    usuFechaAct DATETIME NULL,
---    CONSTRAINT Pk_Usuario PRIMARY KEY (UsuId),
---    CONSTRAINT Fk_Usuario_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
---);
+Create TABLE Usuario
+(
+    usuId BIGINT IDENTITY(1,1) NOT NULL,
+    usuNombre NVARCHAR(150) NOT NULL,
+    usuEmail NVARCHAR(150) NOT NULL UNIQUE,
+    usuPassHash NVARCHAR(250) NOT NULL,
+    catIdEstado BIGINT NOT NULL,
+    usuIdReg BIGINT NOT NULL,
+    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
+    usuIdAct BIGINT NULL,
+    usuFechaAct DATETIME NULL,
+    usuIdEli BIGINT NULL,
+    usuFechaEli DATETIME NULL,
+    CONSTRAINT Pk_Usuario PRIMARY KEY (UsuId),
+    CONSTRAINT Fk_Usuario_Catalogo FOREIGN KEY (catIdEstado) REFERENCES Catalogo(CatId)
+);
 
 ----------------------------------------------------------------
 ---- Tabla: UsuarioDetalle
 ----------------------------------------------------------------
---drop TABLE UsuarioDetalle
---(
---    usuDetId BIGINT IDENTITY(1,1) NOT NULL,
---    usuId BIGINT NOT NULL,
---    empId BIGINT NOT NULL,
---    usuDetDNI NVARCHAR(20) NOT NULL,
---    usuNombres NVARCHAR(150) NOT NULL,
---    usuApellidos NVARCHAR(150) NOT NULL,
---    usuTelefono NVARCHAR(15) NULL,
---    usuCelular NVARCHAR(15) NULL,
---    usuDireccion NVARCHAR(500) NULL,
---    catIdEstado BIGINT NOT NULL,
---    usuIdReg BIGINT NOT NULL,
---    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
---    usuIdAct BIGINT NULL,
---    usuFechaAct DATETIME NULL,
---    CONSTRAINT Pk_UsuarioDetalle PRIMARY KEY (UsuDetId),
---    CONSTRAINT Fk_UsuarioDetalle_Usuario FOREIGN KEY (usuId) REFERENCES Usuario(usuId),
---    CONSTRAINT Fk_UsuarioDetalle_Empresa FOREIGN KEY (empId) REFERENCES Empresa(empId),
---    CONSTRAINT Fk_UsuarioDetalle_Catalogo FOREIGN KEY (catIdEstado) REFERENCES Catalogo(CatId)
---);
+Create TABLE UsuarioDetalle
+(
+    usuDetId BIGINT IDENTITY(1,1) NOT NULL,
+    usuId BIGINT NOT NULL,
+    empId BIGINT NOT NULL,
+    usuDetDNI NVARCHAR(20) NOT NULL,
+    usuNombres NVARCHAR(150) NOT NULL,
+    usuApellidos NVARCHAR(150) NOT NULL,
+    usuTelefono NVARCHAR(15) NULL,
+    usuCelular NVARCHAR(15) NULL,
+    catIdEstado BIGINT NOT NULL,
+    usuIdReg BIGINT NOT NULL,
+    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
+    usuIdAct BIGINT NULL,
+    usuFechaAct DATETIME NULL,
+    usuIdEli BIGINT NULL,
+    usuFechaEli DATETIME NULL,
+    CONSTRAINT Pk_UsuarioDetalle PRIMARY KEY (usuDetId),
+    CONSTRAINT Fk_UsuarioDetalle_Usuario FOREIGN KEY (usuId) REFERENCES Usuario(usuId),
+    CONSTRAINT Fk_UsuarioDetalle_Empresa FOREIGN KEY (empId) REFERENCES Empresa(empId),
+    CONSTRAINT Fk_UsuarioDetalle_Catalogo FOREIGN KEY (catIdEstado) REFERENCES Catalogo(CatId)
+);
 
 ----------------------------------------------------------------
 ---- Tabla: Rol
