@@ -20,9 +20,10 @@ export interface ITipoCatalogo {
 }
 
 export interface AccionTabla<T> {
-  label: string;
+  icon: string;
+  color: string;
   callback: (item: T) => void;
-  class?: string;
+  title?: string;
 }
 
 @Component({
@@ -67,8 +68,11 @@ export class TipoCatalogo implements OnInit {
   ];
 
   accionesTabla: AccionTabla<ITipoCatalogo>[] = [
-    { label: 'Editar', callback: (item) => this.seleccionarParaEditar(item), class: 'btn btn-primary btn-sm' },
-    { label: 'Eliminar', callback: (item) => this.eliminar(item), class: 'btn btn-danger btn-sm' }
+    { icon: 'fas fa-edit', title: 'Editar', color: '#3d5bbe', callback: item => this.seleccionarParaEditar(item) },
+    { icon: 'fas fa-trash', title: 'Eliminar', color: '#dc3545', callback: item => this.eliminar(item) }
+
+    // { label: 'Editar', callback: (item) => this.seleccionarParaEditar(item), class: 'btn btn-primary btn-sm' },
+    // { label: 'Eliminar', callback: (item) => this.eliminar(item), class: 'btn btn-danger btn-sm' }
   ];
 
   constructor(

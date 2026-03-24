@@ -13,7 +13,7 @@ import { Modal } from 'src/app/theme/shared/components/modal/modal';
 import { AuthService } from 'src/app/services/auth/auth-service';
 import { EmpresaService } from 'src/app/services/empresa/empresa';
 import { UsuarioService } from 'src/app/services/usuario/usuario';
-import { IEmpresa } from '../empresa/empresa';
+import { IEmpresa } from '../../configuracion/empresa/empresa';
 
 //#region Interfaces
 export interface IUsuario {

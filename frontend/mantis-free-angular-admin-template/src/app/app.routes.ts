@@ -29,6 +29,25 @@ export const routes: Routes = [
           ),
           canActivate: [AuthGuard]
       },
+
+      {
+        path: 'rol',
+        loadComponent: () =>
+          import('./seguridad/rol/rol').then(
+            (c) => c.Rol
+          )
+      },
+      {
+        path: 'usuario',
+        loadComponent: () =>
+          import('./seguridad/usuario/usuario').then(
+            (c) => c.Usuario
+          )
+      },
+
+
+
+
       {
         path: 'tipoCatalogo',
         loadComponent: () =>
@@ -49,13 +68,7 @@ export const routes: Routes = [
             (c) => c.Empresa
           )
       },
-       {
-        path: 'usuario',
-        loadComponent: () =>
-          import('./configuracion/usuario/usuario').then(
-            (c) => c.Usuario
-          )
-      },
+      
 
       // resto de rutas de admin
     ]

@@ -78,12 +78,14 @@
         [templates]="{ acciones: accionesTemplate }">
       </app-grid>
 
-      <ng-template #accionesTemplate let-item>
-        <button *ngFor="let accion of accionesTabla"
-                class="{{ accion.class }} me-1"
-                (click)="accion.callback(item)">
-          {{ accion.label }}
-        </button>
+       <ng-template #accionesTemplate let-item>
+        <span *ngFor="let accion of accionesTabla"
+              class="accion-icono"
+              [title]="accion.title"
+              (click)="accion.callback(item)"
+              [style.color]="accion.color">
+          <i [class]="accion.icon"></i>
+        </span>
       </ng-template>
 
     </app-card>
