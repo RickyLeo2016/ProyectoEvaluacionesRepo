@@ -1,0 +1,232 @@
+<app-spinner
+    #spinnerExterno
+  [manual]="true"
+  [visible]="spinnerVisible()">
+</app-spinner>
+
+
+<div class="row">
+  <div class="col-12 d-flex justify-content-end mb-2">
+
+   <button type="button" class="btn btn-primary btn-sm" (click)="abrirModal()">
+    <i class="fas fa-plus"></i>
+    Nuevo
+  </button>
+  </div>
+
+
+  <div class="col-sm-12">
+    <app-card cardTitle="Lista de Usuarios">
+      <app-grid
+        [columnas]="columnas"
+        [datos]="tiposFiltrados()" 
+        [templates]="{ acciones: accionesTemplate }">
+      </app-grid>
+
+      <ng-template #accionesTemplate let-item>
+        <span *ngFor="let accion of accionesTabla"
+              class="accion-icono"
+              [title]="accion.title"
+              (click)="accion.callback(item)"
+              [style.color]="accion.color">
+          <i [class]="accion.icon"></i>
+        </span>
+      </ng-template>
+    </app-card>
+
+    <!-- ============================
+         MODAL
+    ============================ -->
+    <app-modal
+      [title]="tituloModal()"
+      [visible]="modalVisible"
+      (closed)="cerrarModal()">
+
+      <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Empresa</label>
+              <select
+                class="form-select"
+                [value]="empId() ?? ''"
+                (change)="onEmpresaChange($event)"
+                (blur)="empresaTocado.set(true)"
+                [class.is-invalid]="empresaTocado() && !empresaValida()"
+              >
+                <option value="0">Seleccione...</option>
+                <option *ngFor="let emp of empresaList()" [value]="emp.empId">
+                  {{ emp.empNombre }}
+                </option>
+              </select>
+
+              @if (empresaTocado() && !empresaValida()) {
+                <div class="invalid-feedback">
+                  Debe seleccionar una empresa
+                </div>
+              }
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Identificación</label>
+                <input
+                type="text"
+                class="form-control"
+                [ngClass]="{
+                    'is-invalid': identificacionTocado() && !identificacion(),
+                    'is-valid': identificacionTocado() && identificacion()
+                }"
+                [value]="identificacion()"
+                (input)="identificacion.set($any($event.target).value)"
+                (blur)="identificacionTocado.set(true)"
+                [readonly]="modo() === 'editar'"
+                />
+                <div class="text-danger mt-1" *ngIf="identificacionTocado() && !identificacion()">
+                La identificación es obligatoria
+                </div>
+          </div>
+
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Nombres</label>
+            <input
+              type="text"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': nombresTocado() && !nombres(),
+                'is-valid': nombresTocado() && nombres()
+              }"
+              [value]="nombres()"
+              (input)="nombres.set($any($event.target).value)"
+              (blur)="nombresTocado.set(true)"
+            />
+            <div class="text-danger mt-1" *ngIf="nombresTocado() && !nombres()">
+              Los nombres son obligatorios
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Apellidos</label>
+            <input
+              type="text"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': apellidosTocado() && !apellidos(),
+                'is-valid': apellidosTocado() && apellidos()
+              }"
+              [value]="apellidos()"
+              (input)="apellidos.set($any($event.target).value)"
+              (blur)="apellidosTocado.set(true)"
+            />
+            <div class="text-danger mt-1" *ngIf="apellidosTocado() && !apellidos()">
+              Los apellidos son obligatorios
+            </div>
+          </div>
+
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Teléfono</label>
+            <input
+            type="text"
+            class="form-control"
+            [ngClass]="{
+                'is-invalid': telefonoTocado() && !telefono(),
+                'is-valid': telefonoTocado() && telefono()
+            }"
+            [value]="telefono()"
+            (input)="telefono.set($any($event.target).value)"
+            (blur)="telefonoTocado.set(true)"
+            />
+            <div class="text-danger mt-1" *ngIf="telefonoTocado() && !telefono()">
+                El teléfono es obligatorio
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Celular</label>
+            <input
+            type="text"
+            class="form-control"
+            [ngClass]="{
+                'is-invalid': celularTocado() && !celular(),
+                'is-valid': celularTocado() && celular()
+            }"
+            [value]="celular()"
+            (input)="celular.set($any($event.target).value)"
+            (blur)="celularTocado.set(true)"
+            />
+            <div class="text-danger mt-1" *ngIf="celularTocado() && !celular()">
+                El celular es obligatorio
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Correo</label>
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': emailTocado() && !isEmailValido(),
+              'is-valid': emailTocado() && isEmailValido()
+            }"
+            [value]="email()"
+            (input)="email.set($any($event.target).value)"
+            (blur)="emailTocado.set(true)"
+          />
+          <div class="text-danger mt-1" *ngIf="emailTocado() && !email()">
+            El correo electrónico es obligatorio
+          </div>
+          <div class="text-danger mt-1" *ngIf="emailTocado() && email() && !isEmailValido()">
+            El correo electrónico no tiene un formato válido
+          </div>
+        </div>
+
+
+
+
+
+          <!-- <div class="col-md-6 mb-3"> 
+              <label class="form-label">Dirección</label>
+              <textarea
+                class="form-control"
+                [ngClass]="{
+                'is-invalid': direccionTocado() && !direccion(),
+                'is-valid': direccionTocado() && direccion()
+              }"
+                [value]="direccion()"
+                (input)="direccion.set($any($event.target).value)"
+                (blur)="direccionTocado.set(true)"
+              ></textarea>
+              <div class="text-danger mt-1" *ngIf="direccionTocado() && !direccion()">
+                La descripción es obligatoria
+              </div>
+            </div> -->
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Estado</label>
+              <select
+                class="form-select"
+                [value]="estado()"
+                (change)="estado.set($any($event.target).value)">
+                <option [selected]="estado() === '1'" value="1">Activo</option>
+                <option [selected]="estado() === '2'" value="2">Inactivo</option>
+              </select>
+
+            </div>
+
+
+        </div>
+
+        <!-- Botones -->
+        <div class="mt-4 text-end">
+          <button class="btn btn-success btn-sm" (click)="guardar()">
+            <i class="fas fa-save"></i>
+            Guardar
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="cerrarModal()">
+            <i class="fas fa-ban"></i>
+            Cancelar
+          </button>
+        </div>
+      </div>
+
+    </app-modal>
+  </div>
+</div>

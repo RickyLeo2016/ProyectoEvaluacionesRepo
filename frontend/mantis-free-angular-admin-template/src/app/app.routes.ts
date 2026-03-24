@@ -49,6 +49,13 @@ export const routes: Routes = [
             (c) => c.Empresa
           )
       },
+       {
+        path: 'usuario',
+        loadComponent: () =>
+          import('./configuracion/usuario/usuario').then(
+            (c) => c.Usuario
+          )
+      },
 
       // resto de rutas de admin
     ]
