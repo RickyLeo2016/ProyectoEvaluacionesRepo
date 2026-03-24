@@ -6,11 +6,13 @@ import { RouterModule } from '@angular/router';
 // Project import
 import { NavigationItem } from '../../navigation';
 
-import { IconDirective } from '@ant-design/icons-angular';
+// import { IconDirective } from '@ant-design/icons-angular';
 
 @Component({
   selector: 'app-nav-item',
-  imports: [CommonModule, IconDirective, RouterModule],
+  imports: [CommonModule,
+    //  IconDirective,
+     RouterModule],
   templateUrl: './nav-item.component.html',
   styleUrls: ['./nav-item.component.scss']
 })

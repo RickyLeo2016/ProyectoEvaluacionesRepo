@@ -11,17 +11,17 @@ import { NavGroupComponent } from './nav-group/nav-group.component';
 
 // icon
 import { IconService } from '@ant-design/icons-angular';
-import {
-  DashboardOutline,
-  CreditCardOutline,
-  LoginOutline,
-  QuestionOutline,
-  ChromeOutline,
-  FontSizeOutline,
-  ProfileOutline,
-  BgColorsOutline,
-  AntDesignOutline
-} from '@ant-design/icons-angular/icons';
+// import {
+//   DashboardOutline,
+//   CreditCardOutline,
+//   LoginOutline,
+//   QuestionOutline,
+//   ChromeOutline,
+//   FontSizeOutline,
+//   ProfileOutline,
+//   BgColorsOutline,
+//   AntDesignOutline
+// } from '@ant-design/icons-angular/icons';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @Component({
@@ -49,19 +49,19 @@ export class NavContentComponent implements OnInit {
 
   // Constructor
   constructor() {
-    this.iconService.addIcon(
-      ...[
-        DashboardOutline,
-        CreditCardOutline,
-        FontSizeOutline,
-        LoginOutline,
-        ProfileOutline,
-        BgColorsOutline,
-        AntDesignOutline,
-        ChromeOutline,
-        QuestionOutline
-      ]
-    );
+    // this.iconService.addIcon(
+    //   ...[
+    //     DashboardOutline,
+    //     CreditCardOutline,
+    //     FontSizeOutline,
+    //     LoginOutline,
+    //     ProfileOutline,
+    //     BgColorsOutline,
+    //     AntDesignOutline,
+    //     ChromeOutline,
+    //     QuestionOutline
+    //   ]
+    // );
     this.navigations = NavigationItems;
   }
 

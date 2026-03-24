@@ -67,11 +67,11 @@ create TABLE Empresa
 ---- Tabla: Usuario
 ---- Usuarios globales, único por email
 ----------------------------------------------------------------
-Create TABLE Usuario
+create TABLE Usuario
 (
     usuId BIGINT IDENTITY(1,1) NOT NULL,
     usuNombre NVARCHAR(150) NOT NULL,
-    usuEmail NVARCHAR(150) NOT NULL UNIQUE,
+    usuEmail NVARCHAR(150) NOT NULL,
     usuPassHash NVARCHAR(250) NOT NULL,
     catIdEstado BIGINT NOT NULL,
     usuIdReg BIGINT NOT NULL,
@@ -81,13 +81,14 @@ Create TABLE Usuario
     usuIdEli BIGINT NULL,
     usuFechaEli DATETIME NULL,
     CONSTRAINT Pk_Usuario PRIMARY KEY (UsuId),
+    CONSTRAINT UQ_Usuario_usuEmail UNIQUE (usuEmail),
     CONSTRAINT Fk_Usuario_Catalogo FOREIGN KEY (catIdEstado) REFERENCES Catalogo(CatId)
 );
 
 ----------------------------------------------------------------
 ---- Tabla: UsuarioDetalle
 ----------------------------------------------------------------
-Create TABLE UsuarioDetalle
+create TABLE UsuarioDetalle
 (
     usuDetId BIGINT IDENTITY(1,1) NOT NULL,
     usuId BIGINT NOT NULL,
@@ -105,6 +106,7 @@ Create TABLE UsuarioDetalle
     usuIdEli BIGINT NULL,
     usuFechaEli DATETIME NULL,
     CONSTRAINT Pk_UsuarioDetalle PRIMARY KEY (usuDetId),
+    CONSTRAINT UQ_UsuarioDetalle_usuDetDNI UNIQUE (usuDetDNI),
     CONSTRAINT Fk_UsuarioDetalle_Usuario FOREIGN KEY (usuId) REFERENCES Usuario(usuId),
     CONSTRAINT Fk_UsuarioDetalle_Empresa FOREIGN KEY (empId) REFERENCES Empresa(empId),
     CONSTRAINT Fk_UsuarioDetalle_Catalogo FOREIGN KEY (catIdEstado) REFERENCES Catalogo(CatId)

@@ -4,7 +4,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-alter PROCEDURE dbo.spCrearUsuario
+Create PROCEDURE dbo.spCrearUsuario
 @usuNombre NVARCHAR(150),
 @usuEmail NVARCHAR(150),
 @usuPassHash NVARCHAR(250),

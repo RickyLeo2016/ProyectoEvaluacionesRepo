@@ -196,11 +196,37 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         classes: 'nav-item',
         url: '/dashboard/default',
-        icon: 'dashboard',
+        icon: 'fas fa-chart-line',
         breadcrumbs: false
       }
     ]
   },
+
+  {
+    id: 'Seguridad',
+    title: 'Seguridad',
+    type: 'group',
+    icon: 'icon-navigation',
+    children: [
+      {
+        id: 'rol',
+        title: 'Rol',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/rol',
+        icon: 'fas fa-toolbox'
+      },
+      {
+        id: 'usuario',
+        title: 'Usuario',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/usuario',
+        icon: 'fas fa-user'
+      }
+    ]
+  },
+
 
   {
     id: 'configuracion',
@@ -214,7 +240,7 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         classes: 'nav-item',
         url: '/tipoCatalogo',
-        icon: 'font-size'
+        icon: 'fas fa-chalkboard-user'
       },
       {
         id: 'catalogo',
@@ -222,7 +248,7 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         classes: 'nav-item',
         url: '/catalogo',
-        icon: 'bg-colors'
+        icon: 'fas fa-chalkboard-user'
       },
       {
         id: 'empresa',
@@ -230,15 +256,7 @@ export const NavigationItems: NavigationItem[] = [
         type: 'item',
         classes: 'nav-item',
         url: '/empresa',
-        icon: 'bg-colors'
-      },
-      {
-        id: 'usuario',
-        title: 'Usuario',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/usuario',
-        icon: 'bg-colors'
+        icon: 'fas fa-building'
       }
     ]
   },

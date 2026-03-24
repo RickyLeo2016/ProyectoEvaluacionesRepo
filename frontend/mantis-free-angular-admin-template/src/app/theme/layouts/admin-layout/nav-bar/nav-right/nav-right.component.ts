@@ -5,37 +5,39 @@ import { AuthService } from 'src/app/services/auth/auth-service';
 // project import
 
 // icon
-import { IconService, IconDirective } from '@ant-design/icons-angular';
-import {
-  BellOutline,
-  SettingOutline,
-  GiftOutline,
-  MessageOutline,
-  PhoneOutline,
-  CheckCircleOutline,
-  LogoutOutline,
-  EditOutline,
-  UserOutline,
-  ProfileOutline,
-  WalletOutline,
-  QuestionCircleOutline,
-  LockOutline,
-  CommentOutline,
-  UnorderedListOutline,
-  ArrowRightOutline,
-  GithubOutline
-} from '@ant-design/icons-angular/icons';
+// import { IconService, IconDirective } from '@ant-design/icons-angular';
+// import {
+//   BellOutline,
+//   SettingOutline,
+//   GiftOutline,
+//   MessageOutline,
+//   PhoneOutline,
+//   CheckCircleOutline,
+//   LogoutOutline,
+//   EditOutline,
+//   UserOutline,
+//   ProfileOutline,
+//   WalletOutline,
+//   QuestionCircleOutline,
+//   LockOutline,
+//   CommentOutline,
+//   UnorderedListOutline,
+//   ArrowRightOutline,
+//   GithubOutline
+// } from '@ant-design/icons-angular/icons';
 import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
 @Component({
   selector: 'app-nav-right',
-  imports: [IconDirective, RouterModule, NgScrollbarModule, NgbNavModule, NgbDropdownModule],
+  imports: [
+    // IconDirective, 
+    RouterModule, NgScrollbarModule, NgbNavModule, NgbDropdownModule],
   templateUrl: './nav-right.component.html',
   styleUrls: ['./nav-right.component.scss']
 })
 export class NavRightComponent {
-  private iconService = inject(IconService);
+  // private iconService = inject(IconService);
   private auth = inject(AuthService);
   styleSelectorToggle = input<boolean>();
   Customize = output();
@@ -44,27 +46,27 @@ export class NavRightComponent {
 
   constructor() {
     this.windowWidth = window.innerWidth;
-    this.iconService.addIcon(
-      ...[
-        CheckCircleOutline,
-        GiftOutline,
-        MessageOutline,
-        SettingOutline,
-        PhoneOutline,
-        LogoutOutline,
-        UserOutline,
-        EditOutline,
-        ProfileOutline,
-        QuestionCircleOutline,
-        LockOutline,
-        CommentOutline,
-        UnorderedListOutline,
-        ArrowRightOutline,
-        BellOutline,
-        GithubOutline,
-        WalletOutline
-      ]
-    );
+    // this.iconService.addIcon(
+    //   ...[
+    //     CheckCircleOutline,
+    //     GiftOutline,
+    //     MessageOutline,
+    //     SettingOutline,
+    //     PhoneOutline,
+    //     LogoutOutline,
+    //     UserOutline,
+    //     EditOutline,
+    //     ProfileOutline,
+    //     QuestionCircleOutline,
+    //     LockOutline,
+    //     CommentOutline,
+    //     UnorderedListOutline,
+    //     ArrowRightOutline,
+    //     BellOutline,
+    //     GithubOutline,
+    //     WalletOutline
+    //   ]
+    // );
   }
 
   profile = [

@@ -8,8 +8,8 @@ import { Title } from '@angular/platform-browser';
 import { NavigationItem, NavigationItems } from 'src/app/theme/layouts/admin-layout/navigation/navigation';
 
 // icons
-import { IconService } from '@ant-design/icons-angular';
-import { GlobalOutline, NodeExpandOutline } from '@ant-design/icons-angular/icons';
+// import { IconService } from '@ant-design/icons-angular';
+// import { GlobalOutline, NodeExpandOutline } from '@ant-design/icons-angular/icons';
 
 interface titleType {
   // eslint-disable-next-line
@@ -31,7 +31,7 @@ interface titleType {
 export class BreadcrumbComponent {
   private route = inject(Router);
   private titleService = inject(Title);
-  private iconService = inject(IconService);
+  // private iconService = inject(IconService);
 
   // public props
   @Input() type: string;
@@ -49,7 +49,7 @@ export class BreadcrumbComponent {
     this.navigations = NavigationItems;
     this.type = 'theme1';
     this.setBreadcrumb();
-    this.iconService.addIcon(...[GlobalOutline, NodeExpandOutline]);
+    // this.iconService.addIcon(...[GlobalOutline, NodeExpandOutline]);
   }
 
   // public method

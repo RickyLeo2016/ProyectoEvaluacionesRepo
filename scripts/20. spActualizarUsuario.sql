@@ -5,16 +5,13 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 Create PROCEDURE dbo.spActualizarUsuario
-@usuNombre NVARCHAR(150),
+@usuId bigint,
 @usuEmail NVARCHAR(150),
-@usuPassHash NVARCHAR(250),
 @empId BIGINT,
-@usuDetDNI NVARCHAR(20),
 @usuNombres NVARCHAR(150),
 @usuApellidos NVARCHAR(150),
 @usuTelefono NVARCHAR(15) = NULL,
 @usuCelular NVARCHAR(15),
-@catIdEstado CHAR(1),
 @usuIdReg INT
 AS  
 BEGIN
@@ -23,58 +20,30 @@ BEGIN
 
     BEGIN TRY
         BEGIN TRAN;
-  DECLARE @vUsuId BIGINT;
 
-        INSERT INTO Usuario(
-            usuNombre,
-            usuEmail,
-            usuPassHash,
-            catIdEstado,
-            usuIdReg,
-            usuFechaReg
-        )
-        VALUES (
-            @usuNombre,
-            @usuEmail,
-            @usuPassHash,
-            @catIdEstado,
-            @usuIdReg,
-            SYSDATETIME()
-        );
+        update Usuario
+        set 
+            usuEmail=@usuEmail,
+            usuIdAct=@usuIdReg,
+            usuFechaReg=SYSDATETIME()
+        where usuId=@usuId
 
-        SET @vUsuId = SCOPE_IDENTITY();
-
-        INSERT INTO UsuarioDetalle(
-            usuId,
-            empId,
-            usuDetDNI,
-            usuNombres,
-            usuApellidos,
-            usuTelefono,
-            usuCelular,
-            catIdEstado,
-            usuIdReg,
-            usuFechaReg
-        )
-        VALUES(
-            @vUsuId,
-            @empId,
-            @usuDetDNI,
-            @usuNombres,
-            @usuApellidos,
-            @usuTelefono,
-            @usuCelular,
-            @catIdEstado,
-            @usuIdReg,
-            SYSDATETIME()
-        );
-
+        update UsuarioDetalle
+        set 
+            empId=@empId,
+            usuNombres=@usuNombres,
+            usuApellidos=@usuApellidos,
+            usuTelefono=@usuTelefono,
+            usuCelular=@usuCelular,
+            usuIdAct=@usuIdReg,
+            usuFechaAct=SYSDATETIME()
+        where usuId=@usuId
         COMMIT;
 
         SELECT 
             '0000' AS Codigo,
-            'Usuario creado correctamente' AS Mensaje,
-            @vUsuId AS Data;
+            'Usuario actualizado correctamente' AS Mensaje,
+            @usuId AS Data;
 
     END TRY
     BEGIN CATCH
