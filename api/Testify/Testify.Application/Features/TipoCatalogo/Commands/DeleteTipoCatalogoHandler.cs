@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Testify.Application.Common;
 using Testify.Application.Interfaces;
 using Testify.Infrastructure.Constants;
@@ -9,20 +10,23 @@ namespace Testify.Application.Features.TipoCatalogo.Commands
     public class DeleteTipoCatalogoHandler : IRequestHandler<DeleteTipoCatalogoCommand, ApiResponse<bool>>
     {
         private readonly IUnitOfWork _unit;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DeleteTipoCatalogoHandler(IUnitOfWork unit)
+        public DeleteTipoCatalogoHandler(IUnitOfWork unitOfWork,
+            IHttpContextAccessor httpContextAccessor)
         {
-            _unit = unit;
+            _httpContextAccessor = httpContextAccessor;
+            _unit = unitOfWork;
         }
 
         public async Task<ApiResponse<bool>> Handle(DeleteTipoCatalogoCommand request, CancellationToken cancellationToken)
         {
-            // Ejecuta el SP de eliminación
+            var usuIdReg = long.Parse(_httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value);
             var rows = await _unit.TipoCatalogo.ExecuteAsync(
                 SP.spEliminarTipoCatalogo,
                 new { 
                     TipCatId = request.tipCatId,
-                    UsuIdReg = request.usuIdReg
+                    UsuIdReg = usuIdReg
                 }
             );
 

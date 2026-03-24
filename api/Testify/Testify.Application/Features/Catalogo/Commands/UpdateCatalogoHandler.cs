@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Testify.Application.Common;
 using Testify.Application.Interfaces;
 using Testify.Infrastructure.Constants;
@@ -9,13 +10,18 @@ namespace Testify.Application.Features.Catalogo.Commands
     public class UpdateCatalogoHandler : IRequestHandler<UpdateCatalogoCommand, ApiResponse<bool>>
     {
         private readonly IUnitOfWork _unit;
-        public UpdateCatalogoHandler(IUnitOfWork unitOfWork)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public UpdateCatalogoHandler(IUnitOfWork unitOfWork,
+            IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _unit = unitOfWork;
         }
 
         public async Task<ApiResponse<bool>> Handle(UpdateCatalogoCommand request, CancellationToken cancellationToken)
         {
+
+            var usuIdReg = long.Parse(_httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value);
             var parameters = new
             {
                 catId = request.catId,
@@ -23,7 +29,7 @@ namespace Testify.Application.Features.Catalogo.Commands
                 catNombre = request.catNombre,
                 catDescripcion = request.catDescripcion,
                 catEstado = request.catEstado,
-                usuIdReg = request.usuIdReg
+                usuIdReg = usuIdReg
             };
 
             var result = await _unit.Catalogo.ExecuteAsync(SP.spActualizarCatalogo, parameters);

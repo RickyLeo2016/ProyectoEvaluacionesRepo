@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,21 +15,24 @@ namespace Testify.Application.Features.Empresa.Commands
     public class UpdateEmpresaHandler : IRequestHandler<UpdateEmpresaCommand, ApiResponse<bool>>
     {
         private readonly IUnitOfWork _unit;
-
-        public UpdateEmpresaHandler(IUnitOfWork unitOfWork)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public UpdateEmpresaHandler(IUnitOfWork unitOfWork,
+            IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _unit = unitOfWork;
         }
 
         public async Task<ApiResponse<bool>> Handle(UpdateEmpresaCommand request, CancellationToken cancellationToken)
         {
+            var usuIdReg = long.Parse(_httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value);
             var parameters = new
             {
                 empId = request.empId,
                 empNombre = request.empNombre,
                 empRuc = request.empRuc,
                 empDireccion = request.empDireccion,
-                usuIdReg = request.usuIdReg
+                usuIdReg = usuIdReg
             };
 
             var result = await _unit.Empresa.ExecuteAsync(SP.spActualizarEmpresa, parameters);
