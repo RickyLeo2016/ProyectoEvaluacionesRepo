@@ -6,5 +6,12 @@
         Task<IEnumerable<T>> GetAllAsync(string storedProcedure, object parameters);
         Task<T?> GetByIdAsync(string storedProcedure, object parameters);
         Task<int> ExecuteAsync(string storedProcedure, object parameters);
+
+
+        Task<T> QuerySingleAsync<T>(string storedProcedure, object parameters);
+
+
+
+
     }
 }

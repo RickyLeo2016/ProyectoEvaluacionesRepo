@@ -1,6 +1,7 @@
 ﻿using Dapper;
-using System.Data;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Threading.Tasks;
 using Testify.Application.Interfaces;
 using Testify.Infrastructure.Persistence;
@@ -39,5 +40,18 @@ namespace Testify.Infrastructure.Repositories
             using var conn = _context.CreateConnection();
             return await conn.ExecuteScalarAsync<int>(sp, parameters, commandType: CommandType.StoredProcedure);
         }
+
+
+        public async Task<T1> QuerySingleAsync<T1>(string storedProcedure, object parameters)
+        {
+            using var conn = _context.CreateConnection();
+            return await conn.QueryFirstAsync<T1>(
+                   storedProcedure,
+                   parameters,
+                   commandType: CommandType.StoredProcedure
+            );
+        }
+
+
     }
 }

@@ -84,6 +84,7 @@ builder.Services.AddControllers();
 builder.Services.AddJwtAuthentication(builder.Configuration);   // tu método de JWT
 builder.Services.AddSwaggerWithJwt();
 builder.Services.AddApplicationServices();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IJwtService, JwtService>();
 
 var app = builder.Build();

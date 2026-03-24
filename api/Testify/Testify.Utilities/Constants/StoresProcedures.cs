@@ -32,6 +32,30 @@
         public const string spListarEmpresaPorId = "spListarEmpresaPorId";
 
 
+        #endregion
+
+
+        #region Table Usuario y UsuarioDetalle
+
+
+        public const string spCrearUsuario = "spCrearUsuario";
+        public const string spListarUsuario = "spListarUsuario";
+        public const string spObtenerUsuarioPorNombre = "spObtenerUsuarioPorNombre";
+        public const string spEliminarUsuario = "spEliminarUsuario";
+        public const string spActualizarUsuario = "spActualizarUsuario";
+
+        
+
+
+
+        public const string spBuscaUsuario = "spBuscaUsuario";
+        public const string spBuscaUsuarioLogin = "spBuscaUsuarioLogin";
+        public const string spListarPorIdUsuario = "spListarPorIdUsuario";
+        public const string spConsultaClavePorIdUsuario = "spConsultaClavePorIdUsuario";
+        public const string spCambiarClaveUsuario = "spCambiarClaveUsuario";
+
+        public const string spListarUsuarioPorId = "spListarUsuarioPorId";
+
         #endregion 
 
 
@@ -84,16 +108,6 @@
 
         public const string spActualizarEmpleado = "spActualizarEmpleado";
         public const string spEliminarEmpleado = "spEliminarEmpleado";
-        #endregion
-
-        #region Table Usuario
-        public const string spBuscaUsuario = "spBuscaUsuario";
-        public const string spBuscaUsuarioLogin = "spBuscaUsuarioLogin";
-        public const string spCrearUsuario = "spCrearUsuario";
-        public const string spListarPorIdUsuario = "spListarPorIdUsuario";
-        public const string spConsultaClavePorIdUsuario = "spConsultaClavePorIdUsuario";
-        public const string spCambiarClaveUsuario = "spCambiarClaveUsuario";
-
         #endregion
 
         #region Table Permisos

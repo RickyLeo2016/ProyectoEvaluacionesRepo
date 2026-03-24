@@ -1,10 +1,12 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Testify.Application.Features.Empresa.Commands;
 using Testify.Application.Features.Empresa.Queries;
 
 namespace TestifyWeb.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmpresaController : ControllerBase
@@ -39,7 +41,7 @@ namespace TestifyWeb.Controllers
 
 
         [HttpPost("RegistrarEmpresa")]
-        public async Task<IActionResult> RegistrarEMpresa(CreateEmpresaCommand cmd)
+        public async Task<IActionResult> RegistrarEmpresa(CreateEmpresaCommand cmd)
         {
             return Ok(await _mediator.Send(cmd));
         }

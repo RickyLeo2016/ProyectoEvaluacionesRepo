@@ -5,5 +5,6 @@
         ITipoCatalogoRepository TipoCatalogo { get; }
         ICatalogoRepository Catalogo { get; }
         IEmpresaRepository Empresa { get; }
+        IUsuarioRepository Usuario { get; }
     }
 }
