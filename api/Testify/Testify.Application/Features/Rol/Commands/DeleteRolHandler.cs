@@ -5,14 +5,14 @@ using Testify.Application.Common;
 using Testify.Application.Interfaces;
 using Testify.Utilities.Constants;
 
-namespace Testify.Application.Features.Usuario.Commands
+namespace Testify.Application.Features.Rol.Commands
 {
-    public class DeleteUsuarioHandler : IRequestHandler<DeleteUsuarioCommand, ApiResponse<bool>>
+    public class DeleteRolHandler : IRequestHandler<DeleteRolCommand, ApiResponse<bool>>
     {
         private readonly IUnitOfWork _unit;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DeleteUsuarioHandler(IUnitOfWork unit,
+        public DeleteRolHandler(IUnitOfWork unit,
             IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -20,17 +20,17 @@ namespace Testify.Application.Features.Usuario.Commands
         }
 
 
-        public async Task<ApiResponse<bool>> Handle(DeleteUsuarioCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<bool>> Handle(DeleteRolCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 var usuIdReg = long.Parse(_httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value);
                 var parameters = new
                 {
-                    usuId = request.usuId,
+                    rolId = request.rolId,
                     usuIdReg = usuIdReg
                 };
-                var result = await _unit.Usuario.QuerySingleAsync<SpResponse<long>>(SP.spEliminarUsuario, parameters);
+                var result = await _unit.Rol.QuerySingleAsync<SpResponse<long>>(SP.spEliminarRol, parameters);
                 if (result == null)
                 {
                     return new ApiResponse<bool>(false, "No se obtuvo respuesta del servidor");
@@ -54,4 +54,3 @@ namespace Testify.Application.Features.Usuario.Commands
         }
     }
 }
-

@@ -8,7 +8,7 @@ using Testify.Application.Features.Usuario.Queries;
 
 namespace TestifyWeb.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsuarioController : ControllerBase

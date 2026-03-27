@@ -8,12 +8,14 @@ public class UnitOfWork : IUnitOfWork
     public ICatalogoRepository Catalogo { get; }
     public IEmpresaRepository Empresa { get; }
     public IUsuarioRepository Usuario { get; }
+    public IRolRepository Rol { get; }
 
     public UnitOfWork(
         ITipoCatalogoRepository tipoCatalogo,
         ICatalogoRepository catalogo,
         IEmpresaRepository empresa,
-        IUsuarioRepository usuario
+        IUsuarioRepository usuario,
+        IRolRepository rol
 
         )
     {
@@ -21,5 +23,6 @@ public class UnitOfWork : IUnitOfWork
         Catalogo = catalogo;
         Empresa = empresa;
         Usuario = usuario;
+        Rol = rol;
     }
 }

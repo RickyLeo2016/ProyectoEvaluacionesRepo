@@ -6,5 +6,6 @@
         ICatalogoRepository Catalogo { get; }
         IEmpresaRepository Empresa { get; }
         IUsuarioRepository Usuario { get; }
+        IRolRepository Rol { get; }
     }
 }

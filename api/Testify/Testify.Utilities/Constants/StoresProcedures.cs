@@ -34,9 +34,7 @@
 
         #endregion
 
-
         #region Table Usuario y UsuarioDetalle
-
 
         public const string spCrearUsuario = "spCrearUsuario";
         public const string spListarUsuario = "spListarUsuario";
@@ -44,20 +42,18 @@
         public const string spEliminarUsuario = "spEliminarUsuario";
         public const string spActualizarUsuario = "spActualizarUsuario";
 
-        
-
-
-
-        public const string spBuscaUsuario = "spBuscaUsuario";
-        public const string spBuscaUsuarioLogin = "spBuscaUsuarioLogin";
-        public const string spListarPorIdUsuario = "spListarPorIdUsuario";
-        public const string spConsultaClavePorIdUsuario = "spConsultaClavePorIdUsuario";
-        public const string spCambiarClaveUsuario = "spCambiarClaveUsuario";
-
-        public const string spListarUsuarioPorId = "spListarUsuarioPorId";
 
         #endregion 
 
+        #region Table Rol
+
+        public const string spListarRol = "spListarRol";
+        //public const string spListarPorIdRol = "spListarPorIdRol";
+        public const string spCrearRol = "spCrearRol";
+        public const string spActualizarRol = "spActualizarRol";
+        public const string spEliminarRol = "spEliminarRol";
+
+        #endregion
 
 
 
@@ -80,13 +76,6 @@
         public const string spEliminarSubMenu = "spEliminarSubMenu";
         #endregion
 
-        #region Table Rol
-        public const string spListarRol = "spListarRol";
-        public const string spListarPorIdRol = "spListarPorIdRol";
-        public const string spCrearRol = "spCrearRol";
-        public const string spActualizarRol = "spActualizarRol";
-        public const string spEliminarRol = "spEliminarRol";
-        #endregion
 
         #region Table SubMenuRol
         public const string spListarSubMenuRol = "spListarSubMenuRol";

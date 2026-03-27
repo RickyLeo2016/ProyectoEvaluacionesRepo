@@ -5,43 +5,49 @@ using Testify.Application.Common;
 using Testify.Application.Interfaces;
 using Testify.Utilities.Constants;
 
-namespace Testify.Application.Features.Usuario.Commands
+namespace Testify.Application.Features.Rol.Commands
 {
-    public class DeleteUsuarioHandler : IRequestHandler<DeleteUsuarioCommand, ApiResponse<bool>>
+    public class CreateRolHandler : IRequestHandler<CreateRolCommand, ApiResponse<bool>>
     {
         private readonly IUnitOfWork _unit;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public DeleteUsuarioHandler(IUnitOfWork unit,
+        public CreateRolHandler(IUnitOfWork unitOfWork,
             IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
-            _unit = unit;
+            _unit = unitOfWork;
         }
 
-
-        public async Task<ApiResponse<bool>> Handle(DeleteUsuarioCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<bool>> Handle(CreateRolCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 var usuIdReg = long.Parse(_httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value);
                 var parameters = new
                 {
-                    usuId = request.usuId,
+                    rolNombre = request.rolNombre,
+                    catIdEstado = request.catIdEstado,
                     usuIdReg = usuIdReg
                 };
-                var result = await _unit.Usuario.QuerySingleAsync<SpResponse<long>>(SP.spEliminarUsuario, parameters);
-                if (result == null)
-                {
-                    return new ApiResponse<bool>(false, "No se obtuvo respuesta del servidor");
-                }
 
-                if (result.Codigo != "0000")
-                {
-                    return new ApiResponse<bool>(false, result.Mensaje);
-                }
+                var result = await _unit.Rol.QuerySingleAsync<SpResponse<long>>(SP.spCrearRol, parameters);
 
-                return new ApiResponse<bool>(true, result.Mensaje);
+                if (result.Codigo == "0000")
+                {
+                    return new ApiResponse<bool>(
+                        data: true,
+                        message: result.Mensaje,
+                        isSuccess: true
+                    );
+                }
+                else
+                {
+                    return new ApiResponse<bool>(
+                       data: false,
+                       message: result.Mensaje,
+                       isSuccess: false
+                   );
+                }
             }
             catch (SqlException ex)
             {
@@ -54,4 +60,3 @@ namespace Testify.Application.Features.Usuario.Commands
         }
     }
 }
-
