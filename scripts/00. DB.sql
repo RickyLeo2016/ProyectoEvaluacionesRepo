@@ -115,18 +115,20 @@ create TABLE UsuarioDetalle
 ----------------------------------------------------------------
 ---- Tabla: Rol
 ----------------------------------------------------------------
---drop TABLE Rol
---(
---    rolId BIGINT IDENTITY(1,1) NOT NULL,
---    rolNombre NVARCHAR(150) NOT NULL,
---    catIdEstado BIGINT NOT NULL,
---    usuIdReg BIGINT NOT NULL,
---    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
---    usuIdAct BIGINT NULL,
---    usuFechaAct DATETIME NULL,
---    CONSTRAINT Pk_Rol PRIMARY KEY (RolId),
---    CONSTRAINT Fk_Rol_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
---);
+Create TABLE Rol
+(
+    rolId BIGINT IDENTITY(1,1) NOT NULL,
+    rolNombre NVARCHAR(150) NOT NULL,
+    catIdEstado BIGINT NOT NULL,
+    usuIdReg BIGINT NOT NULL,
+    rolFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
+    usuIdAct BIGINT NULL,
+    rolFechaAct DATETIME NULL,
+    usuIdEli BIGINT NULL,
+    rolFechaEli DATETIME NULL,
+    CONSTRAINT Pk_Rol PRIMARY KEY (RolId),
+    CONSTRAINT Fk_Rol_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
+);
 
 ----------------------------------------------------------------
 ---- Tabla: UsuarioRol
