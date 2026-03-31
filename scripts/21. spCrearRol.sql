@@ -6,7 +6,6 @@ SET QUOTED_IDENTIFIER ON
 GO
 Create PROCEDURE dbo.spCrearRol
 @rolNombre NVARCHAR(150),
-@catIdEstado BIGINT,
 @usuIdReg INT
 AS  
 BEGIN
@@ -25,7 +24,7 @@ BEGIN
         )
         VALUES (
             @rolNombre,
-            @catIdEstado,
+            1,
             @usuIdReg,
             SYSDATETIME()
         );

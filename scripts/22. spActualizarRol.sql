@@ -7,7 +7,6 @@ GO
 Create PROCEDURE dbo.spActualizarRol
 @rolId BIGINT,
 @rolNombre NVARCHAR(150),
-@catIdEstado BIGINT,
 @usuIdReg INT
 AS  
 BEGIN

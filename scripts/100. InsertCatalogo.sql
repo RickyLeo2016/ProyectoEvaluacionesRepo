@@ -30,3 +30,10 @@ values('rsigcha','rleo.9016@gmail.com','$2a$11$WzNyUh9xd211hDH0pSPyRu4EQBGzj0L6b
 
 insert into UsuarioDetalle(usuId,empId,usuDetDNI,usuNombres,usuApellidos, usuCelular,catIdEstado,usuFechaReg,usuIdReg)
 values(1,1,'1721390902','Ricardo David', 'Sigcha Sigcha','0986631684',1,SYSDATETIME(),0)
+
+
+
+INSERT INTO Rol (rolNombre, catIdEstado, usuIdReg, rolFechaReg)
+VALUES
+  ('Administrador', 1, 1, SYSDATETIME()),
+  ('Administrador Empresa', 1, 1, SYSDATETIME());

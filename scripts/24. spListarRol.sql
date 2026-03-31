@@ -7,9 +7,10 @@ AS
 BEGIN      
 
 	select 
+		r.rolId,
 		r.rolNombre,
 		convert(varchar,r.rolFechaReg,25) fechaReg,
-		c.catNombre estadoDesc,
+		c.catNombre rolEstadoDesc,
 		r.catIdEstado 
 	from Rol r
 	join Catalogo c on catId=r.catIdEstado
