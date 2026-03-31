@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Rol\Query\" />
     <Folder Include="Mappings\" />
   </ItemGroup>
 

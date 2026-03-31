@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Testify.Application.Features.Rol.Commands;
+using Testify.Application.Features.Rol.Query;
 
 
 namespace TestifyWeb.Controllers
@@ -19,18 +20,18 @@ namespace TestifyWeb.Controllers
             _mediator = mediator;
         }
 
-        //[HttpGet("ListarRol")]
-        //public async Task<IActionResult> ListarRol(int pageNumber = 1, int pageSize = 10)
-        //{
-        //    var query = new GetAllRolQuery
-        //    {
-        //        PageNumber = pageNumber,
-        //        PageSize = pageSize
-        //    };
+        [HttpGet("ListarRol")]
+        public async Task<IActionResult> ListarRol(int pageNumber = 1, int pageSize = 10)
+        {
+            var query = new GetAllRolQuery
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
 
-        //    var response = await _mediator.Send(query);
-        //    return Ok(response);
-        //}
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
 
 
         [HttpPost("RegistrarRol")]

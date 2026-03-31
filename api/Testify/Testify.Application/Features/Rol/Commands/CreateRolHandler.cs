@@ -26,7 +26,6 @@ namespace Testify.Application.Features.Rol.Commands
                 var parameters = new
                 {
                     rolNombre = request.rolNombre,
-                    catIdEstado = request.catIdEstado,
                     usuIdReg = usuIdReg
                 };
 

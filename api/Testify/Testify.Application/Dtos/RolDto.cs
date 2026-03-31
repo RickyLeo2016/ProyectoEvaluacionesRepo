@@ -13,6 +13,9 @@ namespace Testify.Application.Dtos
 
         public long? catIdEstado { get; init; }
 
+        public string? rolEstadoDesc { get; init; } = string.Empty;
+        
+
         public long? usuIdReg { get; init; }
         
     }

@@ -15,6 +15,10 @@ namespace Testify.Domain.Entities
 
         public int? catIdEstado { get; init; }
 
+
+        public string? rolEstadoDesc { get; init; } = string.Empty;
+
+        
         public long? usuIdReg { get; init; }
         public DateTime? catFechaReg { get; init; }
 
