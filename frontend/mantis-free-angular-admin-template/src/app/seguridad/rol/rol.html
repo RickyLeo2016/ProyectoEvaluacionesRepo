@@ -1,1 +1,102 @@
-<p>rol works!</p>
+<app-spinner
+    #spinnerExterno
+  [manual]="true"
+  [visible]="spinnerVisible()">
+</app-spinner>
+
+
+<div class="row">
+  <div class="col-12 d-flex justify-content-end mb-2">
+
+   <button type="button" class="btn btn-primary btn-sm" (click)="abrirModal()">
+    <i class="fas fa-plus"></i>
+    Nuevo
+  </button>
+  </div>
+
+
+  <div class="col-sm-12">
+    <app-card cardTitle="Lista de Usuarios">
+      <app-grid
+        [columnas]="columnas"
+        [datos]="tiposFiltrados()" 
+        [templates]="{ acciones: accionesTemplate }">
+      </app-grid>
+
+      <ng-template #accionesTemplate let-item>
+        <span *ngFor="let accion of accionesTabla"
+              class="accion-icono"
+              [title]="accion.title"
+              (click)="accion.callback(item)"
+              [style.color]="accion.color">
+          <i [class]="accion.icon"></i>
+        </span>
+      </ng-template>
+    </app-card>
+
+    <!-- ============================
+         MODAL
+    ============================ -->
+    <app-modal
+      [title]="tituloModal()"
+      [visible]="modalVisible"
+      (closed)="cerrarModal()">
+
+      <div class="container">
+        <div class="row">
+
+
+          <div class="col-md-12 mb-3">
+            <label class="form-label">Nombre Rol</label>
+            <input
+              type="text"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': nombreTocado() && !nombre(),
+                'is-valid': nombreTocado() && nombre()
+              }"
+              [value]="nombre()"
+              (input)="nombre.set($any($event.target).value)"
+              (blur)="nombreTocado.set(true)"
+            />
+            <div class="text-danger mt-1" *ngIf="nombreTocado() && !nombre()">
+              Los nombre de rol es obligatorio
+            </div>
+          </div>
+          
+
+
+     
+
+
+            <!-- <div class="col-md-6 mb-3">
+              <label class="form-label">Estado</label>
+              <select
+                class="form-select"
+                [value]="estado()"
+                (change)="estado.set($any($event.target).value)">
+                <option [selected]="estado() === '1'" value="1">Activo</option>
+                <option [selected]="estado() === '2'" value="2">Inactivo</option>
+              </select>
+
+            </div> -->
+
+
+        </div>
+
+        <!-- Botones -->
+        <div class="mt-4 text-end">
+          <button class="btn btn-success btn-sm" (click)="guardar()">
+            <i class="fas fa-save"></i>
+            Guardar
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="cerrarModal()">
+            <i class="fas fa-ban"></i>
+            Cancelar
+          </button>
+        </div>
+      </div>
+
+    </app-modal>
+  </div>
+</div>

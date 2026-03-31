@@ -178,27 +178,6 @@
           </div>
         </div>
 
-
-
-
-
-          <!-- <div class="col-md-6 mb-3"> 
-              <label class="form-label">Dirección</label>
-              <textarea
-                class="form-control"
-                [ngClass]="{
-                'is-invalid': direccionTocado() && !direccion(),
-                'is-valid': direccionTocado() && direccion()
-              }"
-                [value]="direccion()"
-                (input)="direccion.set($any($event.target).value)"
-                (blur)="direccionTocado.set(true)"
-              ></textarea>
-              <div class="text-danger mt-1" *ngIf="direccionTocado() && !direccion()">
-                La descripción es obligatoria
-              </div>
-            </div> -->
-
             <div class="col-md-6 mb-3">
               <label class="form-label">Estado</label>
               <select

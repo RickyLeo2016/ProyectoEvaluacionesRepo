@@ -3,19 +3,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
-
 export interface Usuario {
   usuId?: number;
-  usuNombre:string;
-  usuEmail : string;
-  usuDetDNI : string;
-  usuNombres  : string;
-  usuApellidos : string;
-  usuTelefono : string;
-  usuCelular : string;
+  usuNombre: string;
+  usuEmail: string;
+  usuDetDNI: string;
+  usuNombres: string;
+  usuApellidos: string;
+  usuTelefono: string;
+  usuCelular: string;
   empId: number;
   empNombre: string;
-  catIdEstado : number;
+  catIdEstado: number;
   usuEstadoDesc: string;
   // usuIdReg: number;
 }
@@ -27,20 +26,16 @@ export interface ApiResponse<T> {
   errors: any;
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
-
 export class UsuarioService {
- private apiUrl = `${environment.apiBaseUrl}/Usuario`;
+  private apiUrl = `${environment.apiBaseUrl}/Usuario`;
 
   constructor(private http: HttpClient) {}
 
   obtenerTodos(pageNumber: number = 1, pageSize: number = 100): Observable<ApiResponse<any[]>> {
-    return this.http.get<ApiResponse<any[]>>(
-      `${this.apiUrl}/ListarUsuario?PageNumber=${pageNumber}&PageSize=${pageSize}`
-    );
+    return this.http.get<ApiResponse<any[]>>(`${this.apiUrl}/ListarUsuario?PageNumber=${pageNumber}&PageSize=${pageSize}`);
   }
 
   // Guardar un nuevo registro
@@ -53,10 +48,8 @@ export class UsuarioService {
     return this.http.put<ApiResponse<boolean>>(`${this.apiUrl}/ActualizarUsuario`, tipo);
   }
 
- // Eliminar un registro
+  // Eliminar un registro
   eliminar(id: number): Observable<ApiResponse<boolean>> {
-    console.log(id)
     return this.http.delete<ApiResponse<boolean>>(`${this.apiUrl}/EliminarUsuario/${id}`);
   }
-
 }
