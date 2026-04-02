@@ -61,6 +61,15 @@ export const NavigationItems: NavigationItem[] = [
         url: '/usuario',
         icon: 'fas fa-user'
       }
+      ,
+      {
+        id: 'usuarioRol',
+        title: 'Usuario Rol',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/usuarioRol',
+        icon: 'fas fa-user'
+      }
     ]
   },
 

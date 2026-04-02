@@ -44,7 +44,13 @@ export const routes: Routes = [
             (c) => c.Usuario
           )
       },
-
+ {
+        path: 'usuarioRol',
+        loadComponent: () =>
+          import('./seguridad/usuarioRol/usuario-rol').then(
+            (c) => c.UsuarioRol
+          )
+      },
 
 
 
