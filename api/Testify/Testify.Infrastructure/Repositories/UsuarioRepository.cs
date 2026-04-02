@@ -26,5 +26,6 @@ namespace Testify.Infrastructure.Repositories
             return await QuerySingleAsync<Usuario>(SP.spObtenerUsuarioPorNombre, parameters);
         }
 
+      
     }
 }

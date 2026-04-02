@@ -48,10 +48,17 @@
         #region Table Rol
 
         public const string spListarRol = "spListarRol";
-        //public const string spListarPorIdRol = "spListarPorIdRol";
         public const string spCrearRol = "spCrearRol";
         public const string spActualizarRol = "spActualizarRol";
         public const string spEliminarRol = "spEliminarRol";
+
+
+        #endregion
+
+        #region Usuario Rol
+        public const string spAsignarRol = "spAsignarRol";
+
+        public const string spListarUsuarioRol = "spListarUsuarioRol";
 
         #endregion
 

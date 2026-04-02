@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Testify.Domain.Entities
+﻿namespace Testify.Domain.Entities
 {
     public class Usuario
     {
@@ -29,7 +23,6 @@ namespace Testify.Domain.Entities
         public string? empNombre { get; init; }
         public DateTime? usuFechaReg { get; init; }
         public int? usuIdReg { get; init; }
-
 
 
 

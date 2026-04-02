@@ -1,8 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Testify.Application.Features.Catalogo.Commands;
 using Testify.Application.Features.Usuario.Commands;
 using Testify.Application.Features.Usuario.Queries;
 
@@ -32,6 +30,9 @@ namespace TestifyWeb.Controllers
             var response = await _mediator.Send(query);
             return Ok(response);
         }
+
+
+       
 
 
         [HttpPost("RegistrarUsuario")]

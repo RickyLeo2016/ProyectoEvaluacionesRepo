@@ -6,6 +6,7 @@ namespace Testify.Application.Interfaces
 {
     public interface IUsuarioRepository : IGenericRepository<Usuario>
     {
+        
         Task<IEnumerable<Usuario>> GetAllPaginatedAsync(int pageNumber, int pageSize);
 
         Task<Usuario?> GetByNombreUsuarioAsync(string nombreUsuario);

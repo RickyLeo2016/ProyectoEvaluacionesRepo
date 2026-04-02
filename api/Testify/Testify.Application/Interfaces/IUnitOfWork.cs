@@ -7,5 +7,6 @@
         IEmpresaRepository Empresa { get; }
         IUsuarioRepository Usuario { get; }
         IRolRepository Rol { get; }
+        IUsuarioRolRepository UsuarioRol { get; }
     }
 }

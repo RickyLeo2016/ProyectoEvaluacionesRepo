@@ -18,5 +18,6 @@ namespace Testify.Application.Dtos
 
         public long? usuIdReg { get; init; }
         
+    
     }
 }
