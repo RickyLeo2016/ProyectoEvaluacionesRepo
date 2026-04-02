@@ -133,21 +133,24 @@ Create TABLE Rol
 ----------------------------------------------------------------
 ---- Tabla: UsuarioRol
 ----------------------------------------------------------------
---drop TABLE UsuarioRol
---(
---    usuRolId BIGINT IDENTITY(1,1) NOT NULL,
---    usuId BIGINT NOT NULL,
---    rolId BIGINT NOT NULL,
---    catIdEstado BIGINT NOT NULL,
---    usuIdReg BIGINT NOT NULL,
---    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
---    usuIdAct BIGINT NULL,
---    usuFechaAct DATETIME NULL,
---    CONSTRAINT Pk_UsuarioRol PRIMARY KEY (UsuRolId),
---    CONSTRAINT Fk_UsuarioRol_Usuario FOREIGN KEY (UsuId) REFERENCES Usuario(UsuId),
---    CONSTRAINT Fk_UsuarioRol_Rol FOREIGN KEY (RolId) REFERENCES Rol(RolId),
---    CONSTRAINT Fk_UsuarioRol_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
---);
+Create TABLE UsuarioRol
+(
+    usuRolId BIGINT IDENTITY(1,1) NOT NULL,
+    usuId BIGINT NOT NULL,
+    rolId BIGINT NOT NULL,
+    catIdEstado BIGINT NOT NULL,
+    usuIdReg BIGINT NOT NULL,
+    usuRolFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
+    usuIdAct BIGINT NULL,
+    usuRolFechaAct DATETIME NULL,
+    usuIdEli BIGINT NULL,
+    usuRolFechaEli DATETIME NULL,
+    CONSTRAINT Pk_UsuarioRol PRIMARY KEY (UsuRolId),
+    CONSTRAINT Fk_UsuarioRol_Usuario FOREIGN KEY (UsuId) REFERENCES Usuario(UsuId),
+    CONSTRAINT Fk_UsuarioRol_Rol FOREIGN KEY (RolId) REFERENCES Rol(RolId),
+    CONSTRAINT Fk_UsuarioRol_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
+);
+
 
 ----------------------------------------------------------------
 ---- Tabla: Menu
