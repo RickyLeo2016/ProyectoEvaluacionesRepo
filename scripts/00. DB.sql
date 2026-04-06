@@ -156,23 +156,46 @@ Create TABLE UsuarioRol
 ---- Tabla: Menu
 ---- Control de menú y submenús por nivel
 ----------------------------------------------------------------
---drop TABLE Menu
---(
---    menuId BIGINT IDENTITY(1,1) NOT NULL,
---    menuPadreId BIGINT NULL, -- NULL = menú principal
---    menuNombre NVARCHAR(150) NOT NULL,
---    menuUrl NVARCHAR(250) NULL,
---    nivel INT NOT NULL,
---    orden INT NOT NULL,
---    catIdEstado BIGINT NOT NULL,
---    usuIdReg BIGINT NOT NULL,
---    usuFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
---    usuIdAct BIGINT NULL,
---    usuFechaAct DATETIME NULL,
---    CONSTRAINT Pk_Menu PRIMARY KEY (MenuId),
---    CONSTRAINT Fk_Menu_MenuPadre FOREIGN KEY (MenuPadreId) REFERENCES Menu(MenuId),
---    CONSTRAINT Fk_Menu_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
---);
+
+Create TABLE Menu
+(
+    menId        BIGINT IDENTITY,
+    menNombre    VARCHAR(100) NOT NULL,
+    menIcono     VARCHAR(50) NULL,
+    menRuta      VARCHAR(200) NULL,
+    menPadreId   BIGINT NULL, 
+    menOrden     INT NOT NULL DEFAULT 0,
+    catIdEstado   BIGINT NOT NULL DEFAULT 1,
+    usuIdReg BIGINT NOT NULL,
+    menFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
+    usuIdAct BIGINT NULL,
+    menFechaAct DATETIME NULL,
+    CONSTRAINT Pk_Menu PRIMARY KEY (menId),
+    --CONSTRAINT FK_Menu_Padre FOREIGN KEY (menPadreId) REFERENCES Menu(menId),
+    CONSTRAINT Fk_Menu_Catalogo FOREIGN KEY (CatIdEstado) REFERENCES Catalogo(CatId)
+);
+
+----------------------------------------------------------------
+---- Tabla: RolMenu
+---- Control de menú y submenús por nivel
+----------------------------------------------------------------
+
+CREATE TABLE RolMenu
+(
+    rolMenId BIGINT IDENTITY PRIMARY KEY,
+    rolId BIGINT NOT NULL,
+    menId BIGINT NOT NULL,
+    catIdEstado BIGINT NOT NULL DEFAULT 1,
+    usuIdReg BIGINT NOT NULL,
+    rolMenFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
+    usuIdAct BIGINT NULL,
+    rolMenFechaAct DATETIME NULL,
+    CONSTRAINT UQ_RolMenu UNIQUE (rolId, menId),
+    CONSTRAINT FK_RolMenu_Rol FOREIGN KEY (rolId) REFERENCES Rol(rolId),
+    CONSTRAINT FK_RolMenu_Menu FOREIGN KEY (menId) REFERENCES Menu(menId),
+    CONSTRAINT Fk_RolMenu_Catalogo FOREIGN KEY (catIdEstado) REFERENCES Catalogo(CatId)
+);
+
 
 
 ----------------------------------------------------------------
