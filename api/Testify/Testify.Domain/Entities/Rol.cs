@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Testify.Domain.Entities
+﻿namespace Testify.Domain.Entities
 {
     public class Rol
     {
@@ -17,10 +11,10 @@ namespace Testify.Domain.Entities
 
 
         public string? rolEstadoDesc { get; init; } = string.Empty;
+        public DateTime? catFechaReg { get; init; }
 
         
         public long? usuIdReg { get; init; }
-        public DateTime? catFechaReg { get; init; }
 
     }
 }

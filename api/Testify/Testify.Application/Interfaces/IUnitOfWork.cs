@@ -8,5 +8,6 @@
         IUsuarioRepository Usuario { get; }
         IRolRepository Rol { get; }
         IUsuarioRolRepository UsuarioRol { get; }
+        IMenuRepository Menu { get; }
     }
 }

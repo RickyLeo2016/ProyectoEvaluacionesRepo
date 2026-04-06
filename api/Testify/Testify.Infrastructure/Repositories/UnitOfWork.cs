@@ -10,6 +10,7 @@ public class UnitOfWork : IUnitOfWork
     public IUsuarioRepository Usuario { get; }
     public IRolRepository Rol { get; }
     public IUsuarioRolRepository UsuarioRol { get; }
+    public IMenuRepository Menu { get; }
 
     public UnitOfWork(
         ITipoCatalogoRepository tipoCatalogo,
@@ -17,7 +18,8 @@ public class UnitOfWork : IUnitOfWork
         IEmpresaRepository empresa,
         IUsuarioRepository usuario,
         IRolRepository rol,
-        IUsuarioRolRepository usuarioRol
+        IUsuarioRolRepository usuarioRol,
+        IMenuRepository menu
 
         )
     {
@@ -27,5 +29,6 @@ public class UnitOfWork : IUnitOfWork
         Usuario = usuario;
         UsuarioRol = usuarioRol;
         Rol = rol;
+        Menu = menu;
     }
 }
