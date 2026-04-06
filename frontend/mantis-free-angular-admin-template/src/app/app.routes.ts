@@ -38,6 +38,13 @@ export const routes: Routes = [
           )
       },
       {
+        path: 'menu',
+        loadComponent: () =>
+          import('./seguridad/menu/menu').then(
+            (c) => c.Menu
+          )
+      },
+      {
         path: 'usuario',
         loadComponent: () =>
           import('./seguridad/usuario/usuario').then(

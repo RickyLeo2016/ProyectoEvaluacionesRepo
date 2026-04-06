@@ -1,0 +1,123 @@
+<app-spinner #spinnerExterno [manual]="true" [visible]="spinnerVisible()">
+</app-spinner>
+
+
+<div class="row">
+    <div class="col-12 d-flex justify-content-end mb-2">
+
+        <button type="button" class="btn btn-primary btn-sm" (click)="abrirModal()">
+            <i class="fas fa-plus"></i>
+            Nuevo
+        </button>
+    </div>
+
+
+    <div class="col-sm-12">
+        <app-card cardTitle="Lista de Menús">
+            <app-grid [columnas]="columnas" [datos]="tiposFiltrados()" [templates]="{ acciones: accionesTemplate }">
+            </app-grid>
+
+            <ng-template #accionesTemplate let-item>
+                <span *ngFor="let accion of accionesTabla" class="accion-icono" [title]="accion.title"
+                    (click)="accion.callback(item)" [style.color]="accion.color">
+                    <i [class]="accion.icon"></i>
+                </span>
+            </ng-template>
+        </app-card>
+
+        <!-- ============================
+         MODAL
+        ============================ -->
+        <app-modal [title]="tituloModal()" [visible]="modalVisible" (closed)="cerrarModal()">
+
+            <div class="container">
+                <div class="row">
+
+
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label">Nombre Menú</label>
+                        <input type="text" class="form-control" [ngClass]="{
+                'is-invalid': nombreTocado() && !nombre(),
+                'is-valid': nombreTocado() && nombre()
+              }" [value]="nombre()" (input)="nombre.set($any($event.target).value)" (blur)="nombreTocado.set(true)" />
+                        <div class="text-danger mt-1" *ngIf="nombreTocado() && !nombre()">
+                            El nombre del menú es obligatorio
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Ruta Menú</label>
+                        <input type="text" class="form-control" [ngClass]="{
+                                'is-invalid': rutaTocado() && !ruta(),
+                                'is-valid': rutaTocado() && ruta()
+                            }" [value]="ruta()" (input)="ruta.set($any($event.target).value)" (blur)="rutaTocado.set(true)" />
+                        <div class="text-danger mt-1" *ngIf="rutaTocado() && !ruta()">
+                            La ruta del menú es obligatorio
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Padre del Menú</label>
+                        <select class="form-select" [value]="padreSeleccionado()" (change)="onPadreChange($event)"
+                            (blur)="padreTocado.set(true)"
+                            [class.is-invalid]="padreTocado() && padreSeleccionado() === null">
+                            <option value="0">Seleccione...</option>
+                            <option *ngFor="let item of padreList()" [value]="item.menId">
+                                {{ item.menNombre }}
+                            </option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Orden Menú</label>
+                        <input type="number" [value]="orden() ?? ''" maxlength="5" (input)="onInputOrden($event)"
+                            class="form-control" [ngClass]="{
+                    'is-invalid': ordenTocado() && orden() === null,
+                    'is-valid': ordenTocado() && orden() !== null
+                }" [value]="orden() ?? ''" (input)="onOrdenInput($event)" (blur)="ordenTocado.set(true)" />
+
+                        <div class="text-danger mt-1" *ngIf="ordenTocado() && orden() === null">
+                            El orden es obligatorio
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Icono Menú</label>
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Ej: fas fa-user" [ngClass]="{
+                                'is-invalid': iconoTocado() && icono() === '',
+                                'is-valid': iconoTocado() && icono() !== ''
+                            }" [value]="icono()" (input)="icono.set($any($event.target).value)" 
+                            (blur)="iconoTocado.set(true)" />
+
+                            <span class="input-group-text bg-white">
+                                <i *ngIf="icono()" [class]="icono()"></i>
+                            </span>
+                        </div>
+
+                        <div class="text-danger mt-1" *ngIf="iconoTocado() && icono() === ''">
+                            El icono es obligatorio
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 text-end">
+                    <button class="btn btn-success btn-sm" (click)="guardar()">
+                        <i class="fas fa-save"></i>
+                        Guardar
+                    </button>
+                    <button class="btn btn-danger btn-sm" (click)="cerrarModal()">
+                        <i class="fas fa-ban"></i>
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+
+        </app-modal>
+    </div>
+</div>

@@ -54,6 +54,14 @@ export const NavigationItems: NavigationItem[] = [
         icon: 'fas fa-toolbox'
       },
       {
+        id: 'menu',
+        title: 'Menú',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/menu',
+        icon: 'fas fa-bars-staggered'
+      },
+      {
         id: 'usuario',
         title: 'Usuario',
         type: 'item',
