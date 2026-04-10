@@ -14,10 +14,13 @@ BEGIN
 		m.menPadreId, 
 		m.menOrden,   
 		convert(varchar,m.menFechaReg,25) fechaReg,
-		c.catNombre menEstadoDesc 
+		c.catNombre menEstadoDesc,
+		isnull(m2.menNombre,'Es Padre') esPadre
+
 	from Menu m
 	join Catalogo c on catId=m.catIdEstado
-	where m.catIdEstado=1
+	left join Menu m2 on m2.menId=m.menPadreId
+ 	where m.catIdEstado=1
 	order by m.menNombre
 	OFFSET (@PageNumber-1) * @PageSize ROWS
 	FETCH NEXT @PageSize ROWS ONLY;
