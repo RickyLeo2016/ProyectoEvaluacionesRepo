@@ -22,7 +22,7 @@ namespace Testify.Application.Features.TipoCatalogo.Commands
 
         public async Task<ApiResponse<bool>> Handle(CreateTipoCatalogoCommand request,CancellationToken cancellationToken)
         {
-            var usuIdReg = long.Parse(_httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value);
+            var usuIdReg = _httpContextAccessor?.HttpContext?.User?.FindFirst("usuIdRegistro")?.Value;
             var parameters = new
             {
                 tipCatDescripcion = request.tipCatDescripcion,

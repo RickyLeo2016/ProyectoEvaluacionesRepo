@@ -1,13 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Testify.Application.Common;
-using Testify.Application.Features.Menu.Commands;
 using Testify.Application.Interfaces;
 using Testify.Utilities.Constants;
 
@@ -30,7 +24,7 @@ namespace Testify.Application.Features.Menu.Commands
         {
             try
             {
-                var usuIdReg = long.Parse(_httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value);
+                var usuIdReg = _httpContextAccessor?.HttpContext?.User?.FindFirst("usuIdRegistro")?.Value;
                 var parameters = new
                 {
                     menId = request.menId,

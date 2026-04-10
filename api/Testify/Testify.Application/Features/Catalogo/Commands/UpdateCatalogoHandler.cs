@@ -21,7 +21,7 @@ namespace Testify.Application.Features.Catalogo.Commands
         public async Task<ApiResponse<bool>> Handle(UpdateCatalogoCommand request, CancellationToken cancellationToken)
         {
 
-            var usuIdReg = long.Parse(_httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value);
+            var usuIdReg = _httpContextAccessor?.HttpContext?.User?.FindFirst("usuIdRegistro")?.Value;
             var parameters = new
             {
                 catId = request.catId,

@@ -28,7 +28,8 @@ namespace Testify.Application.Features.Menu.Commands
         {
             try
             {
-                var usuIdReg = long.Parse(_httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value);
+                var usuIdReg = _httpContextAccessor?.HttpContext?.User?.FindFirst("usuIdRegistro")?.Value;
+                //var usuIdReg = _httpContextAccessor?.HttpContext?.User?.FindFirst("usuIdRegistro")?.Value;
                 var parameters = new
                 {
                     menNombre = request.menNombre,

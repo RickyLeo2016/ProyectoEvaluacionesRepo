@@ -31,9 +31,10 @@ namespace Testify.Application.Features.UsuarioRol.Commands
         {
             try
             {
-                var usuIdReg = long.Parse(
-                    _httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value
-                );
+                var usuIdReg = _httpContextAccessor?.HttpContext?.User?.FindFirst("usuIdRegistro")?.Value;
+                //var usuIdReg = long.Parse(
+                //    _httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value
+                //);
 
                 var xml = GenerarXml(request.usuId, request.roles);
 

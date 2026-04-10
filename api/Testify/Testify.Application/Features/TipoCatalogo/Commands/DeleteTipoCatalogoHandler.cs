@@ -21,7 +21,7 @@ namespace Testify.Application.Features.TipoCatalogo.Commands
 
         public async Task<ApiResponse<bool>> Handle(DeleteTipoCatalogoCommand request, CancellationToken cancellationToken)
         {
-            var usuIdReg = long.Parse(_httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value);
+            var usuIdReg = _httpContextAccessor?.HttpContext?.User?.FindFirst("usuIdRegistro")?.Value;
             var rows = await _unit.TipoCatalogo.ExecuteAsync(
                 SP.spEliminarTipoCatalogo,
                 new { 

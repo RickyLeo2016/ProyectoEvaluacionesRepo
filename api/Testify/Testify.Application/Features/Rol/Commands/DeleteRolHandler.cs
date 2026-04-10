@@ -24,7 +24,7 @@ namespace Testify.Application.Features.Rol.Commands
         {
             try
             {
-                var usuIdReg = long.Parse(_httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value);
+                var usuIdReg = _httpContextAccessor?.HttpContext?.User?.FindFirst("usuIdRegistro")?.Value;
                 var parameters = new
                 {
                     rolId = request.rolId,

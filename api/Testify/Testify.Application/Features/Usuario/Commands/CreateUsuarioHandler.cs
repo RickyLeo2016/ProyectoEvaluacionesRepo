@@ -25,7 +25,7 @@ namespace Testify.Application.Features.Usuario.Commands
         {
             try
             {
-                var usuIdReg = long.Parse(_httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value);
+                var usuIdReg = _httpContextAccessor?.HttpContext?.User?.FindFirst("usuIdRegistro")?.Value;
                 string nombres = request.usuNombres;
                 string apellidos = request.usuApellidos;
 

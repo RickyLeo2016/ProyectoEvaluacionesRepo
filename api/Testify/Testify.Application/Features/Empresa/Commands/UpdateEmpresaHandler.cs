@@ -25,7 +25,7 @@ namespace Testify.Application.Features.Empresa.Commands
 
         public async Task<ApiResponse<bool>> Handle(UpdateEmpresaCommand request, CancellationToken cancellationToken)
         {
-            var usuIdReg = long.Parse(_httpContextAccessor.HttpContext.User.FindFirst("usuIdRegistro").Value);
+            var usuIdReg = _httpContextAccessor?.HttpContext?.User?.FindFirst("usuIdRegistro")?.Value;
             var parameters = new
             {
                 empId = request.empId,
