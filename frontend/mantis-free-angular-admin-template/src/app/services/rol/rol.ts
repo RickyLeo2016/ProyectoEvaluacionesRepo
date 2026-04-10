@@ -28,8 +28,12 @@ export class RolService {
   obtenerTodos(pageNumber: number = 1, pageSize: number = 100): Observable<ApiResponse<any[]>> {
     return this.http.get<ApiResponse<any[]>>(`${this.apiUrl}/ListarRol?PageNumber=${pageNumber}&PageSize=${pageSize}`);
   }
-  obtenerRolesPorUsuId(usuId: number,  pageNumber: number = 1,  pageSize: number = 100): Observable<ApiResponse<any[]>> {
 
+  
+
+
+
+  obtenerRolesPorUsuId(usuId: number,  pageNumber: number = 1,  pageSize: number = 100): Observable<ApiResponse<any[]>> {
     const params = new HttpParams()
       .set('pageNumber', pageNumber)
       .set('pageSize', pageSize);

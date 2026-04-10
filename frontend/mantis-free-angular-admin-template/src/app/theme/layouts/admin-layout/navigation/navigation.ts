@@ -62,6 +62,14 @@ export const NavigationItems: NavigationItem[] = [
         icon: 'fas fa-bars-staggered'
       },
       {
+        id: 'rol-menu',
+        title: 'Rol Menú',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/rol-menu',
+        icon: 'fas fa-bars-staggered'
+      },
+      {
         id: 'usuario',
         title: 'Usuario',
         type: 'item',

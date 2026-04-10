@@ -29,7 +29,6 @@ export const routes: Routes = [
           ),
           canActivate: [AuthGuard]
       },
-
       {
         path: 'rol',
         loadComponent: () =>
@@ -44,6 +43,15 @@ export const routes: Routes = [
             (c) => c.Menu
           )
       },
+
+       {
+        path: 'rol-menu',
+        loadComponent: () =>
+          import('./seguridad/rol-menu/rol-menu').then(
+            (c) => c.RolMenu
+          )
+      },
+    
       {
         path: 'usuario',
         loadComponent: () =>
@@ -51,7 +59,7 @@ export const routes: Routes = [
             (c) => c.Usuario
           )
       },
- {
+      {
         path: 'usuarioRol',
         loadComponent: () =>
           import('./seguridad/usuarioRol/usuario-rol').then(

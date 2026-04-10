@@ -35,6 +35,10 @@ export class MenuService {
   }
  
 
+  obtenerMenuPorRol(rolId: number, pageNumber: number = 1, pageSize: number = 100): Observable<ApiResponse<any[]>> {
+    return this.http.get<ApiResponse<any[]>>(`${this.apiUrl}/ListarMenu?PageNumber=${pageNumber}&PageSize=${pageSize}`);
+  }
+ 
   
   // Guardar un nuevo registro
   guardar(datos: Menu): Observable<ApiResponse<boolean>> {

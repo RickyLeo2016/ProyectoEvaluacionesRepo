@@ -1,0 +1,78 @@
+<app-spinner
+    #spinnerExterno
+  [manual]="true"
+  [visible]="spinnerVisible()">
+</app-spinner>
+
+
+<div class="row">
+  <div class="col-12 d-flex justify-content-end mb-2">
+    <button
+        type="button"
+        class="btn btn-success btn-sm"
+        (click)="guardar()"
+        [disabled]="!botonHabilitado()"
+        >
+        <i class="fas fa-save"></i>
+        Guardar
+    </button>
+  </div>
+
+
+  <div class="col-sm-4">
+
+  <app-card cardTitle="Roles" class="card-autocomplete">
+
+    <div class="col-md-12 mb-3 position-relative">
+      <label class="form-label">Buscar Rol:</label>
+
+      <input
+        type="text"
+        class="form-control"
+        [value]="nombreRol()"
+        (input)="onInput($event)"
+        (focus)="mostrarDropdown.set(true)"
+        (blur)="ocultarDropdown()"
+      />
+
+      <!-- 🔥 DROPDOWN ANCLADO AL INPUT -->
+      <ul
+        *ngIf="mostrarDropdown()"
+        class="list-group position-absolute w-100 shadow"
+        style="z-index: 9999999;"
+      >
+        <li
+          class="list-group-item list-group-item-action"
+          *ngFor="let rol of rolesFiltrados()"
+          (mousedown)="seleccionarRol(rol)"
+        >
+          {{ rol.rolNombre }}
+        </li>
+      </ul>
+
+    </div>
+
+  </app-card>
+
+</div>
+
+<!-- [templates]="{ acciones: accionesTemplate }" -->
+  
+  <div class="col-sm-8">
+    <app-card cardTitle="Lista de Menús">
+      <app-grid
+        [columnas]="columnas"
+        [datos]="tiposFiltrados()" 
+        >
+
+        <ng-template #menSelecTemplate let-item>
+            <input
+            type="checkbox"
+            [checked]="item.menSelec === 1"
+            (change)="onMenuChange(item, $event)"
+            />
+        </ng-template>
+      </app-grid>
+    </app-card>
+  </div>
+</div>
