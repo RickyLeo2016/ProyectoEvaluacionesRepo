@@ -89,3 +89,4 @@ values
 insert into UsuarioRol(usuId,rolId,catIdEstado,usuIdReg,usuRolFechaReg)
 values 
 (1,1,1,1,SYSDATETIME())
+
