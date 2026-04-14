@@ -53,10 +53,10 @@ export interface AccionTabla<T> {
   styleUrl: './usuario-rol.scss'
 })
 export class UsuarioRol implements OnInit {
+  
+  //#region STATE
   @ViewChild('rolSelecTemplate', { static: true })
   rolSelecTemplate!: TemplateRef<any>;
-
-  //#region STATE
 
   templatesGrid: any = {};
 
