@@ -10,6 +10,11 @@ namespace Testify.Application.Interfaces
     public interface IMenuRepository : IGenericRepository<Menu>
     {
         Task<IEnumerable<Menu>> GetAllPaginatedAsync(int pageNumber, int pageSize);
+        Task<IEnumerable<Menu>> GetMenuRolPaginatedAsync(long rolId, int pageNumber, int pageSize);
+        Task<IEnumerable<Menu>> GetMenuPorUsuarioPaginatedAsync(long usuId, int pageNumber, int pageSize);
+
+
+
 
     }
 }

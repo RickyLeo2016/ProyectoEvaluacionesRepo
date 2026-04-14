@@ -16,6 +16,8 @@ namespace Testify.Domain.Entities
         public long? menOrden { get; init; }
         public long? catIdEstado { get; init; }
 
+        public int? menSelec { get; init; }
+
 
         public string? menEstadoDesc { get; init; } = string.Empty;
         public DateTime? menFechaReg { get; init; }

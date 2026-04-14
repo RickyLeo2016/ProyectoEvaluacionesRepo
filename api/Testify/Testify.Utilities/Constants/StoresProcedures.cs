@@ -68,12 +68,15 @@
         #region Table Menu
         public const string spCrearMenu = "spCrearMenu";
         public const string spActualizarMenu = "spActualizarMenu";
-
-
-
         public const string spListarMenu = "spListarMenu";
-        public const string spListarPorIdMenu = "spListarPorIdMenu";
+        public const string spObtenerMenuPorRol = "spObtenerMenuPorRol";
         public const string spEliminarMenu = "spEliminarMenu";
+        public const string spAsignarMenuRol = "spAsignarMenuRol";
+
+        public const string spObtenerMenuPorUsuario = "spObtenerMenuPorUsuario";
+
+        
+        //public const string spListarPorIdMenu = "spListarPorIdMenu";
 
         #endregion
 
