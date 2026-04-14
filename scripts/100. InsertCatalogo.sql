@@ -50,14 +50,16 @@ VALUES
 -- Dashboard
 INSERT INTO Menu (menNombre, menIcono, menRuta, menPadreId, menOrden, catIdEstado, usuIdReg)
 VALUES 
-('Default', 'fas fa-chart-line', '/dashboard', 1, 1, 1, 1);
+('Default', 'fas fa-chart-line', '/dashboard/default', 1, 1, 1, 1);
 
 -- Seguridad
 INSERT INTO Menu (menNombre, menIcono, menRuta, menPadreId, menOrden, catIdEstado, usuIdReg)
 VALUES 
-('Rol', 'fas fa-briefcase', '/seguridad/rol', 2, 1, 1, 1),
-('Usuario', 'fas fa-user', '/seguridad/usuario', 2, 2, 1, 1),
-('Usuario Rol', 'fas fa-users', '/seguridad/usuario-rol', 2, 3, 1, 1);
+('Menú', 'fas fa-bars-staggered', '/seguridad/menu', 2, 1, 1, 1),
+('Rol', 'fas fa-briefcase', '/seguridad/rol', 2, 2, 1, 1),
+('Usuario', 'fas fa-user', '/seguridad/usuario', 2, 3, 1, 1),
+('Usuario Rol', 'fas fa-users', '/seguridad/usuario-rol', 2, 4, 1, 1),
+('Rol Menú', 'fas fa-file-shield', '/seguridad/rol-menu', 2, 5, 1, 1);
 
 -- Configuración
 INSERT INTO Menu (menNombre, menIcono, menRuta, menPadreId, menOrden, catIdEstado, usuIdReg)
@@ -66,3 +68,24 @@ VALUES
 ('Catálogo', 'fas fa-list-alt', '/config/catalogo', 3, 2, 1, 1),
 ('Empresa', 'fas fa-building', '/config/empresa', 3, 3, 1, 1);
 
+
+insert into RolMenu(rolId,menId, catIdEstado,usuIdReg,rolMenFechaReg)
+values
+(1,1,1,1,SYSDATETIME()),
+(1,2,1,1,SYSDATETIME()),
+(1,3,1,1,SYSDATETIME()),
+(1,4,1,1,SYSDATETIME()),
+(1,5,1,1,SYSDATETIME()),
+(1,6,1,1,SYSDATETIME()),
+(1,7,1,1,SYSDATETIME()),
+(1,8,1,1,SYSDATETIME()),
+(1,9,1,1,SYSDATETIME()),
+(1,10,1,1,SYSDATETIME()),
+(1,11,1,1,SYSDATETIME()),
+(1,12,1,1,SYSDATETIME());
+
+
+
+insert into UsuarioRol(usuId,rolId,catIdEstado,usuIdReg,usuRolFechaReg)
+values 
+(1,1,1,1,SYSDATETIME())

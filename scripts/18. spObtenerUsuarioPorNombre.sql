@@ -5,11 +5,14 @@ CREATE PROCEDURE dbo.spObtenerUsuarioPorNombre
 AS
 BEGIN
     SELECT TOP 1
-        usuId,
-        usuNombre,
-        usuEmail,
-        usuPassHash
-    FROM Usuario
+        u.usuId,
+        u.usuNombre,
+        u.usuEmail,
+        u.usuPassHash,
+        LEFT(ud.usuNombres, CHARINDEX(' ', ud.usuNombres + ' ') - 1) AS usuNombres,
+        LEFT(ud.usuApellidos, CHARINDEX(' ', ud.usuApellidos + ' ') - 1) AS usuApellidos
+    FROM Usuario u
+    join UsuarioDetalle ud on ud.usuId=u.usuId
     WHERE usuNombre = @usuNombre;
 END
 
