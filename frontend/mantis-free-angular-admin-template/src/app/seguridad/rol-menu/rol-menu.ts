@@ -49,6 +49,7 @@ export class RolMenu implements OnInit {
   @ViewChild('menSelecTemplate', { static: true })
   menSelecTemplate!: TemplateRef<any>;
 
+
   templatesGrid: any = {};
 
   spinnerVisible = signal(false);
@@ -64,7 +65,7 @@ export class RolMenu implements OnInit {
   nombreRolTocado = signal<boolean>(false);
 
   onMenuChange(item: any, event: any) {
-    item.rolSelec = event.target.checked ? 1 : 2;
+    item.menSelec = event.target.checked ? 1 : 2;
   }
 
   ngAfterViewInit() {
@@ -79,7 +80,7 @@ export class RolMenu implements OnInit {
   menu = signal<IMenu[]>([]);
   //Filtro para DataTable
   filtro = signal<string>('');
-  tiposFiltrados = computed(() => {
+  menusFiltrados = computed(() => {
     const f = this.filtro().toLowerCase();
     if (!f) return this.menu();
     return this.menu().filter((t) => t.menNombre?.toLowerCase().includes(f));
@@ -90,10 +91,10 @@ export class RolMenu implements OnInit {
   columnas = [
     { header: 'Nombre Menú', field: 'menNombre' },
     // { header: 'Ruta Menú', field: 'menRuta' },
-    // { header: 'Orden Menú', field: 'menOrden' },
     { header: 'Menú Padre', field: 'esPadre' },
+    { header: 'Orden', field: 'menOrden' },
     // { header: 'Estado', field: 'menEstadoDesc' },
-    { header: 'Acceso', field: 'menSelec', template: 'menSelecTemplate' }
+      { header: 'Acceso', field: 'menSelec', template: 'menSelecTemplate' }
     // { header: 'Acciones', field: 'acciones' }
   ];
 
@@ -140,6 +141,9 @@ export class RolMenu implements OnInit {
     }, 200);
   }
 
+
+
+
   //#region MÉTODOS
 
   cargarRoles(): void {
@@ -175,6 +179,7 @@ export class RolMenu implements OnInit {
         next: (res) => {
           if (res.isSuccess && res.data) {
             this.menu.set(res.data);
+            this.templatesGrid = { ...this.templatesGrid };
           } else {
             Swal.fire('Error', res.message || 'Error desconocido', 'error');
           }
@@ -189,35 +194,37 @@ export class RolMenu implements OnInit {
     this.nombreRol.set('');
   }
 
-  guardar(): void {
-    // this.itemsTocado(true);
-    // if (
-    //   !this.nombre()
-    // ) {
-    //   Swal.fire('Error', 'Debe completar todos los campos', 'warning');
-    //   return;
-    // }
-    // const payload: IRol = {
-    //   rolId: this.editandoId() ?? undefined,
-    //   rolNombre: this.nombre()
-    // };
-    // this.spinnerVisible.set(true);
-    // console.log(this.editandoId())
-    // const obs = this.editandoId() !== null ? this.rolService.actualizar(payload) : this.rolService.guardar(payload);
-    // obs.subscribe({
-    //   next: (res) => {
-    //     this.spinnerVisible.set(false);
-    //     if (res.isSuccess) {
-    //       Swal.fire('Éxito', this.editandoId() ? 'Actualizado correctamente' : 'Registrado correctamente', 'success');
-    //       this.cargarLista();
-    //       this.cerrarModal();
-    //     } else Swal.fire('Error', res.message || 'Error desconocido', 'error');
-    //   },
-    //   error: () => {
-    //     this.spinnerVisible.set(false);
-    //     Swal.fire('Error', 'Error al guardar', 'error');
-    //   }
-    // });
+
+guardar(): void {
+    const menusPayload = this.menusFiltrados().map((m) => ({
+      menId: m.menId,
+      menSelec: m.menSelec
+    }));
+
+    const payload = {
+      rolId: this.rolSeleccionado()?.rolId,
+      menus: menusPayload
+    };
+
+    this.spinnerVisible.set(true);
+
+    this.menuService.assignMenuRoles(payload).subscribe({
+      next: (res) => {
+        this.spinnerVisible.set(false);
+
+        if (res.isSuccess) {
+          
+          Swal.fire('Éxito', 'Menús actualizados correctamente', 'success');
+        } else {
+          
+          Swal.fire('Error', res.message || 'Error al guardar permisos de menús', 'error');
+        }
+      },
+      error: () => {
+        this.spinnerVisible.set(false);
+        Swal.fire('Error', 'Error al guardar los menús', 'error');
+      }
+    });
   }
 
   //#endregion

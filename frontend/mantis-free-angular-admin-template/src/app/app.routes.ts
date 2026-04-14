@@ -29,15 +29,13 @@ export const routes: Routes = [
           ),
           canActivate: [AuthGuard]
       },
-      {
-        path: 'rol',
+       {
+        path: 'seguridad/rol',
         loadComponent: () =>
-          import('./seguridad/rol/rol').then(
-            (c) => c.Rol
-          )
+          import('./seguridad/rol/rol').then((c) => c.Rol)
       },
       {
-        path: 'menu',
+        path: 'seguridad/menu',
         loadComponent: () =>
           import('./seguridad/menu/menu').then(
             (c) => c.Menu
@@ -45,7 +43,7 @@ export const routes: Routes = [
       },
 
        {
-        path: 'rol-menu',
+        path: 'seguridad/rol-menu',
         loadComponent: () =>
           import('./seguridad/rol-menu/rol-menu').then(
             (c) => c.RolMenu
@@ -53,14 +51,14 @@ export const routes: Routes = [
       },
     
       {
-        path: 'usuario',
+        path: 'seguridad/usuario',
         loadComponent: () =>
           import('./seguridad/usuario/usuario').then(
             (c) => c.Usuario
           )
       },
       {
-        path: 'usuarioRol',
+        path: 'seguridad/usuario-rol',
         loadComponent: () =>
           import('./seguridad/usuarioRol/usuario-rol').then(
             (c) => c.UsuarioRol
@@ -70,20 +68,20 @@ export const routes: Routes = [
 
 
       {
-        path: 'tipoCatalogo',
+        path: 'config/tipo-catalogo',
         loadComponent: () =>
           import('./configuracion/tipo-catalogo/tipo-catalogo').then(c => c.TipoCatalogo),
         canActivate: [AuthGuard]
       },
       {
-        path: 'catalogo',
+        path: 'config/catalogo',
         loadComponent: () =>
           import('./configuracion/catalogo/catalogo').then(
             (c) => c.Catalogo
           )
       },
       {
-        path: 'empresa',
+        path: 'config/empresa',
         loadComponent: () =>
           import('./configuracion/empresa/empresa').then(
             (c) => c.Empresa
