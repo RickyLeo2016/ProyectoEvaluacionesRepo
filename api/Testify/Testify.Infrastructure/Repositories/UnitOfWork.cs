@@ -11,6 +11,8 @@ public class UnitOfWork : IUnitOfWork
     public IRolRepository Rol { get; }
     public IUsuarioRolRepository UsuarioRol { get; }
     public IMenuRepository Menu { get; }
+    public IBancoPreguntaRepository BancoPregunta { get; }
+    public IBancoPreguntaVersionRepository BancoPreguntaVersion { get; }
 
     public UnitOfWork(
         ITipoCatalogoRepository tipoCatalogo,
@@ -19,7 +21,10 @@ public class UnitOfWork : IUnitOfWork
         IUsuarioRepository usuario,
         IRolRepository rol,
         IUsuarioRolRepository usuarioRol,
-        IMenuRepository menu
+        IMenuRepository menu,
+
+        IBancoPreguntaRepository bancoPregunta,
+        IBancoPreguntaVersionRepository bancoPreguntaVersion
 
         )
     {
@@ -30,5 +35,7 @@ public class UnitOfWork : IUnitOfWork
         UsuarioRol = usuarioRol;
         Rol = rol;
         Menu = menu;
+        BancoPregunta = bancoPregunta;  
+        BancoPreguntaVersion = bancoPreguntaVersion;
     }
 }

@@ -19,6 +19,7 @@
         public const string spEliminarCatalogo = "spEliminarCatalogo";
         public const string spListarCatalogo = "spListarCatalogo";
         public const string spListarCatalogoPorId = "spListarCatalogoPorId";
+        public const string spListarCatalogoPorTipo = "spListarCatalogoPorTipo";
 
 
         #endregion 
@@ -62,9 +63,6 @@
 
         #endregion
 
-
-
-
         #region Table Menu
         public const string spCrearMenu = "spCrearMenu";
         public const string spActualizarMenu = "spActualizarMenu";
@@ -75,18 +73,20 @@
 
         public const string spObtenerMenuPorUsuario = "spObtenerMenuPorUsuario";
 
+
+        #endregion
+
+        #region BancoPregunta
+
+        public const string spCrearBancoPregunta = "spCrearBancoPregunta";
+        public const string spCrearBancoPreguntaVersion = "spCrearBancoPreguntaVersion";
+        public const string spListarBancoPregunta = "spListarBancoPregunta";
         
-        //public const string spListarPorIdMenu = "spListarPorIdMenu";
 
         #endregion
 
-        #region Table SubMenu
-        public const string spListarSubMenu = "spListarSubMenu";
-        public const string spListarPorIdSubMenu = "spListarPorIdSubMenu";
-        public const string spCrearSubMenu = "spCrearSubMenu";
-        public const string spActualizarSubMenu = "spActualizarSubMenu";
-        public const string spEliminarSubMenu = "spEliminarSubMenu";
-        #endregion
+
+
 
 
         #region Table SubMenuRol

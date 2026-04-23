@@ -20,7 +20,8 @@ export const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
-    children: [
+    children:
+    [
       {
         path: 'dashboard/default',
         loadComponent: () =>
@@ -49,7 +50,7 @@ export const routes: Routes = [
             (c) => c.RolMenu
           )
       },
-    
+
       {
         path: 'seguridad/usuario',
         loadComponent: () =>
@@ -87,7 +88,18 @@ export const routes: Routes = [
             (c) => c.Empresa
           )
       },
-      
+
+
+      {
+        path: 'administracion/banco-pregunta',
+        loadComponent: () =>
+          import('./administracion/banco-pregunta/banco-pregunta').then(
+            (c) => c.BancoPregunta
+          )
+      },
+
+
+
 
       // resto de rutas de admin
     ]

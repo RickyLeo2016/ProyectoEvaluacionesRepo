@@ -9,7 +9,7 @@
         public string? usuPassHash { get; init; } = string.Empty;
 
         //Detalle Usuario
-        public int? empId { get; init; }
+        public long? empId { get; init; }
         public string? usuDetDNI { get; init; } = string.Empty;
         public string? usuNombres { get; init; } = string.Empty;
         public string? usuApellidos { get; init; } = string.Empty;

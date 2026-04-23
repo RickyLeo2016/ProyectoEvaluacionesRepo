@@ -1,0 +1,42 @@
+<label class="form-label fw-bold">Opciones</label>
+
+<div *ngFor="let op of opciones(); let i = index;"
+     class="d-flex gap-2 mb-2">
+
+  <!-- INPUT -->
+  <input
+    class="form-control"
+    [value]="opciones()[i]"
+    (input)="actualizar(i, $any($event.target).value)" />
+
+  <!-- RADIO -->
+  <input
+    type="radio"
+    name="correcta"
+    [checked]="correcta() === i"
+    (change)="seleccionarCorrecta(i)" />
+
+  <!-- CHECK -->
+  <span *ngIf="correcta() === i" class="text-success ms-2">
+    ✔
+  </span>
+
+  <!-- DELETE -->
+  <button
+    class="btn btn-danger btn-sm"
+    type="button"
+    (click)="eliminar(i)">
+    <i class="fas fa-trash"></i>
+  </button>
+
+</div>
+
+<button
+  class="btn btn-primary btn-sm"
+  type="button"
+  (click)="agregar()">
+
+  <i class="fas fa-plus"></i>
+  Agregar opción
+
+</button>

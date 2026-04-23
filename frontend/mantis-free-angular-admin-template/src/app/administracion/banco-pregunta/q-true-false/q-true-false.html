@@ -1,0 +1,35 @@
+<div class="row">
+
+  <!-- RESPUESTA CORRECTA -->
+  <div class="col-md-4 mb-3">
+    <label class="form-label">Respuesta correcta</label>
+
+    <select class="form-select" (change)="onRespuestaChange($event)">
+      <option [value]="true">{{ labels.true }}</option>
+      <option [value]="false">{{ labels.false }}</option>
+    </select>
+  </div>
+
+  <!-- TEXTO PARA VERDADERO -->
+  <div class="col-md-4 mb-3">
+    <label class="form-label">Texto Verdadero</label>
+    <input
+      type="text"
+      class="form-control"
+      [value]="labels.true"
+      (input)="onLabelChange('true', $event)"
+    />
+  </div>
+
+  <!-- TEXTO PARA FALSO -->
+  <div class="col-md-4 mb-3">
+    <label class="form-label">Texto Falso</label>
+    <input
+      type="text"
+      class="form-control"
+      [value]="labels.false"
+      (input)="onLabelChange('false', $event)"
+    />
+  </div>
+
+</div>

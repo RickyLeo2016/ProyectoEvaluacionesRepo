@@ -1,0 +1,27 @@
+<div class="row">
+
+  <div class="col-12 mb-3">
+   <label class="form-label">Lenguaje</label>
+    <select class="form-select"[(ngModel)]="lenguaje" (change)="onChange()">
+      <option value="javascript">JavaScript</option>
+      <option value="typescript">TypeScript</option>
+      <option value="csharp">C#</option>
+      <option value="sql">SQL</option>
+    </select>
+  </div>
+
+  <div class="col-12 mb-3">
+   <label class="form-label">Codigo Base</label>
+     <textarea class="form-control" rows="3"
+      [(ngModel)]="codigoBase"
+      (input)="onChange()"
+      placeholder="Escriba el código">
+    </textarea>
+  </div>
+  <div class="col-12">
+    <div class="alert alert-info">
+      El usuario deberá escribir código como respuesta.
+    </div>
+  </div>
+
+</div>

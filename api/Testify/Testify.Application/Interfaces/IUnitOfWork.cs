@@ -9,5 +9,7 @@
         IRolRepository Rol { get; }
         IUsuarioRolRepository UsuarioRol { get; }
         IMenuRepository Menu { get; }
+        IBancoPreguntaRepository BancoPregunta { get; }
+        IBancoPreguntaVersionRepository BancoPreguntaVersion { get; }
     }
 }

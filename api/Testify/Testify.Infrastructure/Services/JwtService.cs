@@ -19,7 +19,7 @@ namespace Testify.Infrastructure.Services
             _expirationMinutes = int.TryParse(configuration["Jwt:ExpirationMinutes"], out var val) ? val : 60;
         }
 
-        public LoginResponseDto GenerateToken(string username, long usuId)
+        public LoginResponseDto GenerateToken(string username, long usuId, long empId)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_secret);
@@ -28,7 +28,8 @@ namespace Testify.Infrastructure.Services
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, username),
-                new Claim("usuIdRegistro", usuId.ToString())
+                new Claim("usuIdRegistro", usuId.ToString()),
+                new Claim("empId", empId.ToString())
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor

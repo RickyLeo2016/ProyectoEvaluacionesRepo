@@ -13,5 +13,10 @@
 
         public string? tipCatDescripcion { get; init; } = string.Empty;
 
+
+
+        public string dataSchema { get; set; }
+        public string uiSchema { get; set; }
+
     }
 }

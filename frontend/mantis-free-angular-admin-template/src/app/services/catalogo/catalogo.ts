@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 
 export interface Catalogo {
   catId?: number;
-  tipCatId?: number;   
+  tipCatId?: number;
   catNombre: string;
   catDescripcion: string;
   catEstado: string;
@@ -28,6 +28,14 @@ export class CatalogoService {
   private apiUrl = `${environment.apiBaseUrl}/Catalogo`;
 
   constructor(private http: HttpClient) {}
+
+
+
+  obtenerCatalogoPorTipo(tipCatId: number): Observable<ApiResponse<any[]>> {
+  return this.http.get<ApiResponse<any[]>>(
+    `${this.apiUrl}/ObtenerCatalogoPorTipo/${tipCatId}`
+  );
+}
 
   obtenerTodos(pageNumber: number = 1, pageSize: number = 100): Observable<ApiResponse<any[]>> {
     return this.http.get<ApiResponse<any[]>>(

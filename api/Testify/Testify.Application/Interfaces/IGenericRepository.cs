@@ -10,8 +10,7 @@
 
         Task<T> QuerySingleAsync<T>(string storedProcedure, object parameters);
 
-
-
+        Task<IEnumerable<TResult>> QueryAsync<TResult>(string storedProcedure, object parameters);
 
     }
 }

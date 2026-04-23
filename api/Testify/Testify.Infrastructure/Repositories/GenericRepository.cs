@@ -52,6 +52,17 @@ namespace Testify.Infrastructure.Repositories
             );
         }
 
+        public async Task<IEnumerable<TResult>> QueryAsync<TResult>(string storedProcedure, object parameters)
+        {
+            using var connection = _context.CreateConnection();
 
+            var result = await connection.QueryAsync<TResult>(
+                storedProcedure,
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
+
+            return result;
+        }
     }
 }

@@ -1,101 +1,138 @@
-// Angular Import
-import { Component, Input, inject, input } from '@angular/core';
+// // Angular Import
+import { Component, Input, inject, input, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterModule, Event } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-// project import
-// import { NavigationItem, NavigationItems } from 'src/app/theme/layouts/admin-layout/navigation/navigation';
+// Project import
 import { NavigationItem } from 'src/app/theme/layouts/admin-layout/navigation/navigation';
-// icons
-// import { IconService } from '@ant-design/icons-angular';
-// import { GlobalOutline, NodeExpandOutline } from '@ant-design/icons-angular/icons';
+import { MenuService } from 'src/app/services/menu/menu';
 
 interface titleType {
-  // eslint-disable-next-line
   url: any;
   title: string;
   breadcrumbs: unknown;
   type: string;
-  link?: string | undefined;
-  description?: string | undefined;
-  path?: string | undefined;
+  link?: string;
+  description?: string;
+  path?: string;
 }
 
 @Component({
   selector: 'app-breadcrumb',
+  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss']
 })
 export class BreadcrumbComponent {
-  private route = inject(Router);
-  private titleService = inject(Title);
-  // private iconService = inject(IconService);
 
-  // public props
-  @Input() type: string;
+  private router = inject(Router);
+  private titleService = inject(Title);
+  private menuService = inject(MenuService);
+
+  @Input() type: string = 'theme1';
   dashboard = input(true);
   Component = input(false);
 
-  navigations: NavigationItem[];
-  ComponentNavigations: NavigationItem[];
-  breadcrumbList: Array<string> = [];
-  navigationList!: titleType[];
-  componentList!: titleType[];
+  // 🔥 IMPORTANTE: inicializar como array
+  navigations: NavigationItem[] = [];
 
-  // constructor
+  breadcrumbList: Array<string> = [];
+  navigationList: titleType[] = [];
+
   constructor() {
-    // this.navigations = NavigationItems;
-    this.type = 'theme1';
+
+    // 🔥 escuchar menú dinámico (signals)
+    effect(() => {
+      this.navigations = this.menuService.menus$() || [];
+    });
+
     this.setBreadcrumb();
-    // this.iconService.addIcon(...[GlobalOutline, NodeExpandOutline]);
   }
 
-  // public method
+  // =========================
+  // ESCUCHAR CAMBIOS DE RUTA
+  // =========================
   setBreadcrumb() {
-    this.route.events.subscribe((router: Event) => {
-      if (router instanceof NavigationEnd) {
-        const activeLink = router.url;
+    this.router.events.subscribe((event: Event) => {
+
+      if (event instanceof NavigationEnd) {
+
+        // 🔥 limpiar query params
+        const activeLink = event.urlAfterRedirects.split('?')[0];
+
         const breadcrumbList = this.filterNavigation(this.navigations, activeLink);
+
         this.navigationList = breadcrumbList;
-        const title = breadcrumbList[breadcrumbList.length - 1]?.title || 'Welcome';
-        this.titleService.setTitle(title + ' | Mantis  Angular Admin Template');
+
+        const title =
+          breadcrumbList.length > 0
+            ? breadcrumbList[breadcrumbList.length - 1].title
+            : 'Inicio';
+
+        this.titleService.setTitle(`${title} | Sistema`);
       }
     });
   }
 
-  filterNavigation(navItems: NavigationItem[], activeLink: string): titleType[] {
+  // =========================
+  // FILTRAR NAVEGACIÓN
+  // =========================
+  filterNavigation(
+    navItems: NavigationItem[] = [],
+    activeLink: string
+  ): titleType[] {
+
+    if (!Array.isArray(navItems) || navItems.length === 0) {
+      return [];
+    }
+
     for (const navItem of navItems) {
-      if (navItem.type === 'item' && 'url' in navItem && navItem.url === activeLink) {
+
+      // 🔹 ITEM FINAL
+      if (navItem.type === 'item' && navItem.url === activeLink) {
         return [
           {
-            url: 'url' in navItem ? navItem.url : false,
+            url: navItem.url,
             title: navItem.title,
             link: navItem.link,
             description: navItem.description,
             path: navItem.path,
-            breadcrumbs: 'breadcrumbs' in navItem ? navItem.breadcrumbs : true,
+            breadcrumbs: navItem.breadcrumbs ?? true,
             type: navItem.type
           }
         ];
       }
-      if ((navItem.type === 'group' || navItem.type === 'collapse') && 'children' in navItem) {
-        const breadcrumbList = this.filterNavigation(navItem.children!, activeLink);
-        if (breadcrumbList.length > 0) {
-          breadcrumbList.unshift({
-            url: 'url' in navItem ? navItem.url : false,
+
+      // 🔹 PADRE (GROUP / COLLAPSE)
+      if (
+        (navItem.type === 'group' || navItem.type === 'collapse') &&
+        navItem.children
+      ) {
+
+        const childrenResult = this.filterNavigation(
+          navItem.children,
+          activeLink
+        );
+
+        if (childrenResult.length > 0) {
+
+          childrenResult.unshift({
+            url: navItem.url ?? false,
             title: navItem.title,
             link: navItem.link,
             path: navItem.path,
             description: navItem.description,
-            breadcrumbs: 'breadcrumbs' in navItem ? navItem.breadcrumbs : true,
+            breadcrumbs: navItem.breadcrumbs ?? true,
             type: navItem.type
           });
-          return breadcrumbList;
+
+          return childrenResult;
         }
       }
     }
+
     return [];
   }
 }

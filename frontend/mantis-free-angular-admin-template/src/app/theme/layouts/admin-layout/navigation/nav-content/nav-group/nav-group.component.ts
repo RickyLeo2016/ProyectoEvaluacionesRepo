@@ -57,7 +57,7 @@ export class NavGroupComponent implements OnInit {
           pre_parent.classList.add('coded-trigger');
         }
       }
-      last_parent.classList.add('active');
+      last_parent?.classList.add('active');
     }
   }
 }

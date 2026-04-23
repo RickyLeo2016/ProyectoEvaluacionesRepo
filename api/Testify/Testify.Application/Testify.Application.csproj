@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Features\BancoPregunta\Commands\CreateBancoPreguntaCommand.cs~RF96e2adb.TMP" />
+    <None Remove="Features\BancoPregunta\Commands\CreateBancoPreguntaValidator.cs~RFb0e44d.TMP" />
+    <None Remove="Features\BancoPregunta\Commands\CreateBancoPreguntaVersionHandler.cs~RF96a4897.TMP" />
+    <None Remove="Features\BancoPregunta\Commands\CreateBancoPreguntaVersionValidator.cs~RF7fd1a91.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Testify.Domain\Testify.Domain.csproj" />
     <ProjectReference Include="..\Testify.Utilities\Testify.Utilities.csproj" />
   </ItemGroup>

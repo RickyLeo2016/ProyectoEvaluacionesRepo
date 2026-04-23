@@ -157,10 +157,358 @@ VALUES
 (5,'Finalizada' ,'Evaluación finalizada','A',SYSDATETIME(),0)
 
 
+INSERT INTO PreguntaEstructuraJson (catId, dataSchema, uiSchema)
+VALUES 
 
+-- 8 multiple_choice
+(8,
+'{
+  "type": "object",
+  "properties": {
+    "enunciado": { "type": "string" },
+    "opciones": { "type": "array", "items": { "type": "string" } },
+    "respuestaCorrecta": { "type": "string" }
+  }
+}',
+'{
+  "enunciado": { "ui:widget": "textarea" },
+  "opciones": { "ui:widget": "array-text" },
+  "respuestaCorrecta": { "ui:widget": "radio" }
+}'),
 
+-- 9 multiple_select
+(9,
+'{
+  "type": "object",
+  "properties": {
+    "enunciado": { "type": "string" },
+    "opciones": { "type": "array", "items": { "type": "string" } },
+    "respuestasCorrectas": { "type": "array", "items": { "type": "string" } }
+  }
+}',
+'{
+  "enunciado": { "ui:widget": "textarea" },
+  "opciones": { "ui:widget": "array-text" },
+  "respuestasCorrectas": { "ui:widget": "checkboxes" }
+}'),
 
+-- 10 true_false
+(10,
+'{
+  "type": "object",
+  "properties": {
+    "enunciado": { "type": "string" },
+    "respuesta": { "type": "boolean" }
+  }
+}',
+'{
+  "enunciado": { "ui:widget": "textarea" },
+  "respuesta": { "ui:widget": "radio" }
+}'),
 
+-- 11 likert
+(11,
+'{
+  "type": "object",
+  "properties": {
+    "enunciado": { "type": "string" },
+    "escala": { "type": "array", "items": { "type": "string" } },
+    "respuesta": { "type": "number" }
+  }
+}',
+'{
+  "enunciado": { "ui:widget": "textarea" },
+  "escala": { "ui:widget": "array-text" },
+  "respuesta": { "ui:widget": "radio" }
+}'),
+
+-- 12 semantic_differential
+(12,
+'{
+  "type": "object",
+  "properties": {
+    "enunciado": { "type": "string" },
+    "izquierda": { "type": "string" },
+    "derecha": { "type": "string" },
+    "valor": { "type": "number" }
+  }
+}',
+'{
+  "enunciado": { "ui:widget": "textarea" },
+  "izquierda": { "ui:widget": "text" },
+  "derecha": { "ui:widget": "text" },
+  "valor": { "ui:widget": "range" }
+}'),
+
+-- 13 rating_scale
+(13,
+'{
+  "type": "object",
+  "properties": {
+    "enunciado": { "type": "string" },
+    "min": { "type": "number" },
+    "max": { "type": "number" },
+    "valor": { "type": "number" }
+  }
+}',
+'{
+  "enunciado": { "ui:widget": "textarea" },
+  "min": { "ui:widget": "number" },
+  "max": { "ui:widget": "number" },
+  "valor": { "ui:widget": "range" }
+}'),
+
+-- 14 text_short
+(14,
+'{
+  "type": "object",
+  "properties": {
+    "respuesta": {
+      "type": "string"
+    }
+  }
+}',
+ '{
+  "respuesta": {
+    "ui:widget": "text",
+    "ui:placeholder": "Ingrese la información"
+  }
+}'
+),
+-- 15 text_long
+(15,
+'{
+  "type": "object",
+  "properties": {
+    "respuesta": {
+      "type": "string"
+    }
+  }
+}',
+'{
+  "respuesta": {
+    "ui:widget": "textarea",
+    "ui:placeholder": "Ingrese la información detallada"
+  }
+}'
+),
+
+-- 16 structured_text
+(16,
+'{
+  "type": "object",
+  "properties": {
+    "campos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "nombre": { "type": "string" },
+          "valor": { "type": "string" }
+        }
+      }
+    }
+  }
+}',
+'{
+  "campos": { "ui:widget": "dynamic-form" }
+}'),
+
+-- 17 numeric
+(17,
+'{
+  "type": "object",
+  "properties": {
+    "enunciado": { "type": "string" },
+    "respuesta": { "type": "number" }
+  }
+}',
+'{
+  "enunciado": { "ui:widget": "textarea" },
+  "respuesta": { "ui:widget": "number" }
+}'),
+
+-- 18 numeric_range
+(18,
+'{
+  "type": "object",
+  "properties": {
+    "min": { "type": "number" },
+    "max": { "type": "number" },
+    "respuesta": { "type": "number" }
+  }
+}',
+'{
+  "min": { "ui:widget": "number" },
+  "max": { "ui:widget": "number" },
+  "respuesta": { "ui:widget": "range" }
+}'),
+
+-- 19 situational_judgment
+(19,
+'{
+  "type": "object",
+  "properties": {
+    "escenario": { "type": "string" },
+    "opciones": { "type": "array", "items": { "type": "string" } },
+    "respuesta": { "type": "string" }
+  }
+}',
+'{
+  "escenario": { "ui:widget": "textarea" },
+  "opciones": { "ui:widget": "array-text" },
+  "respuesta": { "ui:widget": "radio" }
+}'),
+
+-- 20 case_study
+(20,
+'{
+  "type": "object",
+  "properties": {
+    "caso": { "type": "string" },
+    "preguntas": { "type": "array", "items": { "type": "string" } }
+  }
+}',
+'{
+  "caso": { "ui:widget": "textarea" },
+  "preguntas": { "ui:widget": "array-text" }
+}'),
+
+-- 21 code
+(21,
+'{
+  "type": "object",
+  "properties": {
+    "codigoBase": {
+      "type": "string"
+    }
+  }
+}',
+'{
+  "codigoBase": {
+    "ui:widget": "code-editor",
+    "ui:placeholder": "Código base (opcional)"
+  }
+}'
+),
+
+-- 22 code_fix
+(22,
+'{
+  "type": "object",
+  "properties": {
+    "codigo": { "type": "string" },
+    "error": { "type": "string" },
+    "solucion": { "type": "string" }
+  }
+}',
+'{
+  "codigo": { "ui:widget": "code-editor" },
+  "error": { "ui:widget": "textarea" },
+  "solucion": { "ui:widget": "textarea" }
+}'),
+
+-- 23 sql_query
+(23,
+'{
+  "type": "object",
+  "properties": {
+    "consulta": { "type": "string" },
+    "respuesta": { "type": "string" }
+  }
+}',
+'{
+  "consulta": { "ui:widget": "code-editor" },
+  "respuesta": { "ui:widget": "textarea" }
+}'),
+
+-- 24 ordering
+(24,
+'{
+  "type": "object",
+  "properties": {
+    "elementos": { "type": "array", "items": { "type": "string" } },
+    "ordenCorrecto": { "type": "array", "items": { "type": "string" } }
+  }
+}',
+'{
+  "elementos": { "ui:widget": "drag-order" },
+  "ordenCorrecto": { "ui:widget": "hidden" }
+}'),
+
+-- 25 matching
+(25,
+'{
+  "type": "object",
+  "properties": {
+    "izquierda": { "type": "array", "items": { "type": "string" } },
+    "derecha": { "type": "array", "items": { "type": "string" } }
+  }
+}',
+'{
+  "izquierda": { "ui:widget": "list" },
+  "derecha": { "ui:widget": "list" }
+}'),
+
+-- 26 drag_drop_order
+(26,
+'{
+  "type": "object",
+  "properties": {
+    "items": { "type": "array", "items": { "type": "string" } }
+  }
+}',
+'{
+  "items": { "ui:widget": "drag-order" }
+}'),
+
+-- 27 drag_drop_match
+(27,
+'{
+  "type": "object",
+  "properties": {
+    "items": { "type": "array" },
+    "targets": { "type": "array" }
+  }
+}',
+'{
+  "items": { "ui:widget": "drag-source" },
+  "targets": { "ui:widget": "drag-target" }
+}'),
+
+-- 28 pattern_recognition
+(28,
+'{
+  "type": "object",
+  "properties": {
+    "secuencia": { "type": "array", "items": { "type": "number" } },
+    "respuesta": { "type": "number" }
+  }
+}',
+'{
+  "secuencia": { "ui:widget": "sequence-display" },
+  "respuesta": { "ui:widget": "number" }
+}'),
+
+-- 29 matrix_reasoning
+(29,
+'{
+  "type": "object",
+  "properties": {
+    "matriz": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": { "type": "number" }
+      }
+    },
+    "respuesta": { "type": "number" }
+  }
+}',
+'{
+  "matriz": { "ui:widget": "matrix" },
+  "respuesta": { "ui:widget": "number" }
+}');
 insert into Empresa(empNombre,empRuc, empDireccion, empEstado, usuIdReg, empFechaReg)
 values('Corps S.A.', '1721390902001', 'Anonima', 1,0, SYSDATETIME() )
 

@@ -10,6 +10,6 @@ namespace Testify.Application.Interfaces
     public interface IJwtService
     {
         //LoginResponseDto GenerateToken(string username);
-        LoginResponseDto GenerateToken(string username, long usuId);
+        LoginResponseDto GenerateToken(string username, long usuId, long empId);
     }
 }

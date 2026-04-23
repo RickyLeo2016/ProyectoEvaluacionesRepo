@@ -39,6 +39,17 @@ namespace TestifyWeb.Controllers
             return Ok(result);
         }
 
+        [HttpGet("ObtenerCatalogoPorTipo/{tipCatId}")]
+        public async Task<IActionResult> ObtenerCatalogoPorTipo(long tipCatId)
+        {
+            var result = await _mediator.Send(new GetObtenerCatalogoPorTipoQuery
+            {
+                tipCatId = tipCatId
+            });
+
+            return Ok(result);
+        }
+
 
         [HttpPost("RegistrarCatalogo")]
         public async Task<IActionResult> RegistrarCatalogo(CreateCatalogoCommand cmd)

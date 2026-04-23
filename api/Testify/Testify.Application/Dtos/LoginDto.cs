@@ -14,7 +14,8 @@ namespace Testify.Application.Dtos
 
     public class LoginResponseDto
     {
-        public long UsuId { get; set; }
+        public long usuId { get; init; }
+        public long empId { get; init; }
         public string Token { get; set; } = string.Empty;
         public DateTime Expiration { get; set; }
     }

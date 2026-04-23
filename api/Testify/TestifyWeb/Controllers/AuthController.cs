@@ -32,7 +32,7 @@ namespace TestifyWeb.Controllers
             if (!passwordValid)
                 return Unauthorized(new { message = "Contraseña incorrecta." });
 
-            var loginResponse = _jwtService.GenerateToken(usuario.usuNombre, usuario.usuId);
+            var loginResponse = _jwtService.GenerateToken(usuario.usuNombre, usuario.usuId, usuario.empId);
 
             return Ok(loginResponse);
         }

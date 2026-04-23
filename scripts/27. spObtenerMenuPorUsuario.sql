@@ -1,6 +1,6 @@
 use TestifyDB
 go
-Create PROCEDURE [dbo].spObtenerMenuPorUsuario
+CREATE PROCEDURE [dbo].spObtenerMenuPorUsuario
 @usuId BIGINT,
 @PageNumber int=null,
 @PageSize int=null
@@ -13,7 +13,11 @@ BEGIN
             M.menNombre,
             M.menIcono,
             M.menRuta,
-            M.menPadreId,
+            CASE 
+                when M.menPadreId=0 then NULL
+                else  M.menPadreId
+            END 
+            menPadreId,
             M.menOrden,
             ISNULL(M.menPadreId, M.menId) AS ordenPadre
         FROM UsuarioRol UR
@@ -22,7 +26,7 @@ BEGIN
         WHERE UR.usuId = @usuId
           AND UR.catIdEstado = 1
           AND RM.catIdEstado = 1
-        ORDER BY ordenPadre, M.menOrden;
+        ORDER BY M.menOrden;
 
 END
 

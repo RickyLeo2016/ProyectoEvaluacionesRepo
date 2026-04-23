@@ -37,10 +37,6 @@ export class MenuService {
   obtenerTodos(pageNumber: number = 1, pageSize: number = 100): Observable<ApiResponse<any[]>> {
     return this.http.get<ApiResponse<any[]>>(`${this.apiUrl}/ListarMenu?PageNumber=${pageNumber}&PageSize=${pageSize}`);
   }
- 
-
- 
-
 
   obtenerMenuPorRol(rolId: number,  pageNumber: number = 1,  pageSize: number = 100): Observable<ApiResponse<any[]>> {
     const params = new HttpParams()
@@ -51,8 +47,8 @@ export class MenuService {
           { params }
     );
   }
- 
-  
+
+
   // Guardar un nuevo registro
   guardar(datos: Menu): Observable<ApiResponse<boolean>> {
     return this.http.post<ApiResponse<boolean>>(`${this.apiUrl}/RegistrarMenu`, datos);
@@ -67,22 +63,11 @@ export class MenuService {
     assignMenuRoles(payload: any): Observable<ApiResponse<boolean>> {
       return this.http.post<ApiResponse<boolean>>(`${this.apiUrl}/AsignarMenuRoles`,payload);
     }
-  
-
-  // ObtenerMenusPorUsuario() {
-  //   return this.http.get<Menu[]>(`${this.apiUrl}/ObtenerMenusPorUsuario`).pipe(
-  //     tap(menus => {
-  //       sessionStorage.setItem('menus', JSON.stringify(menus));
-  //     })
-  //   );
-  // }
 
    ObtenerMenusPorUsuario() {
     return this.http.get<any>(`${this.apiUrl}/ObtenerMenusPorUsuario`).pipe(
       tap(resp => {
-        console.log('🔥 MENUS API RESPONSE:', resp);
         const mapped = this.mapMenus(resp.data);
-        console.log('🔥 MENUS MAPPED:', mapped);
         this._menus.set(mapped); // 👈 aquí guardas en memoria reactiva
       })
     );

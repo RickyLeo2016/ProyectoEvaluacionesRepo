@@ -14,6 +14,8 @@ import { AuthService } from 'src/app/services/auth/auth-service';
 
 import { RolService } from 'src/app/services/rol/rol';
 
+import { TouchedDirective } from '../../theme/shared/directives/touched.directive';
+
 //#region Interfaces
 export interface IRol {
   rolId?: number;
@@ -32,7 +34,9 @@ export interface AccionTabla<T> {
 
 @Component({
   selector: 'app-rol',
-  imports: [CommonModule, HttpClientModule, CardComponent, Grid, SpinnerComponent, Modal],
+  imports: [CommonModule, HttpClientModule, CardComponent, Grid, SpinnerComponent, Modal,
+    TouchedDirective
+  ],
   templateUrl: './rol.html',
   styleUrl: './rol.scss'
 })
@@ -91,7 +95,7 @@ export class Rol implements OnInit {
   //#region MÉTODOS
     cargarLista(): void {
       this.spinnerVisible.set(true);
-  
+
       this.rolService
         .obtenerTodos()
         .pipe(
@@ -112,7 +116,7 @@ export class Rol implements OnInit {
           }
         });
     }
-  
+
     seleccionarParaEditar(item: IRol): void {
       this.modo.set('editar');
       this.editandoId.set(item.rolId ?? null);
@@ -121,38 +125,38 @@ export class Rol implements OnInit {
       this.itemsTocado(false);
       this.modalVisible = true;
     }
-  
-  
+
+
     itemsTocado(valor :boolean){
       this.nombreTocado.set(valor);
     }
-  
+
     limpiarCampos(): void {
       this.editandoId.set(null);
       this.nombre.set('');
-      
+
       this.itemsTocado(false);
     }
-  
+
     guardar(): void {
       this.itemsTocado(true);
       if (
-        !this.nombre() 
+        !this.nombre()
       ) {
         Swal.fire('Error', 'Debe completar todos los campos', 'warning');
         return;
       }
-  
+
       const payload: IRol = {
         rolId: this.editandoId() ?? undefined,
         rolNombre: this.nombre()
       };
-  
+
       this.spinnerVisible.set(true);
-  
+
       console.log(this.editandoId())
       const obs = this.editandoId() !== null ? this.rolService.actualizar(payload) : this.rolService.guardar(payload);
-  
+
       obs.subscribe({
         next: (res) => {
           this.spinnerVisible.set(false);
@@ -168,9 +172,9 @@ export class Rol implements OnInit {
         }
       });
     }
-  
+
     //#region Eliminar
-  
+
     eliminar(item: IRol): void {
       Swal.fire({
         title: '¿Eliminar Rol?',
@@ -199,17 +203,16 @@ export class Rol implements OnInit {
       });
     }
     //#endregion
-  
+
     abrirModal(): void {
       this.limpiarCampos();
       this.modo.set('nuevo');
       this.modalVisible = true;
     }
-  
+
     cerrarModal(): void {
       this.modalVisible = false;
       this.limpiarCampos();
     }
     //#endregion
   }
-  

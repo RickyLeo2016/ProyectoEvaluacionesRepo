@@ -1,0 +1,159 @@
+<app-spinner [manual]="true" [visible]="spinnerVisible()">
+</app-spinner>
+
+<div class="row">
+
+  <!-- =========================
+       BOTONES SUPERIORES
+  ========================== -->
+  <div class="col-12 d-flex justify-content-end gap-2 mb-3">
+
+    <!-- NUEVO -->
+    <button *ngIf="!modoFormulario()" type="button" class="btn btn-primary btn-sm" (click)="abrirFormulario()">
+      <i class="fas fa-plus"></i>
+      Nuevo
+    </button>
+
+    <!-- GUARDAR -->
+    <button *ngIf="modoFormulario()" type="button" class="btn btn-success btn-sm" (click)="guardar()">
+      <i class="fas fa-save"></i>
+      Guardar
+    </button>
+
+    <!-- CANCELAR -->
+    <button *ngIf="modoFormulario()" type="button" class="btn btn-danger btn-sm" (click)="cancelarFormulario()">
+      <i class="fas fa-ban"></i>
+      Cancelar
+    </button>
+
+  </div>
+
+  <!-- =========================
+       FORMULARIO
+  ========================== -->
+  <div class="col-12" *ngIf="modoFormulario()">
+
+    <app-card [cardTitle]="modoEdicion() ? 'Actualizar Pregunta' : 'Registrar Pregunta'">
+
+      <div class="container">
+
+        <div class="row">
+
+          <!-- TIPO -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Tipo de pregunta</label>
+            <select class="form-select" (change)="onTipoPreguntaChange($event)" [appTouched]="tipoSeleccionado()"
+              #tTipo="appTouched" [class.is-invalid]="tTipo.isInvalid()" [class.is-valid]="tTipo.isValid()">
+
+              <option value="">Seleccione...</option>
+
+              <option *ngFor="let t of tiposPregunta()" [value]="t.catId">
+                {{ t.catNombre }}
+              </option>
+
+            </select>
+
+            <div class="invalid-feedback" *ngIf="tTipo.isInvalid()">
+              Debe seleccionar un tipo de pregunta
+            </div>
+
+
+          </div>
+
+          <!-- PUNTAJE -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Puntaje</label>
+            <input type="text" class="form-control" [value]="puntajeInput()" (input)="onPuntajeInput($event)"
+              (blur)="onPuntajeBlur()" [appTouched]="puntajeInput()" #tPuntaje="appTouched"
+              [class.is-invalid]="tPuntaje.isInvalid()" [class.is-valid]="tPuntaje.isValid()" />
+            <div class="text-danger" *ngIf="puntaje()">
+              Máximo permitido: 99,99
+            </div>
+          </div>
+
+          <!-- ENUNCIADO -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Pregunta / Enunciado</label>
+            <textarea class="form-control" rows="3" [value]="pregunta()"
+              (input)="pregunta.set($any($event.target).value)" [appTouched]="pregunta()" #t="appTouched"
+              [class.is-invalid]="t.isInvalid()" [class.is-valid]="t.isValid()">
+            </textarea>
+
+            <div class="text-danger mt-1" *ngIf="t.isInvalid()">
+              La pregunta es obligatoria
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-control" rows="3" [value]="descripcion()"
+              (input)="descripcion.set($any($event.target).value)">
+            </textarea>
+          </div>
+
+
+
+
+
+
+        </div>
+
+        <hr>
+
+        <!-- =========================
+             FORM DINÁMICO
+        ========================== -->
+        <!-- FORM DINÁMICO -->
+        <div *ngIf="tipoSeleccionado()">
+
+          <h6 class="mb-3 text-primary">
+            Configuración de la pregunta
+          </h6>
+
+          <ng-container [ngSwitch]="tipoSeleccionado()">
+
+            <!-- TRUE / FALSE -->
+            <app-q-true-false *ngSwitchCase="10" (valueChange)="onTrueFalseChange($event)">
+            </app-q-true-false>
+
+            <app-q-code
+              *ngIf="tipoSeleccionado() == 21"
+              (valueChange)="onCodeChange($event)">
+            </app-q-code>
+
+
+
+
+          </ng-container>
+
+        </div>
+
+      </div>
+
+    </app-card>
+
+  </div>
+
+  <!-- =========================
+       LISTA
+  ========================== -->
+  <div class="col-sm-12" *ngIf="!modoFormulario()">
+
+    <app-card cardTitle="Lista de Preguntas">
+
+      <app-grid [columnas]="columnas" [datos]="tiposFiltrados()" [templates]="{ acciones: accionesTemplate }">
+      </app-grid>
+
+      <ng-template #accionesTemplate let-item>
+        <span *ngFor="let accion of accionesTabla" class="accion-icono" [title]="accion.title"
+          [style.color]="accion.color">
+
+          <i [class]="accion.icon"></i>
+
+        </span>
+      </ng-template>
+
+    </app-card>
+
+  </div>
+
+</div>

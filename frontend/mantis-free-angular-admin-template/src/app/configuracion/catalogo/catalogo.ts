@@ -56,21 +56,21 @@ export class Catalogo implements OnInit {
   //#region    STATE
   modalVisible = false;
   spinnerVisible = signal(false); // ✔️ control de spinner
-  
+
   tipos = signal<ICatalogo[]>([]);
   tipoCatalogoList = signal<ITipoCatalogo[]>([]);
-  
+
   tipoSeleccionado = signal<string>('');
   nombre = signal<string>('');
   descripcion = signal<string>('');
   estado = signal<string>('A');
   editandoId = signal<number | null>(null);
   usuIdReg = signal<number>(1);
-  
+
   tipoTocado = signal<boolean>(false);
   nombreTocado = signal<boolean>(false);
   descripcionTocado = signal<boolean>(false);
-  
+
   filtro = signal<string>('');
   tiposFiltrados = computed(() => {
     const f = this.filtro().toLowerCase();
@@ -82,9 +82,9 @@ export class Catalogo implements OnInit {
 
   modo = signal<'nuevo' | 'editar'>('nuevo');
 
-  tituloModal = computed(() => 
-    this.modo() === 'nuevo' 
-      ? 'Nuevo Catálogo' 
+  tituloModal = computed(() =>
+    this.modo() === 'nuevo'
+      ? 'Nuevo Catálogo'
       : 'Actualizar Catálogo'
   );
 
@@ -100,12 +100,12 @@ export class Catalogo implements OnInit {
     { header: 'Estado', field: 'catEstado' },
     { header: 'Acciones', field: 'acciones' }
   ];
-  
+
   accionesTabla: AccionTabla<ICatalogo>[] = [
     { icon: 'fas fa-edit', title: 'Editar', color: '#3d5bbe', callback: item => this.seleccionarParaEditar(item) },
     { icon: 'fas fa-trash', title: 'Eliminar', color: '#dc3545', callback: item => this.eliminar(item) }
   ];
-  
+
   //#endregion
 
   //#region CONSTRUCTOR
@@ -114,7 +114,7 @@ export class Catalogo implements OnInit {
     private tipCatService: TipoCatalogoService,
     private auth: AuthService
   ) {}
-  
+
   //#endregion
 
   //#region LIFECYCLE
@@ -128,16 +128,16 @@ export class Catalogo implements OnInit {
 
   //#region MODAL
 
-  abrirModal(): void { 
+  abrirModal(): void {
     this.limpiarCampos();
     this.modo.set('nuevo');
-    this.modalVisible = true; 
+    this.modalVisible = true;
   }
   cerrarModal(): void { this.modalVisible = false; this.limpiarCampos(); }
 
   //#endregion
 
-  //#region Métodos  
+  //#region Métodos
 
   cargarListaCatalogo(): void {
     this.spinnerVisible.set(true);
@@ -278,5 +278,5 @@ export class Catalogo implements OnInit {
     });
   }
   //#endregion
-  
+
 }

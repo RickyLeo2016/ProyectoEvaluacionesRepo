@@ -1,8 +1,8 @@
-use master
+ï»¿use master
 go
 -- ======================================
 -- Base de Datos Testify
--- Sistema de Evaluaciones Psicometricas y Técnicas
+-- Sistema de Evaluaciones Psicometricas y TÃ©cnicas
 -- ======================================
 create database TestifyDB
 go 
@@ -65,7 +65,7 @@ create TABLE Empresa
 
 ----------------------------------------------------------------
 ---- Tabla: Usuario
----- Usuarios globales, único por email
+---- Usuarios globales, Ãºnico por email
 ----------------------------------------------------------------
 create TABLE Usuario
 (
@@ -154,7 +154,7 @@ Create TABLE UsuarioRol
 
 ----------------------------------------------------------------
 ---- Tabla: Menu
----- Control de menú y submenús por nivel
+---- Control de menÃº y submenÃºs por nivel
 ----------------------------------------------------------------
 
 Create TABLE Menu
@@ -177,7 +177,7 @@ Create TABLE Menu
 
 ----------------------------------------------------------------
 ---- Tabla: RolMenu
----- Control de menú y submenús por nivel
+---- Control de menÃº y submenÃºs por nivel
 ----------------------------------------------------------------
 
 CREATE TABLE RolMenu
@@ -198,9 +198,17 @@ CREATE TABLE RolMenu
 
 
 
-/* =========================================================
-   EVALUACION
-========================================================= */
+CREATE TABLE PreguntaEstructuraJson (
+    preEstId BIGINT IDENTITY ,
+    catId BIGINT NOT NULL,   -- tipo de pregunta
+    dataSchema NVARCHAR(MAX) NOT NULL,
+    uiSchema NVARCHAR(MAX) NULL,
+    catIdEstado BIGINT DEFAULT 1,
+    CONSTRAINT PK_PreguntaEstructuraJson PRIMARY KEY (preEstId),
+    CONSTRAINT FK_PreguntaEstructuraJson_Catalogo FOREIGN KEY (catId) REFERENCES Catalogo(catId),
+    CONSTRAINT FK_PreguntaEstructuraJson_CatalogoEstado FOREIGN KEY (catIdEstado) REFERENCES Catalogo(catId)
+);
+
 CREATE TABLE Evaluacion (
     evaId BIGINT IDENTITY,
     empId BIGINT NOT NULL,
@@ -221,15 +229,9 @@ CREATE TABLE Evaluacion (
     CONSTRAINT FK_Evaluacion_Usuario FOREIGN KEY (usuIdReg) REFERENCES Usuario(usuId)
 );
 
-
-/* =========================================================
-   BANCO DE PREGUNTAS
-========================================================= */
 CREATE TABLE BancoPregunta (
     banPreId BIGINT IDENTITY,
     empId BIGINT NOT NULL,
-    catIdTipo BIGINT NOT NULL,
-    banPrePuntajeMax DECIMAL(10,2) NOT NULL DEFAULT 1,
     catIdEstado BIGINT NOT NULL DEFAULT 1,
     usuIdReg BIGINT NOT NULL,
     banPreFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
@@ -237,18 +239,15 @@ CREATE TABLE BancoPregunta (
     banPreFechaAct DATETIME NULL,
     CONSTRAINT PK_BancoPregunta PRIMARY KEY (banPreId),
     CONSTRAINT FK_BancoPregunta_Empresa FOREIGN KEY (empId) REFERENCES Empresa(empId),
-    CONSTRAINT FK_BancoPregunta_Tipo FOREIGN KEY (catIdTipo) REFERENCES Catalogo(catId),
     CONSTRAINT FK_BancoPregunta_Estado FOREIGN KEY (catIdEstado) REFERENCES Catalogo(catId),
     CONSTRAINT FK_BancoPregunta_Usuario FOREIGN KEY (usuIdReg) REFERENCES Usuario(usuId)
 );
 
-
-/* =========================================================
-   VERSIONES DE PREGUNTA
-========================================================= */
 CREATE TABLE BancoPreguntaVersion (
     banPreVerId BIGINT IDENTITY,
     banPreId BIGINT NOT NULL,
+    catIdTipo BIGINT NOT NULL,
+    banPreVerPuntaje DECIMAL(10,2) NOT NULL,
     banPreVerEnunciado NVARCHAR(MAX) NOT NULL,
     banPreVerDataSchema NVARCHAR(MAX) NOT NULL,
     banPreVerUiSchema NVARCHAR(MAX) NULL,
@@ -260,14 +259,12 @@ CREATE TABLE BancoPreguntaVersion (
     banPreVerFechaAct DATETIME NULL,
     CONSTRAINT PK_BancoPreguntaVersion PRIMARY KEY (banPreVerId),
     CONSTRAINT FK_BancoPreguntaVersion_BancoPregunta FOREIGN KEY (banPreId) REFERENCES BancoPregunta(banPreId),
+    CONSTRAINT FK_BancoPreguntaVersion_Tipo FOREIGN KEY (catIdTipo) REFERENCES Catalogo(catId),
     CONSTRAINT FK_BancoPreguntaVersion_Estado FOREIGN KEY (catIdEstado) REFERENCES Catalogo(catId),
     CONSTRAINT FK_BancoPreguntaVersion_Usuario FOREIGN KEY (usuIdReg) REFERENCES Usuario(usuId)
 );
 
 
-/* =========================================================
-   EVALUACION - PREGUNTAS
-========================================================= */
 CREATE TABLE EvaluacionBancoPregunta (
     evaBanPreId BIGINT IDENTITY,
     evaId BIGINT NOT NULL,
@@ -278,10 +275,6 @@ CREATE TABLE EvaluacionBancoPregunta (
     CONSTRAINT FK_EvaluacionBancoPregunta_BancoPregunta FOREIGN KEY (banPreId) REFERENCES BancoPregunta(banPreId)
 );
 
-
-/* =========================================================
-   INTENTO EVALUACION
-========================================================= */
 CREATE TABLE IntentoEvaluacion (
     intEvaId BIGINT IDENTITY,
     evaId BIGINT NOT NULL,
@@ -291,7 +284,6 @@ CREATE TABLE IntentoEvaluacion (
     intEvaPuntaje DECIMAL(10,2) NULL,
     catIdEstadoIntento BIGINT NOT NULL DEFAULT 31,
     catIdEstado BIGINT NOT NULL DEFAULT 1,
-    -- Anti fraude
     intEvaIP VARCHAR(45) NULL,
     intEvaUserAgent NVARCHAR(255) NULL,
     intEvaToken NVARCHAR(100) NULL,
@@ -306,63 +298,96 @@ CREATE TABLE IntentoEvaluacion (
     CONSTRAINT FK_IntentoEvaluacion_EstadoIntento FOREIGN KEY (catIdEstadoIntento) REFERENCES Catalogo(catId)
 );
 
-
-/* =========================================================
-   EXAMEN GENERADO (PREGUNTAS CONGELADAS)
-========================================================= */
 CREATE TABLE IntentoPregunta (
     intPreId BIGINT IDENTITY,
     intEvaId BIGINT NOT NULL,
     banPreId BIGINT NOT NULL,
     banPreVerId BIGINT NOT NULL,
     orden INT NOT NULL,
-    -- Tiempo por pregunta
+    -- SNAPSHOT (CRITICO)
+    intPreEnunciado NVARCHAR(MAX) NOT NULL,
+    intPreDataSchema NVARCHAR(MAX) NOT NULL,
+    intPreUiSchema NVARCHAR(MAX) NULL,
+    -- TIEMPO
     intPreTiempoLimiteSegundos INT NULL,
     intPreFechaInicio DATETIME NULL,
     intPreFechaFin DATETIME NULL,
+    catIdEstado BIGINT NOT NULL DEFAULT 1,
     intPreFechaReg DATETIME NOT NULL DEFAULT SYSDATETIME(),
     CONSTRAINT PK_IntentoPregunta PRIMARY KEY (intPreId),
     CONSTRAINT FK_IntentoPregunta_Intento FOREIGN KEY (intEvaId) REFERENCES IntentoEvaluacion(intEvaId),
     CONSTRAINT FK_IntentoPregunta_BancoPregunta FOREIGN KEY (banPreId) REFERENCES BancoPregunta(banPreId),
-    CONSTRAINT FK_IntentoPregunta_BancoPreguntaVersion FOREIGN KEY (banPreVerId) REFERENCES BancoPreguntaVersion(banPreVerId)
+    CONSTRAINT FK_IntentoPregunta_BancoPreguntaVersion FOREIGN KEY (banPreVerId) REFERENCES BancoPreguntaVersion(banPreVerId),
+    CONSTRAINT FK_IntentoPregunta_Estado FOREIGN KEY (catIdEstado) REFERENCES Catalogo(catId)
 );
 
 
-/* =========================================================
-   RESPUESTA USUARIO
-========================================================= */
 CREATE TABLE RespuestaUsuario (
     respId BIGINT IDENTITY,
-    intEvaId BIGINT NOT NULL,
-    banPreId BIGINT NOT NULL,
-    banPreVerId BIGINT NULL,
+
+    intPreId BIGINT NOT NULL, --  RELACION CORRECTA
+
     respContenido NVARCHAR(MAX) NOT NULL,
     respEsCorrecta BIT NULL,
     respPuntaje DECIMAL(10,2) NULL,
-    -- Anti fraude
+
     respTiempoSegundos INT NULL,
     respIntentos INT NOT NULL DEFAULT 1,
     respFecha DATETIME NOT NULL DEFAULT SYSDATETIME(),
+
     CONSTRAINT PK_RespuestaUsuario PRIMARY KEY (respId),
-    CONSTRAINT FK_RespuestaUsuario_Intento FOREIGN KEY (intEvaId) REFERENCES IntentoEvaluacion(intEvaId),
-    CONSTRAINT FK_RespuestaUsuario_BancoPregunta FOREIGN KEY (banPreId) REFERENCES BancoPregunta(banPreId),
-    CONSTRAINT FK_RespuestaUsuario_BancoPreguntaVersion FOREIGN KEY (banPreVerId) REFERENCES BancoPreguntaVersion(banPreVerId),
-    CONSTRAINT UQ_RespuestaUsuario UNIQUE (intEvaId, banPreId)
+
+    CONSTRAINT FK_RespuestaUsuario_IntentoPregunta 
+        FOREIGN KEY (intPreId) REFERENCES IntentoPregunta(intPreId),
+
+    CONSTRAINT UQ_RespuestaUsuario UNIQUE (intPreId)
 );
 
 
 
-
-
-
-
-
-
-
 /* =========================================================
-   INDICES (RENDIMIENTO)
+   INDICES OPTIMIZADOS DEL SISTEMA
 ========================================================= */
-CREATE INDEX IX_Pregunta_Evaluacion ON Evaluacion(evaId);
-CREATE INDEX IX_IntentoEvaluacion_Usuario ON IntentoEvaluacion(usuId);
-CREATE INDEX IX_RespuestaUsuario_Intento ON RespuestaUsuario(intEvaId);
-CREATE INDEX IX_IntentoPregunta_Intento ON IntentoPregunta(intEvaId);
+
+-----------------------------------------------------------
+-- INTENTO EVALUACION
+-----------------------------------------------------------
+-- Buscar intentos por usuario (historial)
+CREATE INDEX IX_IntentoEvaluacion_Usuario 
+ON IntentoEvaluacion(usuId);
+
+
+-----------------------------------------------------------
+-- EVALUACION - BANCO PREGUNTAS
+-----------------------------------------------------------
+-- Obtener preguntas de una evaluaciÃ³n
+CREATE INDEX IX_EvaluacionBancoPregunta_Evaluacion 
+ON EvaluacionBancoPregunta(evaId);
+
+
+-----------------------------------------------------------
+-- VERSIONES DE PREGUNTA
+-----------------------------------------------------------
+-- Obtener versiones por pregunta
+CREATE INDEX IX_BancoPreguntaVersion_BancoPregunta 
+ON BancoPreguntaVersion(banPreId);
+
+
+-----------------------------------------------------------
+-- INTENTO PREGUNTA
+-----------------------------------------------------------
+-- Obtener preguntas de un intento
+CREATE INDEX IX_IntentoPregunta_Intento 
+ON IntentoPregunta(intEvaId);
+
+-- Ordenar preguntas dentro del intento (CLAVE)
+CREATE INDEX IX_IntentoPregunta_Orden 
+ON IntentoPregunta(intEvaId, orden);
+
+
+-----------------------------------------------------------
+-- RESPUESTA USUARIO
+-----------------------------------------------------------
+-- Validar y obtener respuestas por pregunta generada
+CREATE INDEX IX_RespuestaUsuario_IntPre 
+ON RespuestaUsuario(intPreId);

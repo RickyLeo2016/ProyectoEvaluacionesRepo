@@ -19,7 +19,7 @@
     <app-card cardTitle="Lista de Usuarios">
       <app-grid
         [columnas]="columnas"
-        [datos]="tiposFiltrados()" 
+        [datos]="tiposFiltrados()"
         [templates]="{ acciones: accionesTemplate }">
       </app-grid>
 
@@ -51,17 +51,19 @@
             <input
               type="text"
               class="form-control"
-              [ngClass]="{
-                'is-invalid': nombreTocado() && !nombre(),
-                'is-valid': nombreTocado() && nombre()
-              }"
               [value]="nombre()"
               (input)="nombre.set($any($event.target).value)"
-              (blur)="nombreTocado.set(true)"
-            />
-            <div class="text-danger mt-1" *ngIf="nombreTocado() && !nombre()">
+              [appTouched]="nombre()"
+              #tNombre="appTouched"
+              [class.is-invalid]="tNombre.isInvalid()"
+              [class.is-valid]="tNombre.isValid()" />
+
+            <div class="text-danger mt-1" *ngIf="tNombre.isInvalid()">
               Los nombre de rol es obligatorio
             </div>
+
+
+
           </div>
 
 
