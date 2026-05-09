@@ -1,0 +1,163 @@
+<div class="q-text-container">
+
+  <!-- CONFIG -->
+  <div class="row g-3">
+
+    <!-- PLACEHOLDER -->
+    <div class="col-12">
+
+      <label class="form-label">
+        Placeholder
+      </label>
+
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="placeholder"
+        (ngModelChange)="onChange()"
+      />
+
+    </div>
+
+    <!-- MIN -->
+    <div class="col-md-4">
+
+      <label class="form-label">
+        Longitud mínima
+      </label>
+
+      <input
+        type="number"
+        min="0"
+        class="form-control"
+        [(ngModel)]="minLength"
+        (ngModelChange)="onChange()"
+      />
+
+    </div>
+
+    <!-- MAX -->
+    <div class="col-md-4">
+
+      <label class="form-label">
+        Longitud máxima
+      </label>
+
+      <input
+        type="number"
+        min="1"
+        class="form-control"
+        [(ngModel)]="maxLength"
+        (ngModelChange)="onChange()"
+      />
+
+    </div>
+
+    <!-- REQUIRED -->
+    <div class="col-md-4">
+
+      <label class="form-label d-block">
+        Obligatorio
+      </label>
+
+      <div class="form-check form-switch mt-2">
+
+        <input
+          type="checkbox"
+          class="form-check-input"
+          [(ngModel)]="required"
+          (change)="onChange()"
+        />
+
+      </div>
+
+    </div>
+
+    <!-- ROWS -->
+    <div
+      class="col-md-4"
+      *ngIf="isLongText()"
+    >
+
+      <label class="form-label">
+        Filas textarea
+      </label>
+
+      <input
+        type="number"
+        min="2"
+        class="form-control"
+        [(ngModel)]="rows"
+        (ngModelChange)="onChange()"
+      />
+
+    </div>
+
+  </div>
+
+  <hr>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+
+    <div class="preview-header">
+
+      <h6 class="mb-0">
+        Vista previa
+      </h6>
+
+      <small>
+        {{ isLongText() ? 'Texto largo' : 'Texto corto' }}
+      </small>
+
+    </div>
+
+    <!-- SHORT -->
+    <div *ngIf="!isLongText()">
+
+      <input
+        type="text"
+        class="form-control preview-input"
+        [placeholder]="placeholder"
+        disabled
+      />
+
+    </div>
+
+    <!-- LONG -->
+    <div *ngIf="isLongText()">
+
+      <textarea
+        class="form-control preview-textarea"
+        [rows]="rows"
+        [placeholder]="placeholder"
+        disabled
+      ></textarea>
+
+    </div>
+
+    <!-- INFO -->
+    <div class="preview-info">
+
+      <span>
+        Min:
+        <strong>{{ minLength }}</strong>
+      </span>
+
+      <span>
+        Max:
+        <strong>{{ maxLength }}</strong>
+      </span>
+
+      <span>
+        Requerido:
+        <strong>
+          {{ required ? 'Sí' : 'No' }}
+        </strong>
+      </span>
+
+    </div>
+
+  </div>
+
+</div>

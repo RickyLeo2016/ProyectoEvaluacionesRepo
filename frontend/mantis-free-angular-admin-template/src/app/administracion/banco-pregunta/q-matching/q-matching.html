@@ -1,0 +1,133 @@
+<div class="matching-container">
+
+  <!-- HEADER -->
+  <div class="matching-header">
+
+    <div>
+      Columna A
+    </div>
+
+    <div>
+      Columna B (orden correcto)
+    </div>
+
+    <div></div>
+
+  </div>
+
+  <!-- LIST -->
+  <div
+    cdkDropList
+    class="matching-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+
+    <div
+      class="matching-row"
+      *ngFor="let l of left; let i = index; trackBy: trackByIndex"
+    >
+
+      <!-- LEFT -->
+      <div class="left-column">
+
+        <input
+          class="form-control"
+          [(ngModel)]="left[i]"
+          (ngModelChange)="emit()"
+          placeholder="Ingrese valor"
+        />
+
+      </div>
+
+      <!-- RIGHT -->
+      <div
+        class="right-column"
+        cdkDrag
+      >
+
+        <div class="drag-item">
+
+          <div
+            class="drag-handle"
+            cdkDragHandle
+          >
+            ☰
+          </div>
+
+          <input
+            class="form-control"
+            [(ngModel)]="right[i]"
+            (ngModelChange)="emit()"
+            placeholder="Ingrese valor"
+          />
+
+        </div>
+
+      </div>
+
+      <!-- DELETE -->
+      <div class="delete-column">
+
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="removeLeft(i)"
+          [disabled]="left.length <= 2"
+        >
+
+          <i class="fas fa-trash"></i>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="actions mt-3">
+
+    <button
+      class="btn btn-primary"
+      (click)="addLeft()"
+    >
+
+      + Agregar
+
+    </button>
+
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview mt-4">
+
+    <div class="preview-header">
+      Previsualización
+    </div>
+
+    <div class="preview-list">
+
+      <div
+        *ngFor="let l of left; let i = index; trackBy: trackByIndex"
+        class="preview-item"
+      >
+
+        <div class="preview-left">
+          {{ l || '—' }}
+        </div>
+
+        <div class="preview-arrow">
+          →
+        </div>
+
+        <div class="preview-right">
+          {{ right[i] || '—' }}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

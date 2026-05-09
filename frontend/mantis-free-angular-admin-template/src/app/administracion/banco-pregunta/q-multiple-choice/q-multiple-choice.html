@@ -1,42 +1,53 @@
-<label class="form-label fw-bold">Opciones</label>
+<div class="row">
 
-<div *ngFor="let op of opciones(); let i = index;"
-     class="d-flex gap-2 mb-2">
+  <div class="col-12 mb-2">
+    <button class="btn btn-sm btn-primary" (click)="agregarOpcion()">
+      + Agregar opción
+    </button>
+  </div>
 
-  <!-- INPUT -->
-  <input
-    class="form-control"
-    [value]="opciones()[i]"
-    (input)="actualizar(i, $any($event.target).value)" />
+  <div class="col-12"
+       *ngFor="let op of opciones; let i = index; trackBy: trackById">
 
-  <!-- RADIO -->
-  <input
-    type="radio"
-    name="correcta"
-    [checked]="correcta() === i"
-    (change)="seleccionarCorrecta(i)" />
+    <div class="input-group mb-2">
 
-  <!-- CHECK -->
-  <span *ngIf="correcta() === i" class="text-success ms-2">
-    ✔
-  </span>
+      <div class="input-group-text">
 
-  <!-- DELETE -->
-  <button
-    class="btn btn-danger btn-sm"
-    type="button"
-    (click)="eliminar(i)">
-    <i class="fas fa-trash"></i>
-  </button>
+        <input
+          *ngIf="!multiple"
+          type="radio"
+          name="correcta"
+          [checked]="esSeleccionado(i)"
+          (change)="seleccionarRadio(i)"
+        />
+
+        <input
+          *ngIf="multiple"
+          type="checkbox"
+          [checked]="esSeleccionado(i)"
+          (change)="toggleCheckbox(i)"
+        />
+
+      </div>
+
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="op.text"
+        (ngModelChange)="emitir()"
+        placeholder="Texto de la opción"
+      />
+
+      <button
+        class="btn btn-danger btn-sm"
+        (click)="eliminarOpcion(i)"
+        [disabled]="opciones.length <= 2"
+      >
+        <i class="fas fa-trash"></i>
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
-
-<button
-  class="btn btn-primary btn-sm"
-  type="button"
-  (click)="agregar()">
-
-  <i class="fas fa-plus"></i>
-  Agregar opción
-
-</button>

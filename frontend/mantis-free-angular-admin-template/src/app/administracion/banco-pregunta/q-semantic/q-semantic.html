@@ -1,0 +1,70 @@
+<div class="row">
+
+  <!-- Escala -->
+  <div class="col-md-3 mb-3">
+    <label>Escala</label>
+    <input type="number"
+           class="form-control"
+           [(ngModel)]="scale"
+           (input)="onChange()"
+           min="3"
+           max="10">
+  </div>
+
+  <!-- Items -->
+  <div class="col-12">
+    <label>Dimensiones</label>
+
+    <div *ngFor="let item of items; let i = index; trackBy: trackByIndex"
+         class="row mb-2">
+
+      <div class="col-md-4">
+        <input class="form-control"
+               [(ngModel)]="item.left"
+               (input)="onChange()"
+               placeholder="Izquierda">
+      </div>
+
+      <div class="col-md-4">
+        <input class="form-control"
+               [(ngModel)]="item.right"
+               (input)="onChange()"
+               placeholder="Derecha">
+      </div>
+
+      <div class="col-md-2">
+        <button class="btn btn-danger btn-sm"
+                (click)="removeItem(i)">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <button class="btn btn-primary"
+            (click)="addItem()">
+      + Agregar dimensión
+    </button>
+  </div>
+
+  <!-- PREVIEW 🔥 -->
+  <div class="col-12 mt-4">
+
+    <div *ngFor="let item of items; trackBy: trackByIndex"
+         class="mb-3 text-center">
+
+      <span class="me-2">{{ item.left }}</span>
+
+      <ng-container *ngFor="let i of rangeArray; trackBy: trackByIndex">
+        <span class="badge bg-secondary me-1">
+          {{ i + 1 }}
+        </span>
+      </ng-container>
+
+      <span class="ms-2">{{ item.right }}</span>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,237 @@
+.matching-container {
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   HEADER
+========================= */
+.matching-header {
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    70px;
+
+  gap: 12px;
+
+  margin-bottom: 12px;
+
+  font-weight: 600;
+}
+
+/* =========================
+   LIST
+========================= */
+.matching-list {
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+/* =========================
+   ROW
+========================= */
+.matching-row {
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr
+    70px;
+
+  gap: 12px;
+
+  align-items: center;
+}
+
+/* =========================
+   RIGHT
+========================= */
+.drag-item {
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  background: #f8f9fa;
+
+  border: 1px solid #dee2e6;
+
+  border-radius: 10px;
+
+  padding: 10px;
+
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease;
+}
+
+.drag-item:hover {
+
+  box-shadow:
+    0 4px 14px rgba(0,0,0,.08);
+}
+
+/* =========================
+   HANDLE
+========================= */
+.drag-handle {
+
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e9ecef;
+
+  border-radius: 8px;
+
+  cursor: grab;
+
+  user-select: none;
+
+  flex-shrink: 0;
+}
+
+/* =========================
+   DELETE
+========================= */
+.delete-column {
+
+  display: flex;
+  justify-content: center;
+}
+
+/* =========================
+   PREVIEW
+========================= */
+.preview {
+
+  border: 1px solid #dee2e6;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+}
+
+/* =========================
+   PREVIEW HEADER
+========================= */
+.preview-header {
+
+  background: #f8f9fa;
+
+  border-bottom: 1px solid #dee2e6;
+
+  padding: 12px 16px;
+
+  font-weight: 600;
+}
+
+/* =========================
+   PREVIEW LIST
+========================= */
+.preview-list {
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  padding: 16px;
+}
+
+/* =========================
+   PREVIEW ITEM
+========================= */
+.preview-item {
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    40px
+    1fr;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px 14px;
+
+  border-radius: 10px;
+
+  background: #f8f9fa;
+
+  border: 1px solid #e9ecef;
+}
+
+/* =========================
+   LEFT / RIGHT
+========================= */
+.preview-left {
+
+  text-align: right;
+
+  font-weight: 600;
+
+  color: #0d6efd;
+}
+
+.preview-right {
+
+  text-align: left;
+
+  font-weight: 600;
+
+  color: #198754;
+}
+
+/* =========================
+   ARROW
+========================= */
+.preview-arrow {
+
+  text-align: center;
+
+  color: #6c757d;
+
+  font-size: 18px;
+}
+
+/* =========================
+   DRAG STATES
+========================= */
+.cdk-drag-preview {
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.25);
+}
+
+.cdk-drag-placeholder {
+
+  opacity: 0.3;
+}
+
+.cdk-drag-animating {
+
+  transition: transform 250ms ease;
+}
+
+.matching-list.cdk-drop-list-dragging
+.matching-row:not(.cdk-drag-placeholder) {
+
+  transition: transform 250ms ease;
+}

@@ -22,7 +22,7 @@ namespace TestifyWeb.Controllers
 
 
         [HttpPost("CrearBancoPregunta")]
-        public async Task<IActionResult> RegistrarCatalogo(CreateBancoPreguntaCommand cmd)
+        public async Task<IActionResult> CrearBancoPregunta(CreateBancoPreguntaCommand cmd)
         {
             return Ok(await _mediator.Send(cmd));
         }

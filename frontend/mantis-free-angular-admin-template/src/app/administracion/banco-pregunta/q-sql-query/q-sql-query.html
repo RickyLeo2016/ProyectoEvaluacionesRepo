@@ -1,0 +1,114 @@
+<div class="sql-container">
+
+  <div class="row g-3">
+
+    <!-- CONTEXTO -->
+    <div class="col-md-6">
+
+      <div class="block">
+
+        <label class="form-label">
+          Contexto / Esquema (opcional)
+        </label>
+
+        <div class="code-editor-wrapper">
+
+          <!-- HEADER -->
+          <div class="editor-header">
+
+            <div class="editor-actions">
+
+              <span class="editor-dot red"></span>
+              <span class="editor-dot yellow"></span>
+              <span class="editor-dot green"></span>
+
+            </div>
+
+            <div class="editor-title">
+              schema.sql
+            </div>
+
+          </div>
+
+          <!-- TEXTAREA -->
+          <textarea
+            class="code-editor"
+            rows="10"
+            spellcheck="false"
+            [(ngModel)]="baseQuery"
+            (ngModelChange)="onChange()"
+            placeholder="CREATE TABLE usuarios (...);"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- SOLUCIÓN -->
+    <div class="col-md-6">
+
+      <div class="block">
+
+        <label class="form-label">
+          Query correcta
+        </label>
+
+        <div class="code-editor-wrapper">
+
+          <!-- HEADER -->
+          <div class="editor-header">
+
+            <div class="editor-actions">
+
+              <span class="editor-dot red"></span>
+              <span class="editor-dot yellow"></span>
+              <span class="editor-dot green"></span>
+
+            </div>
+
+            <div class="editor-title">
+              solution.sql
+            </div>
+
+          </div>
+
+          <!-- TEXTAREA -->
+          <textarea
+            class="code-editor"
+            rows="10"
+            spellcheck="false"
+            [(ngModel)]="solutionQuery"
+            (ngModelChange)="onChange()"
+            placeholder="SELECT * FROM usuarios;"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="col-12">
+
+      <div class="preview">
+
+        <div class="preview-header">
+          Preview
+        </div>
+
+        <div class="code-preview">
+
+          <pre>{{ solutionQuery || '-- sin query --' }}</pre>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

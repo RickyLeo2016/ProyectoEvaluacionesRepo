@@ -1,0 +1,89 @@
+<div class="row">
+
+  <!-- MIN -->
+  <div class="col-md-3 mb-3">
+    <label class="form-label">Mínimo</label>
+    <input type="number" class="form-control"
+      [(ngModel)]="min"
+      (input)="onChange()" />
+  </div>
+
+  <!-- MAX -->
+  <div class="col-md-3 mb-3">
+    <label class="form-label">Máximo</label>
+    <input type="number" class="form-control"
+      [(ngModel)]="max"
+      (input)="onChange()" />
+  </div>
+
+  <!-- LABEL MIN -->
+  <div class="col-md-3 mb-3">
+    <label class="form-label">Etiqueta mínima</label>
+    <input type="text" class="form-control"
+      [(ngModel)]="minLabel"
+      (input)="onChange()" />
+  </div>
+
+  <!-- LABEL MAX -->
+  <div class="col-md-3 mb-3">
+    <label class="form-label">Etiqueta máxima</label>
+    <input type="text" class="form-control"
+      [(ngModel)]="maxLabel"
+      (input)="onChange()" />
+  </div>
+
+  <div class="col-md-3 mb-3">
+    <label class="form-label">Tipo de vista</label>
+    <select class="form-select"
+      [(ngModel)]="tipoVista"
+      (change)="onChange()">
+
+      <option value="rating-scale">Números</option>
+      <option value="stars">Estrellas</option>
+      <option value="slider">Slider</option>
+
+    </select>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="col-12 mt-3 text-center">
+
+    <span class="me-2">{{ minLabel }}</span>
+
+    <ng-container [ngSwitch]="tipoVista">
+
+      <!-- 🔢 NUMÉRICO -->
+      <ng-container *ngSwitchCase="'rating-scale'">
+        <ng-container *ngFor="let n of [].constructor(max - min + 1); let i = index">
+          <span class="badge bg-primary me-1">
+            {{ min + i }}
+          </span>
+        </ng-container>
+      </ng-container>
+
+      <!-- ⭐ ESTRELLAS -->
+      <ng-container *ngSwitchCase="'stars'">
+        <ng-container *ngFor="let n of [].constructor(max - min + 1); let i = index">
+          <span class="me-1" style="font-size: 1.5rem;">
+            ☆
+          </span>
+        </ng-container>
+      </ng-container>
+
+      <!-- 🎚 SLIDER -->
+      <ng-container *ngSwitchCase="'slider'">
+        <input type="range"
+              class="form-range"
+              [min]="min"
+              [max]="max"
+              [value]="(min + max) / 2" />
+        <div>{{ (min + max) / 2 }}</div>
+      </ng-container>
+
+    </ng-container>
+
+    <span class="ms-2">{{ maxLabel }}</span>
+
+  </div>
+</div>
+

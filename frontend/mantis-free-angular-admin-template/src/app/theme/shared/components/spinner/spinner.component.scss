@@ -1,22 +1,137 @@
+/* OVERLAY */
 #http-loader {
+  position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
   width: 100%;
-  position: fixed;
+  height: 100%;
   z-index: 9999;
 }
 
+/* FONDO */
 .loader-bg {
-  height: 100%;
   width: 100%;
-  position: absolute;
-  filter: alpha(opacity=70);
-  opacity: 0.7;
-  background-color: #f1f1f1;
+  height: 100%;
+  background: rgba(15, 30, 50, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.colored-parent,
-.colored > div {
-  background-color: #333;
+/* CONTENIDO */
+.loader-content {
+  text-align: center;
+  color: #ffffff;
+}
+
+/* 🔵 SPINNER */
+.spinner {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 15px;
+}
+
+.segment {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 14px;
+  background: #178373;
+  border-radius: 3px;
+
+  transform-origin: center -18px;
+  transform: rotate(calc(var(--i) * 30deg)) translate(-50%, -50%);
+
+  animation: fade 1s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.08s);
+
+  animation-fill-mode: both; // 🔥 clave
+}
+
+/* ANIMACIÓN */
+@keyframes fade {
+  0% { opacity: 1; }
+  100% { opacity: 0.15; }
+}
+
+/* TEXTO */
+.loader-text {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  color: #178373;
+  font-weight: bold;
+}
+
+/* PUNTOS */
+.dots::after {
+  content: '';
+  animation: dots 1.5s steps(3, end) infinite;
+}
+
+
+
+@keyframes dots {
+  0% { content: ''; }
+  33% { content: '.'; }
+  66% { content: '..'; }
+  100% { content: '...'; }
+}
+
+
+/* SPINNER BASE */
+.orbit-spinner {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 15px;
+
+  animation: rotate 1.4s linear infinite;
+}
+
+/* PUNTOS */
+.dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #178373;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+/* POSICIÓN ORBITAL */
+.dot:nth-child(1) {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot:nth-child(2) {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.dot:nth-child(3) {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot:nth-child(4) {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+/* ROTACIÓN */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

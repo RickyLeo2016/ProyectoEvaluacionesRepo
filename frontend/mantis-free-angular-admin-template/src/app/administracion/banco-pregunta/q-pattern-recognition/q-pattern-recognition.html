@@ -1,0 +1,341 @@
+<div class="pattern-container">
+
+  <!-- CONFIG -->
+  <div class="config-card">
+
+    <div class="row g-3">
+
+      <!-- TYPE -->
+      <div class="col-md-6">
+
+        <label class="form-label">
+          Tipo de patrón
+        </label>
+
+        <select
+          class="form-select"
+          [(ngModel)]="patternType"
+          (change)="changeType(patternType)"
+        >
+
+          <option value="number">
+            Números
+          </option>
+
+          <option value="letter">
+            Letras
+          </option>
+
+          <!--
+          <option value="image">
+            Imágenes
+          </option>
+          -->
+
+        </select>
+
+      </div>
+
+      <!-- SIZE -->
+      <div class="col-md-6">
+
+        <label class="form-label">
+          Tamaño del patrón
+        </label>
+
+        <select
+          class="form-select"
+          [(ngModel)]="patternSize"
+          (change)="changePatternSize(patternSize)"
+        >
+
+          <option [value]="3">3 elementos</option>
+          <option [value]="4">4 elementos</option>
+          <option [value]="5">5 elementos</option>
+          <option [value]="6">6 elementos</option>
+          <option [value]="7">7 elementos</option>
+          <option [value]="8">8 elementos</option>
+          <option [value]="9">9 elementos</option>
+          <option [value]="10">10 elementos</option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- PATTERN -->
+  <div class="editor-card mt-4">
+
+    <div class="section-header">
+      <div>
+        <h6 class="mb-1">
+          Patrón
+        </h6>
+
+        <small class="text-muted">
+          El último elemento siempre será incógnita
+        </small>
+      </div>
+    </div>
+
+    <div class="pattern-grid">
+
+      <div
+        *ngFor="let p of pattern; let i = index; trackBy: trackById"
+        class="pattern-item"
+      >
+
+        <!-- NUMBER / LETTER -->
+        <ng-container
+          *ngIf="patternType !== 'image'"
+        >
+
+          <input
+            class="form-control pattern-input"
+            [readonly]="i === pattern.length - 1"
+            [(ngModel)]="p.value"
+            (ngModelChange)="onPatternChange(p, i)"
+          />
+
+        </ng-container>
+
+        <!-- IMAGE -->
+        <ng-container
+          *ngIf="patternType === 'image'"
+        >
+
+          <input
+            class="form-control mb-2"
+            placeholder="URL imagen"
+            [readonly]="i === pattern.length - 1"
+            [(ngModel)]="p.value"
+            (ngModelChange)="onPatternChange(p, i)"
+          />
+
+          <div class="image-preview">
+
+            <img
+              *ngIf="p.value && p.value !== '?'"
+              [src]="p.value"
+            />
+
+            <div
+              *ngIf="p.value === '?'"
+              class="question-box"
+            >
+              ?
+            </div>
+
+          </div>
+
+        </ng-container>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- OPTIONS -->
+  <div class="editor-card mt-4">
+
+    <div class="section-header">
+
+      <div>
+
+        <h6 class="mb-1">
+          Opciones
+        </h6>
+
+        <small class="text-muted">
+          Selecciona la respuesta correcta
+        </small>
+
+      </div>
+
+      <button
+        class="btn btn-primary btn-sm"
+        (click)="addOption()"
+      >
+
+        + Opción
+
+      </button>
+
+    </div>
+
+    <div class="options-list">
+
+      <div
+        *ngFor="let op of options; let i = index; trackBy: trackById"
+        class="option-item"
+      >
+
+        <!-- RADIO -->
+        <div class="correct-radio">
+
+          <input
+            type="radio"
+            name="correct"
+            [value]="i"
+            [(ngModel)]="correctIndex"
+            (change)="onCorrectChange(i)"
+          />
+
+        </div>
+
+        <!-- INPUT -->
+        <div class="option-input">
+
+          <!-- TEXT -->
+          <ng-container
+            *ngIf="patternType !== 'image'"
+          >
+
+            <input
+              class="form-control"
+              [(ngModel)]="op.value"
+              (ngModelChange)="onOptionChange()"
+              placeholder="Ingrese opción"
+            />
+
+          </ng-container>
+
+          <!-- IMAGE -->
+          <ng-container
+            *ngIf="patternType === 'image'"
+          >
+
+            <input
+              class="form-control mb-2"
+              [(ngModel)]="op.value"
+              (ngModelChange)="onOptionChange()"
+              placeholder="URL imagen"
+            />
+
+            <img
+              *ngIf="op.value"
+              [src]="op.value"
+              class="option-image"
+            />
+
+          </ng-container>
+
+        </div>
+
+        <!-- DELETE -->
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="removeOption(op.id)"
+          [disabled]="options.length <= 2"
+        >
+
+          <i class="fas fa-trash"></i>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview-card mt-4">
+
+    <div class="preview-header">
+
+      <div>
+
+        <h6 class="mb-1">
+          Previsualización
+        </h6>
+
+        <small class="text-muted">
+          Vista del usuario final
+        </small>
+
+      </div>
+
+    </div>
+
+    <!-- PATTERN -->
+    <div class="preview-pattern">
+
+      <ng-container
+        *ngFor="let p of pattern"
+      >
+
+        <!-- TEXT -->
+        <div
+          *ngIf="patternType !== 'image'"
+          class="preview-box"
+        >
+
+          {{ p.value }}
+
+        </div>
+
+        <!-- IMAGE -->
+        <div
+          *ngIf="patternType === 'image'"
+          class="preview-image-box"
+        >
+
+          <img
+            *ngIf="p.value && p.value !== '?'"
+            [src]="p.value"
+          />
+
+          <span
+            *ngIf="p.value === '?'"
+          >
+            ?
+          </span>
+
+        </div>
+
+      </ng-container>
+
+    </div>
+
+    <!-- OPTIONS -->
+    <div class="preview-options">
+
+      <label
+        *ngFor="let op of options; let i = index"
+        class="preview-option"
+      >
+
+        <input
+          type="radio"
+          disabled
+          [checked]="i === correctIndex"
+        />
+
+        <!-- TEXT -->
+        <span
+          *ngIf="patternType !== 'image'"
+        >
+
+          {{ op.value }}
+
+        </span>
+
+        <!-- IMAGE -->
+        <img
+          *ngIf="patternType === 'image'"
+          [src]="op.value"
+          class="preview-option-image"
+        />
+
+      </label>
+
+    </div>
+
+  </div>
+
+</div>

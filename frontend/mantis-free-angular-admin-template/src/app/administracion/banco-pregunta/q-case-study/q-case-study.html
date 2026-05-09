@@ -1,0 +1,59 @@
+<div class="row">
+
+  <!-- CONFIG GENERAL -->
+  <div class="col-md-4">
+    <label>Min</label>
+    <input type="number" [(ngModel)]="minLength" (ngModelChange)="onChange()" class="form-control">
+  </div>
+
+  <div class="col-md-4">
+    <label>Max</label>
+    <input type="number" [(ngModel)]="maxLength" (ngModelChange)="onChange()" class="form-control">
+  </div>
+
+  <div class="col-md-4">
+    <label>Placeholder</label>
+    <input type="text" [(ngModel)]="placeholder" (ngModelChange)="onChange()" class="form-control">
+  </div>
+
+  <!-- KEYWORDS -->
+  <div class="col-12 mt-3">
+    <h6>Palabras clave</h6>
+
+    <div *ngFor="let k of keywords; let i = index; trackBy: trackByIndex">
+      <input class="form-control mb-1" [(ngModel)]="keywords[i]" (ngModelChange)="onChange()" />
+    </div>
+
+    <button class="btn btn-sm btn-primary" (click)="addKeyword()">
+      + Palabra Clave
+    </button>
+  </div>
+
+  <!-- RUBRIC -->
+  <div class="col-12 mt-3">
+    <h6>Rúbrica</h6>
+
+    <div *ngFor="let r of rubric; let i = index; trackBy: trackById">
+      <div class="input-group mb-2">
+
+        <!-- CRITERIO (GRANDE) -->
+        <input type="text" class="form-control" [(ngModel)]="r.criterio" (ngModelChange)="onChange()"
+          placeholder="Criterio" />
+
+        <!-- PUNTAJE (PEQUEÑO) -->
+        <input type="number" class="form-control w-auto" style="max-width: 100px;" [(ngModel)]="r.puntaje"
+          (ngModelChange)="onChange()" placeholder="Pts" />
+
+        <button class="btn btn-danger btn-sm" (click)="removeRubric(i)">
+          <i class="fas fa-trash"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <button class="btn btn-sm btn-primary" (click)="addRubric()">
+      + Rúbrica
+    </button>
+  </div>
+
+</div>

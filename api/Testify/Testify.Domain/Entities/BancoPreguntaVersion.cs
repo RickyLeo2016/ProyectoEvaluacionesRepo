@@ -19,6 +19,7 @@ namespace Testify.Domain.Entities
         public string banPreVerDataSchema { get; set; }
 
         public string? banPreVerUiSchema { get; set; }
+        public string? tipPreguntaDesc { get; set; }
 
         public int banPreVerNumero { get; set; }
 

@@ -4,15 +4,22 @@
   <div class="col-md-4 mb-3">
     <label class="form-label">Respuesta correcta</label>
 
-    <select class="form-select" (change)="onRespuestaChange($event)">
-      <option [value]="true">{{ labels.true }}</option>
-      <option [value]="false">{{ labels.false }}</option>
+    <!-- 🔥 FIX: sincronizado con respuesta -->
+    <select
+      class="form-select"
+      [value]="respuesta.toString()"
+      (change)="onRespuestaChange($event)">
+
+      <option value="true">{{ labels.true }}</option>
+      <option value="false">{{ labels.false }}</option>
+
     </select>
   </div>
 
-  <!-- TEXTO PARA VERDADERO -->
+  <!-- TEXTO VERDADERO -->
   <div class="col-md-4 mb-3">
     <label class="form-label">Texto Verdadero</label>
+
     <input
       type="text"
       class="form-control"
@@ -21,9 +28,10 @@
     />
   </div>
 
-  <!-- TEXTO PARA FALSO -->
+  <!-- TEXTO FALSO -->
   <div class="col-md-4 mb-3">
     <label class="form-label">Texto Falso</label>
+
     <input
       type="text"
       class="form-control"

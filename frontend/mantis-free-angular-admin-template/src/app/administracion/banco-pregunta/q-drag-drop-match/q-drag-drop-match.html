@@ -1,0 +1,116 @@
+<div class="match-container">
+
+  <!-- LEFT -->
+  <div class="col-left">
+
+    <div class="section-header">
+      Columna A
+    </div>
+
+    <div
+      *ngFor="let l of left; let i = index; trackBy: trackById"
+      class="left-item"
+    >
+
+      <!-- INPUT -->
+      <input
+        class="form-control mb-2"
+        [(ngModel)]="l.text"
+        (ngModelChange)="emitirDebounce()"
+        placeholder="Ingrese texto"
+      />
+
+      <!-- DROP -->
+      <div
+        class="drop-zone"
+        cdkDropList
+        [cdkDropListData]="right"
+        (cdkDropListDropped)="drop($event, i)"
+      >
+
+        <div
+          *ngIf="matches[i]"
+          class="matched"
+        >
+
+          {{ getMatchText(matches[i]) }}
+
+        </div>
+
+        <div
+          *ngIf="!matches[i]"
+          class="placeholder"
+        >
+
+          Arrastra aquí
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- RIGHT -->
+  <div class="col-right">
+
+    <div class="section-header">
+      Opciones
+    </div>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="right"
+      class="pool"
+    >
+
+      <div
+        *ngFor="let r of right; let i = index; trackBy: trackById"
+        cdkDrag
+        class="drag-item"
+      >
+
+        <div class="drag-header">
+
+          <div
+            class="drag-handle"
+            cdkDragHandle
+          >
+            ☰
+          </div>
+
+          <span>
+            Opción {{ i + 1 }}
+          </span>
+
+        </div>
+
+        <input
+          class="form-control mt-2"
+          [(ngModel)]="r.text"
+          (ngModelChange)="emitirDebounce()"
+          placeholder="Ingrese opción"
+        />
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ACTIONS -->
+<div class="actions mt-3">
+
+  <button
+    class="btn btn-primary"
+    (click)="addPair()"
+  >
+
+    + Agregar
+
+  </button>
+
+</div>

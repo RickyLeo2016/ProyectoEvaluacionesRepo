@@ -1,0 +1,31 @@
+<div class="row">
+
+  <div class="col-md-6 mb-3">
+    <label class="form-label">Valor mínimo</label>
+    <input
+      type="number"
+      class="form-control"
+      [(ngModel)]="min"
+      (input)="onChange()"
+      placeholder="Ingrese mínimo"
+    />
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <label class="form-label">Valor máximo</label>
+    <input
+      type="number"
+      class="form-control"
+      [(ngModel)]="max"
+      (input)="onChange()"
+      placeholder="Ingrese máximo"
+    />
+  </div>
+
+  <div class="col-12">
+    <div class="alert alert-info">
+      El usuario deberá ingresar un valor dentro del rango permitido.
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,21 @@
+<div class="row">
+
+  <div class="col-12 mb-3">
+    <label class="form-label">Respuesta correcta</label>
+
+    <input
+      type="number"
+      class="form-control"
+      [(ngModel)]="valor"
+      (input)="onChange()"
+      placeholder="Ingrese el valor numérico"
+    />
+  </div>
+
+  <div class="col-12">
+    <div class="alert alert-info">
+      El usuario deberá ingresar un número como respuesta.
+    </div>
+  </div>
+
+</div>

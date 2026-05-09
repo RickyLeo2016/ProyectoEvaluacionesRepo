@@ -13,11 +13,11 @@ namespace Testify.Application.Features.BancoPregunta.Commands
         public long banPreId { get; set; }
 
         public long catIdTipo { get; set; }
-        public decimal puntaje { get; set; }
-        public string enunciado { get; set; }
+        public decimal banPreVerPuntaje { get; set; }
 
-        public string dataSchema { get; set; }
-
-        public string uiSchema { get; set; }
+        // VERSION
+        public string? banPreVerEnunciado { get; set; }
+        public string? banPreVerDataSchema { get; set; }
+        public string? banPreVerUiSchema { get; set; }
     }
 }

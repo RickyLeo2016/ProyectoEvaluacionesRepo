@@ -44,10 +44,10 @@ namespace Testify.Application.Features.BancoPregunta.Commands
                     empId = empId,  
                     banPreId = request.banPreId,
                     catIdTipo = request.catIdTipo,
-                    banPrePuntajeMax = request.puntaje,
-                    enunciado = request.enunciado,
-                    dataSchema = request.dataSchema,
-                    uiSchema = request.uiSchema,
+                    banPreVerPuntaje = request.banPreVerPuntaje,
+                    banPreVerEnunciado = request.banPreVerEnunciado,
+                    banPreVerDataSchema = request.banPreVerDataSchema,
+                    banPreVerUiSchema = request.banPreVerUiSchema,
                     usuId = usuIdReg
                 };
 

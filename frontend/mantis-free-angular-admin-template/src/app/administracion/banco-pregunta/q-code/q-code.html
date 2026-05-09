@@ -1,27 +1,66 @@
 <div class="row">
 
-  <div class="col-12 mb-3">
-   <label class="form-label">Lenguaje</label>
-    <select class="form-select"[(ngModel)]="lenguaje" (change)="onChange()">
+  <!-- LENGUAJE -->
+  <div class="col-md-3 mb-3">
+
+    <label class="form-label">
+      Lenguaje
+    </label>
+
+    <select
+      class="form-select"
+      [(ngModel)]="language"
+      (ngModelChange)="onChange()"
+    >
+
       <option value="javascript">JavaScript</option>
       <option value="typescript">TypeScript</option>
+      <option value="python">Python</option>
+      <option value="java">Java</option>
       <option value="csharp">C#</option>
-      <option value="sql">SQL</option>
+
     </select>
+
   </div>
 
-  <div class="col-12 mb-3">
-   <label class="form-label">Codigo Base</label>
-     <textarea class="form-control" rows="3"
-      [(ngModel)]="codigoBase"
-      (input)="onChange()"
-      placeholder="Escriba el código">
-    </textarea>
-  </div>
+  <!-- CÓDIGO -->
   <div class="col-12">
-    <div class="alert alert-info">
-      El usuario deberá escribir código como respuesta.
+
+    <label class="form-label">
+      Código base
+    </label>
+
+    <div class="code-editor-wrapper">
+
+      <!-- HEADER -->
+      <div class="editor-header">
+
+        <div class="editor-actions">
+
+          <span class="editor-dot red"></span>
+          <span class="editor-dot yellow"></span>
+          <span class="editor-dot green"></span>
+
+        </div>
+
+        <div class="editor-title">
+          {{ language }}
+        </div>
+
+      </div>
+
+      <!-- TEXTAREA -->
+      <textarea
+        class="code-editor"
+        rows="12"
+        spellcheck="false"
+        [(ngModel)]="codigoBase"
+        (ngModelChange)="onChange()"
+        placeholder="Escribe el código inicial..."
+      ></textarea>
+
     </div>
+
   </div>
 
 </div>

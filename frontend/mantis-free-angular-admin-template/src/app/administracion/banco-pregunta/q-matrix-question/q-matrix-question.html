@@ -1,0 +1,178 @@
+<div class="row mb-4">
+
+  <!-- TIPO -->
+  <div class="col-md-4">
+    <label class="form-label fw-semibold">
+      Tipo de patrón
+    </label>
+
+    <select
+      class="form-select"
+      [(ngModel)]="patternType"
+      (change)="emit()"
+    >
+      <option value="number">Números</option>
+      <option value="letter">Letras</option>
+      <!-- <option value="image">Imágenes</option> -->
+    </select>
+  </div>
+
+  <!-- FILAS -->
+  <div class="col-md-4">
+    <label class="form-label fw-semibold">
+      Filas
+    </label>
+
+    <input
+      type="number"
+      min="2"
+      class="form-control"
+      [(ngModel)]="rows"
+      (change)="changeSize()"
+    />
+  </div>
+
+  <!-- COLUMNAS -->
+  <div class="col-md-4">
+    <label class="form-label fw-semibold">
+      Columnas
+    </label>
+
+    <input
+      type="number"
+      min="2"
+      class="form-control"
+      [(ngModel)]="cols"
+      (change)="changeSize()"
+    />
+  </div>
+
+</div>
+
+<div class="row">
+
+  <!-- MATRIZ -->
+  <div class="col-lg-6 mb-4">
+
+    <div class="section-card">
+
+      <div class="section-header">
+        <h5>Matriz</h5>
+
+        <small>
+          Click en ✔ para convertir en incógnita
+        </small>
+      </div>
+
+      <div
+        class="matrix-grid"
+        [style.gridTemplateColumns]="'repeat(' + cols + ', 80px)'"
+      >
+
+        <ng-container
+          *ngFor="let row of matrix; let i = index; trackBy: trackByIndex"
+        >
+
+          <ng-container
+            *ngFor="let cell of row; let j = index; trackBy: trackByIndex"
+          >
+
+            <div
+              class="cell-wrapper"
+              [class.missing]="isMissing(i,j)"
+            >
+
+              <!-- NORMAL -->
+              <input
+                *ngIf="!isMissing(i,j)"
+                class="matrix-input"
+                [(ngModel)]="matrix[i][j]"
+                (ngModelChange)="onMatrixChange()"
+              />
+
+              <!-- RESPUESTA -->
+              <ng-container *ngIf="isMissing(i,j)">
+
+                <input
+                  *ngIf="getAnswerRef(i,j) as ans"
+                  class="matrix-input answer"
+                  [(ngModel)]="ans.value"
+                  (ngModelChange)="onAnswerChange()"
+                  placeholder="?"
+                />
+
+              </ng-container>
+
+              <!-- BOTÓN -->
+              <button
+                type="button"
+                class="btn-toggle"
+                [ngClass]="{
+                  'btn-ok': !isMissing(i,j),
+                  'btn-missing': isMissing(i,j)
+                }"
+                (click)="toggleMissing(i,j)"
+              >
+
+                <span *ngIf="!isMissing(i,j)">✔</span>
+                <span *ngIf="isMissing(i,j)">?</span>
+
+              </button>
+
+            </div>
+
+          </ng-container>
+
+        </ng-container>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="col-lg-6 mb-4">
+
+    <div class="section-card">
+
+      <div class="section-header">
+        <h5>Vista previa</h5>
+      </div>
+
+      <div
+        class="matrix-grid preview-grid"
+        [style.gridTemplateColumns]="'repeat(' + cols + ', 80px)'"
+      >
+
+        <ng-container
+          *ngFor="let row of matrix; let i = index; trackBy: trackByIndex"
+        >
+
+          <ng-container
+            *ngFor="let cell of row; let j = index; trackBy: trackByIndex"
+          >
+
+            <div class="preview-cell">
+
+              <ng-container *ngIf="!isMissing(i,j)">
+                {{ cell ?? '-' }}
+              </ng-container>
+
+              <ng-container *ngIf="isMissing(i,j)">
+                ?
+              </ng-container>
+
+            </div>
+
+          </ng-container>
+
+        </ng-container>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

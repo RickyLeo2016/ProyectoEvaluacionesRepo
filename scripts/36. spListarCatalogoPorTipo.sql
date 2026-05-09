@@ -1,6 +1,6 @@
 use TestifyDB
 go
-Create PROCEDURE spListarCatalogoPorTipo
+CREATE PROCEDURE spListarCatalogoPorTipo
 @tipCatId BIGINT
 AS        
 BEGIN      

@@ -8,19 +8,16 @@
   ========================== -->
   <div class="col-12 d-flex justify-content-end gap-2 mb-3">
 
-    <!-- NUEVO -->
     <button *ngIf="!modoFormulario()" type="button" class="btn btn-primary btn-sm" (click)="abrirFormulario()">
       <i class="fas fa-plus"></i>
       Nuevo
     </button>
 
-    <!-- GUARDAR -->
     <button *ngIf="modoFormulario()" type="button" class="btn btn-success btn-sm" (click)="guardar()">
       <i class="fas fa-save"></i>
       Guardar
     </button>
 
-    <!-- CANCELAR -->
     <button *ngIf="modoFormulario()" type="button" class="btn btn-danger btn-sm" (click)="cancelarFormulario()">
       <i class="fas fa-ban"></i>
       Cancelar
@@ -36,18 +33,25 @@
     <app-card [cardTitle]="modoEdicion() ? 'Actualizar Pregunta' : 'Registrar Pregunta'">
 
       <div class="container">
-
         <div class="row">
 
           <!-- TIPO -->
           <div class="col-md-6 mb-3">
             <label class="form-label">Tipo de pregunta</label>
-            <select class="form-select" (change)="onTipoPreguntaChange($event)" [appTouched]="tipoSeleccionado()"
-              #tTipo="appTouched" [class.is-invalid]="tTipo.isInvalid()" [class.is-valid]="tTipo.isValid()">
 
-              <option value="">Seleccione...</option>
+            <select
+              class="form-select"
+              [ngModel]="tipoSeleccionado()"
+              (ngModelChange)="tipoSeleccionado.set($event)"
+              [appTouched]="tipoSeleccionado()"
+              [disabled]="modoEdicion()"
+              #tTipo="appTouched"
+              [class.is-invalid]="tTipo.isInvalid()"
+              [class.is-valid]="tTipo.isValid()">
 
-              <option *ngFor="let t of tiposPregunta()" [value]="t.catId">
+              <option [ngValue]="null">Seleccione...</option>
+
+              <option *ngFor="let t of tiposPregunta()" [ngValue]="t.catId">
                 {{ t.catNombre }}
               </option>
 
@@ -56,17 +60,26 @@
             <div class="invalid-feedback" *ngIf="tTipo.isInvalid()">
               Debe seleccionar un tipo de pregunta
             </div>
-
-
           </div>
 
           <!-- PUNTAJE -->
           <div class="col-md-6 mb-3">
             <label class="form-label">Puntaje</label>
-            <input type="text" class="form-control" [value]="puntajeInput()" (input)="onPuntajeInput($event)"
-              (blur)="onPuntajeBlur()" [appTouched]="puntajeInput()" #tPuntaje="appTouched"
-              [class.is-invalid]="tPuntaje.isInvalid()" [class.is-valid]="tPuntaje.isValid()" />
-            <div class="text-danger" *ngIf="puntaje()">
+            <input
+              type="text"
+              class="form-control"
+              [ngModel]="puntajeInput()"
+              (ngModelChange)="puntajeInput.set($event)"
+              (input)="onPuntajeInput($event)"
+              (blur)="onPuntajeBlur()"
+              [appTouched]="puntajeInput()"
+              #tPuntaje="appTouched"
+              [class.is-invalid]="tPuntaje.isInvalid()"
+              [class.is-valid]="tPuntaje.isValid()" />
+
+           <div
+              class="text-danger"
+              *ngIf="puntaje() > 99.99">
               Máximo permitido: 99,99
             </div>
           </div>
@@ -74,26 +87,32 @@
           <!-- ENUNCIADO -->
           <div class="col-md-6 mb-3">
             <label class="form-label">Pregunta / Enunciado</label>
-            <textarea class="form-control" rows="3" [value]="pregunta()"
-              (input)="pregunta.set($any($event.target).value)" [appTouched]="pregunta()" #t="appTouched"
-              [class.is-invalid]="t.isInvalid()" [class.is-valid]="t.isValid()">
+            <textarea
+              class="form-control"
+              rows="3"
+              [ngModel]="pregunta()"
+              (ngModelChange)="pregunta.set($event)"
+              [appTouched]="pregunta()"
+              #t="appTouched"
+              [class.is-invalid]="t.isInvalid()"
+              [class.is-valid]="t.isValid()">
             </textarea>
 
             <div class="text-danger mt-1" *ngIf="t.isInvalid()">
               La pregunta es obligatoria
             </div>
           </div>
+
+          <!-- DESCRIPCIÓN (SIEMPRE BLOQUEADO) -->
           <div class="col-md-6 mb-3">
             <label class="form-label">Descripción</label>
-            <textarea class="form-control" rows="3" [value]="descripcion()"
-              (input)="descripcion.set($any($event.target).value)">
+            <textarea
+              class="form-control"
+              rows="3"
+              [ngModel]="descripcion()"
+              readonly>
             </textarea>
           </div>
-
-
-
-
-
 
         </div>
 
@@ -102,7 +121,6 @@
         <!-- =========================
              FORM DINÁMICO
         ========================== -->
-        <!-- FORM DINÁMICO -->
         <div *ngIf="tipoSeleccionado()">
 
           <h6 class="mb-3 text-primary">
@@ -111,15 +129,136 @@
 
           <ng-container [ngSwitch]="tipoSeleccionado()">
 
-            <!-- TRUE / FALSE -->
-            <app-q-true-false *ngSwitchCase="10" (valueChange)="onTrueFalseChange($event)">
-            </app-q-true-false>
+            <app-q-multiple-choice
+            *ngIf="tipoSeleccionado() == 8"
+            [multiple]="false"
+            [config]="configPorTipo[8]"
+            (valueChange)="onConfigChange($event)">
+          </app-q-multiple-choice>
 
-            <app-q-code
+          <app-q-multiple-choice
+          *ngIf="tipoSeleccionado() == 9"
+          [multiple]="true"
+          [config]="configPorTipo[9]"
+          (valueChange)="onConfigChange($event)">
+        </app-q-multiple-choice>
+
+        <app-q-true-false
+        *ngIf="tipoSeleccionado() == 10"
+        [config]="configPorTipo[10]"
+        (valueChange)="onConfigChange($event)">
+      </app-q-true-false>
+
+      <app-q-likert
+      *ngIf="tipoSeleccionado() == 11"
+      [config]="configPorTipo[11]"
+      (valueChange)="onConfigChange($event)">
+    </app-q-likert>
+
+    <app-q-semantic
+    *ngIf="tipoSeleccionado() == 12"
+    [config]="configPorTipo[12]"
+    (valueChange)="onConfigChange($event)">
+  </app-q-semantic>
+
+      <app-q-rating
+        *ngIf="tipoSeleccionado() == 13"
+        [config]="configPorTipo[13]"
+        (valueChange)="onConfigChange($event)">
+      </app-q-rating>
+
+
+      <app-q-text
+        *ngIf="tipoSeleccionado() == 14 || tipoSeleccionado() == 15"
+        [questionType]="tipoSeleccionado()"
+        [config]="configPorTipo[tipoSeleccionado()]"
+        (valueChange)="onConfigChange($event)">
+      </app-q-text>
+
+      <app-q-structured-text
+      *ngIf="tipoSeleccionado() == 16"
+      [config]="configPorTipo[16]"
+      (valueChange)="onConfigChange($event)">
+    </app-q-structured-text>
+
+          <app-q-numeric
+          *ngIf="tipoSeleccionado() == 17"
+          [config]="configPorTipo[17]"
+          (valueChange)="onConfigChange($event)">
+        </app-q-numeric>
+
+            <app-q-numeric-range
+            *ngIf="tipoSeleccionado() == 18"
+            [config]="configPorTipo[18]"
+            (valueChange)="onConfigChange($event)">
+          </app-q-numeric-range>
+
+
+            <app-q-situational-judgment
+              *ngIf="tipoSeleccionado() == 19"
+              [config]="configPorTipo[19]"
+              (valueChange)="onConfigChange($event)">
+            </app-q-situational-judgment>
+
+            <app-q-case-study
+              *ngIf="tipoSeleccionado() == 20"
+              [config]="configPorTipo[20]"
+              (valueChange)="onConfigChange($event)">
+            </app-q-case-study>
+
+              <app-q-code
               *ngIf="tipoSeleccionado() == 21"
-              (valueChange)="onCodeChange($event)">
+              [config]="configPorTipo[21]"
+              (valueChange)="onConfigChange($event)">
             </app-q-code>
 
+          <app-q-code-fix
+          *ngIf="tipoSeleccionado() == 22"
+          [config]="configPorTipo[22]"
+          (valueChange)="onConfigChange($event)">
+        </app-q-code-fix>
+
+        <app-q-sql-query
+        *ngIf="tipoSeleccionado() == 23"
+        [config]="configPorTipo[23]"
+        (valueChange)="onConfigChange($event)">
+      </app-q-sql-query>
+
+      <app-q-ordering
+      *ngIf="tipoSeleccionado() == 24"
+      [config]="configPorTipo[24]"
+      (valueChange)="onConfigChange($event)">
+    </app-q-ordering>
+
+        <app-q-matching
+        *ngIf="tipoSeleccionado() == 25"
+        [config]="configPorTipo[25]"
+        (valueChange)="onConfigChange($event)">
+      </app-q-matching>
+
+      <app-q-drag-order
+      *ngIf="tipoSeleccionado() == 26"
+      [config]="configPorTipo[26]"
+      (valueChange)="onConfigChange($event)">
+    </app-q-drag-order>
+
+    <app-q-drag-drop-match
+              *ngIf="tipoSeleccionado() == 27"
+              [config]="configPorTipo[27]"
+              (valueChange)="onConfigChange($event)">
+            </app-q-drag-drop-match>
+
+            <app-q-pattern-recognition
+            *ngIf="tipoSeleccionado() == 28"
+            [config]="configPorTipo[28]"
+            (valueChange)="onConfigChange($event)">
+          </app-q-pattern-recognition>
+
+            <app-q-matrix-question
+              *ngIf="tipoSeleccionado() == 29"
+              [config]="configPorTipo[29]"
+              (valueChange)="onConfigChange($event)">
+            </app-q-matrix-question>
 
 
 
@@ -134,7 +273,7 @@
   </div>
 
   <!-- =========================
-       LISTA
+       LISTA (NO SE TOCA)
   ========================== -->
   <div class="col-sm-12" *ngIf="!modoFormulario()">
 
@@ -144,8 +283,11 @@
       </app-grid>
 
       <ng-template #accionesTemplate let-item>
-        <span *ngFor="let accion of accionesTabla" class="accion-icono" [title]="accion.title"
-          [style.color]="accion.color">
+        <span *ngFor="let accion of accionesTabla"
+              class="accion-icono"
+              [title]="accion.title"
+              [style.color]="accion.color"
+              (click)="accion.callback?.(item)">
 
           <i [class]="accion.icon"></i>
 

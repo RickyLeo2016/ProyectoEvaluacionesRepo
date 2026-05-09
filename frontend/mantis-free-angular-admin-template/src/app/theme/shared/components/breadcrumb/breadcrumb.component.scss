@@ -1,1 +1,130 @@
-// This file is intentionally left empty to allow customers to add custom CSS if needed.
+// .page-header {
+//   margin-bottom: 1rem;
+// }
+
+// .breadcrumb {
+//   display: flex;
+//   align-items: center;
+//   gap: 0;
+//   padding: 6px 12px;
+//   margin: 0;
+
+//   list-style: none;
+
+//   background: linear-gradient(
+//     90deg,
+//     #173d9b 0%,
+//     #1d3ea8 40%,
+//     #2545b8 100%
+//   );
+
+//   border-radius: 999px;
+
+//   width: fit-content;
+
+//   box-shadow:
+//     0 2px 8px rgba(0, 0, 0, 0.12),
+//     inset 0 1px 0 rgba(255,255,255,0.1);
+// }
+
+// /* ITEMS */
+// .breadcrumb-item {
+//   position: relative;
+
+//   display: flex;
+//   align-items: center;
+
+//   color: rgba(255,255,255,0.75);
+
+//   font-size: 12px;
+//   font-weight: 500;
+
+//   transition: all 0.2s ease;
+
+//   a {
+//     color: inherit;
+//     text-decoration: none;
+
+//     display: flex;
+//     align-items: center;
+
+//     padding: 0 14px;
+
+//     transition: all 0.2s ease;
+//   }
+
+//   &:hover {
+//     color: white;
+//   }
+// }
+
+// /* SEPARADOR */
+// .breadcrumb-item + .breadcrumb-item::before {
+//   content: '';
+
+//   width: 1px;
+//   height: 14px;
+
+//   background: rgba(255,255,255,0.2);
+
+//   margin-right: 4px;
+// }
+
+// /* HOME */
+// .breadcrumb-item:first-child {
+
+//   a.home {
+//     width: 30px;
+//     height: 30px;
+
+//     min-width: 30px;
+
+//     border-radius: 50%;
+
+//     background: white;
+//     color: #1e40af;
+
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+
+//     padding: 0;
+
+//     box-shadow:
+//       0 2px 4px rgba(0,0,0,0.2),
+//       inset 0 1px 0 rgba(255,255,255,0.5);
+
+//     transition: all 0.2s ease;
+
+//     i {
+//       font-size: 14px;
+//       font-weight: bold;
+//     }
+
+//     &:hover {
+//       transform: scale(1.05);
+//       background: #f5f7ff;
+//     }
+//   }
+// }
+
+// /* ITEM ACTIVO */
+// .breadcrumb-item:last-child {
+//   color: white;
+//   font-weight: 600;
+// }
+
+// /* RESPONSIVE */
+// @media (max-width: 768px) {
+
+//   .breadcrumb {
+//     flex-wrap: nowrap;
+//     overflow-x: auto;
+
+//     max-width: 100%;
+//   }
+
+//   .breadcrumb-item a {
+//     white-space: nowrap;
+//   }
+// }

@@ -30,6 +30,15 @@ export interface CrearBancoPreguntaRequest {
   banPreVerUiSchema?: string;
 }
 
+export interface CrearVersionPreguntaRequest {
+  banPreId: number;
+  catIdTipo: number;
+  banPreVerPuntaje: number;
+  banPreVerEnunciado: string;
+  banPreVerDataSchema: string;
+  banPreVerUiSchema?: string;
+}
+
 export interface ApiResponse<T> {
   isSuccess: boolean;
   data: T;
@@ -59,6 +68,16 @@ export class BancoPreguntaService {
         payload
       );
     }
+
+
+  crearVersion(payload: CrearVersionPreguntaRequest): Observable<ApiResponse<boolean>> {
+
+      console.log(payload)
+      return this.http.post<ApiResponse<boolean>>(
+        `${this.apiUrl}/CrearVersionPregunta`,
+        payload
+      );
+  }
 
 
 }

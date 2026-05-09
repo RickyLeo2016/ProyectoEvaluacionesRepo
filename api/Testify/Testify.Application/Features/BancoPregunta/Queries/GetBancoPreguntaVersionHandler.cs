@@ -56,7 +56,7 @@ namespace Testify.Application.Features.BancoPregunta.Queries
                 //empId = x.empId,
                 banPreVerId = x.banPreVerId,
                 catIdTipo = x.catIdTipo,
-                //tipPreguntaDesc = x.tipo,
+                tipPreguntaDesc = x.tipPreguntaDesc,
                 banPreVerPuntaje = x.banPreVerPuntaje,
                 banPreVerEnunciado = x.banPreVerEnunciado,
                 banPreVerDataSchema = x.banPreVerDataSchema,

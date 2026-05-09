@@ -1,0 +1,136 @@
+.ordering-container {
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   LIST
+========================= */
+.ordering-list {
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+/* =========================
+   ITEM
+========================= */
+.ordering-item {
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  background: #ffffff;
+
+  border: 1px solid #dee2e6;
+
+  border-radius: 12px;
+
+  padding: 12px;
+
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease;
+}
+
+.ordering-item:hover {
+
+  box-shadow:
+    0 4px 14px rgba(0,0,0,.08);
+}
+
+/* =========================
+   HANDLE
+========================= */
+.drag-handle {
+
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: grab;
+
+  border-radius: 8px;
+
+  background: #f1f3f5;
+
+  font-size: 18px;
+
+  user-select: none;
+
+  flex-shrink: 0;
+}
+
+/* =========================
+   INDEX
+========================= */
+.item-index {
+
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+
+  background: #0d6efd;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  flex-shrink: 0;
+}
+
+/* =========================
+   INPUT
+========================= */
+.item-input {
+
+  flex: 1;
+}
+
+/* =========================
+   DRAG PREVIEW
+========================= */
+.cdk-drag-preview {
+
+  box-sizing: border-box;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.25);
+}
+
+/* =========================
+   PLACEHOLDER
+========================= */
+.cdk-drag-placeholder {
+
+  opacity: 0.3;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+.cdk-drag-animating {
+
+  transition: transform 250ms ease;
+}
+
+.ordering-list.cdk-drop-list-dragging
+.ordering-item:not(.cdk-drag-placeholder) {
+
+  transition: transform 250ms ease;
+}

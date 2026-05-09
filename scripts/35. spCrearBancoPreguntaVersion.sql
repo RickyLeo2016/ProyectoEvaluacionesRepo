@@ -1,7 +1,8 @@
 use TestifyDB
 go
-CREATE PROCEDURE spCrearBancoPreguntaVersion
+Create PROCEDURE spCrearBancoPreguntaVersion
 (
+    @empId BIGINT,
     @banPreId BIGINT,
     @catIdTipo BIGINT,
     @banPreVerPuntaje DECIMAL(10,2),
@@ -22,7 +23,7 @@ BEGIN
         ---------------------------------------------------
         -- VALIDAR EXISTENCIA
         ---------------------------------------------------
-        IF NOT EXISTS (SELECT 1 FROM BancoPregunta WHERE banPreId = @banPreId)
+        IF NOT EXISTS (SELECT 1 FROM BancoPregunta WHERE banPreId = @banPreId and empId=@empId)
         BEGIN
             RAISERROR('La pregunta no existe',16,1);
         END
@@ -33,6 +34,7 @@ BEGIN
         UPDATE BancoPreguntaVersion
         SET catIdEstado = 2
         WHERE banPreId = @banPreId
+        
         ---------------------------------------------------
         -- OBTENER SIGUIENTE VERSION
         ---------------------------------------------------

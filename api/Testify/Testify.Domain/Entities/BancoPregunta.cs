@@ -14,5 +14,7 @@
         public long? usuIdAct { get; set; }
         public DateTime? banPreFechaAct { get; set; }
 
+        
+
     }
 }

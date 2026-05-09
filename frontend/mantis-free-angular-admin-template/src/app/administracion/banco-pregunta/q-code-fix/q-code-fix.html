@@ -1,0 +1,79 @@
+<div class="row">
+
+  <!-- LENGUAJE -->
+  <div class="col-md-3 mb-3">
+
+    <label class="form-label">
+      Lenguaje
+    </label>
+
+    <select
+      class="form-select"
+      [(ngModel)]="language"
+      (ngModelChange)="onChange()"
+    >
+
+      <option
+        *ngFor="let l of lenguajes"
+        [value]="l.value">
+
+        {{ l.label }}
+
+      </option>
+
+    </select>
+
+  </div>
+
+  <!-- CODIGO -->
+  <div class="col-12 mb-3">
+
+    <label class="form-label">
+      Código con error
+    </label>
+
+    <div class="code-editor-wrapper">
+
+      <!-- HEADER -->
+      <div class="editor-header">
+
+        <div class="editor-actions">
+
+          <span class="editor-dot red"></span>
+          <span class="editor-dot yellow"></span>
+          <span class="editor-dot green"></span>
+
+        </div>
+
+        <div class="editor-title">
+          {{ language }}
+        </div>
+
+      </div>
+
+      <!-- TEXTAREA -->
+      <textarea
+        class="code-editor"
+        rows="12"
+        spellcheck="false"
+        [(ngModel)]="buggyCode"
+        (ngModelChange)="onChange()"
+        placeholder="Ingrese el código con errores..."
+      ></textarea>
+
+    </div>
+
+  </div>
+
+  <!-- INFO -->
+  <div class="col-12">
+
+    <div class="alert alert-warning mb-0">
+
+      El usuario deberá corregir este código.
+
+    </div>
+
+  </div>
+
+</div>

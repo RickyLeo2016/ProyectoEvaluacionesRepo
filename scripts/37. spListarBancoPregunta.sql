@@ -15,7 +15,7 @@ BEGIN
 
         v.banPreVerId,
         v.catIdTipo,
-        c.catNombre tipoPreguntaDesc,
+        c.catNombre tipPreguntaDesc,
 
         v.banPreVerPuntaje ,
         v.banPreVerEnunciado ,

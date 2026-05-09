@@ -163,33 +163,28 @@ VALUES
 -- 8 multiple_choice
 (8,
 '{
-  "type": "object",
-  "properties": {
-    "enunciado": { "type": "string" },
-    "opciones": { "type": "array", "items": { "type": "string" } },
-    "respuestaCorrecta": { "type": "string" }
-  }
+  "type": "multiple_choice",
+  "options": [],
+  "correctAnswer": null
 }',
 '{
-  "enunciado": { "ui:widget": "textarea" },
-  "opciones": { "ui:widget": "array-text" },
-  "respuestaCorrecta": { "ui:widget": "radio" }
-}'),
+  "options": {
+    "ui:widget": "radio-list"
+  }
+}'
+),
 
 -- 9 multiple_select
 (9,
 '{
-  "type": "object",
-  "properties": {
-    "enunciado": { "type": "string" },
-    "opciones": { "type": "array", "items": { "type": "string" } },
-    "respuestasCorrectas": { "type": "array", "items": { "type": "string" } }
-  }
+  "type": "multiple_select",
+  "options": [],
+  "correctAnswer": []
 }',
 '{
-  "enunciado": { "ui:widget": "textarea" },
-  "opciones": { "ui:widget": "array-text" },
-  "respuestasCorrectas": { "ui:widget": "checkboxes" }
+  "options": {
+    "ui:widget": "checkbox-list"
+  }
 }'),
 
 -- 10 true_false
@@ -209,53 +204,81 @@ VALUES
 -- 11 likert
 (11,
 '{
-  "type": "object",
+  "type": "likert",
   "properties": {
-    "enunciado": { "type": "string" },
-    "escala": { "type": "array", "items": { "type": "string" } },
-    "respuesta": { "type": "number" }
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "number" },
+          "label": { "type": "string" }
+        }
+      }
+    }
   }
 }',
 '{
-  "enunciado": { "ui:widget": "textarea" },
-  "escala": { "ui:widget": "array-text" },
-  "respuesta": { "ui:widget": "radio" }
+  "options": {
+    "ui:widget": "radio"
+  }
 }'),
 
 -- 12 semantic_differential
 (12,
+
 '{
   "type": "object",
   "properties": {
-    "enunciado": { "type": "string" },
-    "izquierda": { "type": "string" },
-    "derecha": { "type": "string" },
-    "valor": { "type": "number" }
-  }
-}',
+    "scale": {
+      "type": "number",
+      "minimum": 3,
+      "maximum": 10
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "left": { "type": "string" },
+          "right": { "type": "string" }
+        },
+        "required": ["left", "right"]
+      }
+    }
+  },
+  "required": ["scale", "items"]
+}'
+,
 '{
-  "enunciado": { "ui:widget": "textarea" },
-  "izquierda": { "ui:widget": "text" },
-  "derecha": { "ui:widget": "text" },
-  "valor": { "ui:widget": "range" }
+  "scale": {
+    "ui:widget": "number"
+  },
+  "items": {
+    "ui:widget": "semantic-editor"
+  }
 }'),
 
 -- 13 rating_scale
 (13,
 '{
-  "type": "object",
+  "type": "rating",
   "properties": {
-    "enunciado": { "type": "string" },
     "min": { "type": "number" },
     "max": { "type": "number" },
-    "valor": { "type": "number" }
+    "labels": {
+      "type": "object",
+      "properties": {
+        "minLabel": { "type": "string" },
+        "maxLabel": { "type": "string" }
+      }
+    }
   }
-}',
+}'
+,
 '{
-  "enunciado": { "ui:widget": "textarea" },
-  "min": { "ui:widget": "number" },
-  "max": { "ui:widget": "number" },
-  "valor": { "ui:widget": "range" }
+  "ui:widget": "rating-scale"
 }'),
 
 -- 14 text_short
@@ -298,81 +321,111 @@ VALUES
 '{
   "type": "object",
   "properties": {
-    "campos": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "nombre": { "type": "string" },
-          "valor": { "type": "string" }
-        }
-      }
+    "respuesta": {
+      "type": "string"
     }
   }
-}',
+}'
+,
 '{
-  "campos": { "ui:widget": "dynamic-form" }
-}'),
+  "respuesta": {
+    "ui:widget": "textarea",
+    "ui:placeholder": "Ingrese la información"
+  }
+}'
+),
 
 -- 17 numeric
 (17,
 '{
-  "type": "object",
+  "type": "numeric",
   "properties": {
-    "enunciado": { "type": "string" },
-    "respuesta": { "type": "number" }
+    "correctAnswer": {
+      "type": "number"
+    }
   }
 }',
 '{
-  "enunciado": { "ui:widget": "textarea" },
-  "respuesta": { "ui:widget": "number" }
+  "correctAnswer": {
+    "ui:widget": "number",
+    "ui:placeholder": "Ingrese la respuesta numérica"
+  }
 }'),
 
 -- 18 numeric_range
 (18,
 '{
-  "type": "object",
+  "type": "numeric_range",
   "properties": {
-    "min": { "type": "number" },
-    "max": { "type": "number" },
-    "respuesta": { "type": "number" }
+    "correctRange": {
+      "type": "object",
+      "properties": {
+        "min": { "type": "number" },
+        "max": { "type": "number" }
+      }
+    }
   }
 }',
 '{
-  "min": { "ui:widget": "number" },
-  "max": { "ui:widget": "number" },
-  "respuesta": { "ui:widget": "range" }
+  "correctRange.min": {
+    "ui:widget": "number",
+    "ui:placeholder": "Valor mínimo"
+  },
+  "correctRange.max": {
+    "ui:widget": "number",
+    "ui:placeholder": "Valor máximo"
+  }
 }'),
 
 -- 19 situational_judgment
 (19,
+
 '{
   "type": "object",
   "properties": {
-    "escenario": { "type": "string" },
-    "opciones": { "type": "array", "items": { "type": "string" } },
-    "respuesta": { "type": "string" }
+    "respuesta": {
+      "type": "number"
+    },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": { "type": "string" },
+          "score": { "type": "number" }
+        }
+      }
+    }
   }
-}',
+}'
+,
 '{
-  "escenario": { "ui:widget": "textarea" },
-  "opciones": { "ui:widget": "array-text" },
-  "respuesta": { "ui:widget": "radio" }
-}'),
+  "respuesta": {
+    "ui:widget": "radio"
+  }
+}'
+),
 
 -- 20 case_study
 (20,
 '{
   "type": "object",
   "properties": {
-    "caso": { "type": "string" },
-    "preguntas": { "type": "array", "items": { "type": "string" } }
+    "respuesta": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object"
+    }
   }
-}',
+}'
+,
 '{
-  "caso": { "ui:widget": "textarea" },
-  "preguntas": { "ui:widget": "array-text" }
-}'),
+  "respuesta": {
+    "ui:widget": "textarea"
+  }
+}'
+),
 
 -- 21 code
 (21,
@@ -394,18 +447,19 @@ VALUES
 
 -- 22 code_fix
 (22,
-'{
+  '{
   "type": "object",
   "properties": {
-    "codigo": { "type": "string" },
-    "error": { "type": "string" },
-    "solucion": { "type": "string" }
+    "buggyCode": {
+      "type": "string"
+    }
   }
 }',
 '{
-  "codigo": { "ui:widget": "code-editor" },
-  "error": { "ui:widget": "textarea" },
-  "solucion": { "ui:widget": "textarea" }
+  "buggyCode": {
+    "ui:widget": "code-editor",
+    "ui:placeholder": "Ingrese el código con errores"
+  }
 }'),
 
 -- 23 sql_query
@@ -413,27 +467,37 @@ VALUES
 '{
   "type": "object",
   "properties": {
-    "consulta": { "type": "string" },
-    "respuesta": { "type": "string" }
-  }
-}',
+    "baseQuery": { "type": "string" },
+    "solutionQuery": { "type": "string" },
+    "language": { "type": "string" }
+  },
+  "required": ["solutionQuery"]
+}'
+,
 '{
-  "consulta": { "ui:widget": "code-editor" },
-  "respuesta": { "ui:widget": "textarea" }
+  "ui:widget": "sql-editor"
 }'),
 
 -- 24 ordering
 (24,
 '{
-  "type": "object",
+  "type": "ordering",
   "properties": {
-    "elementos": { "type": "array", "items": { "type": "string" } },
-    "ordenCorrecto": { "type": "array", "items": { "type": "string" } }
+    "items": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "correctOrder": {
+      "type": "array",
+      "items": { "type": "number" }
+    }
   }
-}',
+}'
+,
 '{
-  "elementos": { "ui:widget": "drag-order" },
-  "ordenCorrecto": { "ui:widget": "hidden" }
+  "items": {
+    "ui:widget": "drag-drop"
+  }
 }'),
 
 -- 25 matching
@@ -441,13 +505,24 @@ VALUES
 '{
   "type": "object",
   "properties": {
-    "izquierda": { "type": "array", "items": { "type": "string" } },
-    "derecha": { "type": "array", "items": { "type": "string" } }
-  }
-}',
+    "left": { "type": "array", "items": { "type": "string" } },
+    "right": { "type": "array", "items": { "type": "string" } },
+    "correctPairs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "left": { "type": "number" },
+          "right": { "type": "number" }
+        }
+      }
+    }
+  },
+  "required": ["left", "right", "correctPairs"]
+}'
+,
 '{
-  "izquierda": { "ui:widget": "list" },
-  "derecha": { "ui:widget": "list" }
+  "ui:widget": "matching-drag-drop"
 }'),
 
 -- 26 drag_drop_order
@@ -455,11 +530,16 @@ VALUES
 '{
   "type": "object",
   "properties": {
-    "items": { "type": "array", "items": { "type": "string" } }
-  }
+    "items": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["items"]
 }',
 '{
-  "items": { "ui:widget": "drag-order" }
+  "ui:widget": "drag-order"
 }'),
 
 -- 27 drag_drop_match
@@ -467,13 +547,24 @@ VALUES
 '{
   "type": "object",
   "properties": {
-    "items": { "type": "array" },
-    "targets": { "type": "array" }
-  }
-}',
+    "left": { "type": "array", "items": { "type": "string" } },
+    "right": { "type": "array", "items": { "type": "string" } },
+    "correctPairs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "left": { "type": "number" },
+          "right": { "type": "number" }
+        }
+      }
+    }
+  },
+  "required": ["left", "right", "correctPairs"]
+}'
+,
 '{
-  "items": { "ui:widget": "drag-source" },
-  "targets": { "ui:widget": "drag-target" }
+  "ui:widget": "drag-match"
 }'),
 
 -- 28 pattern_recognition
@@ -481,34 +572,51 @@ VALUES
 '{
   "type": "object",
   "properties": {
-    "secuencia": { "type": "array", "items": { "type": "number" } },
-    "respuesta": { "type": "number" }
+    "respuesta": {
+      "type": "number"
+    }
   }
 }',
 '{
-  "secuencia": { "ui:widget": "sequence-display" },
-  "respuesta": { "ui:widget": "number" }
-}'),
+  "respuesta": {
+    "ui:widget": "radio"
+  }
+}'
+
+),
 
 -- 29 matrix_reasoning
 (29,
 '{
-  "type": "object",
-  "properties": {
-    "matriz": {
-      "type": "array",
-      "items": {
-        "type": "array",
-        "items": { "type": "number" }
-      }
-    },
-    "respuesta": { "type": "number" }
-  }
+  "type": "matrix_reasoning",
+  "difficulty": null,
+  "matrix": [],
+  "options": [],
+  "correctAnswer": null,
+  "rule": null,
+  "timeLimitSeconds": null,
+  "missingPositions": [],
+  "answers": []
 }',
 '{
-  "matriz": { "ui:widget": "matrix" },
-  "respuesta": { "ui:widget": "number" }
-}');
+  "matrix": {
+    "ui:widget": "matrix-grid"
+  },
+  "options": {
+    "ui:widget": "matrix-options"
+  },
+  "correctAnswer": {
+    "ui:widget": "hidden"
+  },
+  "missingPositions": {
+    "ui:widget": "hidden"
+  },
+  "answers": {
+    "ui:widget": "hidden"
+  }
+}'
+
+);
 insert into Empresa(empNombre,empRuc, empDireccion, empEstado, usuIdReg, empFechaReg)
 values('Corps S.A.', '1721390902001', 'Anonima', 1,0, SYSDATETIME() )
 

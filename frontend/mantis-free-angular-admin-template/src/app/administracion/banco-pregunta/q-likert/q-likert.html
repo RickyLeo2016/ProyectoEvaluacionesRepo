@@ -1,0 +1,44 @@
+<div class="row">
+
+  <!-- BOTÓN -->
+  <div class="col-12 mb-2">
+    <button type="button" class="btn btn-sm btn-primary" (click)="agregar()">
+      + Agregar nivel
+    </button>
+  </div>
+
+  <!-- OPCIONES -->
+  <div
+    class="col-12"
+    *ngFor="let op of opciones; let i = index; trackBy: trackById"
+  >
+    <div class="input-group mb-2">
+
+      <!-- VALUE -->
+      <span class="input-group-text">
+        {{ op.value }}
+      </span>
+
+      <!-- LABEL -->
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="op.label"
+        (ngModelChange)="actualizar()"
+        placeholder="Etiqueta (Ej: Muy bueno)"
+      />
+
+      <!-- ELIMINAR -->
+      <button
+        type="button"
+        class="btn btn-danger btn-sm"
+        (click)="eliminar(i)"
+        [disabled]="opciones.length <= 2"
+      >
+        <i class="fas fa-trash"></i>
+      </button>
+
+    </div>
+  </div>
+
+</div>

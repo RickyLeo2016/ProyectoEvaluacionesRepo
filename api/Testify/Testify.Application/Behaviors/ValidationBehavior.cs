@@ -32,7 +32,8 @@ namespace Testify.Application.Behaviors
                     var response = new TResponse();
                     response.IsSuccess = false;
                     response.Data = default; // null o false según tu tipo
-                    response.Message = "Errores de validación";
+                    response.Message = "Errores de validación:<br/>" +
+                                        string.Join("<br/>", failures.Select(f => f.ErrorMessage));
                     response.Errors = failures
                         .Select(f => new { Campo = f.PropertyName, msjError = f.ErrorMessage })
                         .Cast<object>()

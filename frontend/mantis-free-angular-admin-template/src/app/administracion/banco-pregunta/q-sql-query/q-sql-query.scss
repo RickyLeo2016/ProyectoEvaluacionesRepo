@@ -1,0 +1,233 @@
+.sql-container {
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* =========================
+   BLOCK
+========================= */
+.block {
+
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   WRAPPER
+========================= */
+.code-editor-wrapper {
+
+  border: 1px solid #2d2d2d;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  background: #1e1e1e;
+
+  box-shadow:
+    0 8px 24px rgba(0,0,0,.25);
+}
+
+/* =========================
+   HEADER
+========================= */
+.editor-header {
+
+  height: 40px;
+
+  background: #2d2d2d;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 14px;
+
+  border-bottom: 1px solid #3c3c3c;
+}
+
+/* =========================
+   ACTIONS
+========================= */
+.editor-actions {
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* =========================
+   DOTS
+========================= */
+.editor-dot {
+
+  display: block;
+
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  flex-shrink: 0;
+}
+
+.editor-dot.red {
+  background: #ff5f56;
+}
+
+.editor-dot.yellow {
+  background: #ffbd2e;
+}
+
+.editor-dot.green {
+  background: #27c93f;
+}
+
+/* =========================
+   TITLE
+========================= */
+.editor-title {
+
+  color: #c5c5c5;
+
+  font-size: 13px;
+
+  font-family:
+    Consolas,
+    monospace;
+}
+
+/* =========================
+   TEXTAREA
+========================= */
+.code-editor {
+
+  width: 100%;
+
+  min-height: 240px;
+
+  border: none;
+  outline: none;
+
+  resize: vertical;
+
+  background: #1e1e1e;
+
+  color: #d4d4d4;
+
+  padding: 16px;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+
+  font-family:
+    Consolas,
+    Monaco,
+    'Courier New',
+    monospace;
+
+  caret-color: #ffffff;
+
+  tab-size: 2;
+}
+
+/* =========================
+   PREVIEW
+========================= */
+.preview {
+
+  border: 1px solid #2d2d2d;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+  background: #111;
+}
+
+/* =========================
+   PREVIEW HEADER
+========================= */
+.preview-header {
+
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 14px;
+
+  background: #2d2d2d;
+
+  color: #c5c5c5;
+
+  font-size: 13px;
+
+  border-bottom: 1px solid #3c3c3c;
+}
+
+/* =========================
+   PREVIEW CODE
+========================= */
+.code-preview {
+
+  padding: 16px;
+
+  color: #00ff88;
+
+  overflow-x: auto;
+
+  font-family:
+    Consolas,
+    Monaco,
+    monospace;
+}
+
+.code-preview pre {
+
+  margin: 0;
+
+  white-space: pre-wrap;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+.code-editor::-webkit-scrollbar,
+.code-preview::-webkit-scrollbar {
+
+  width: 10px;
+  height: 10px;
+}
+
+.code-editor::-webkit-scrollbar-track,
+.code-preview::-webkit-scrollbar-track {
+
+  background: #1e1e1e;
+}
+
+.code-editor::-webkit-scrollbar-thumb,
+.code-preview::-webkit-scrollbar-thumb {
+
+  background: #444;
+
+  border-radius: 20px;
+}
+
+.code-editor::-webkit-scrollbar-thumb:hover,
+.code-preview::-webkit-scrollbar-thumb:hover {
+
+  background: #666;
+}
+
+/* =========================
+   PLACEHOLDER
+========================= */
+.code-editor::placeholder {
+
+  color: #6a6a6a;
+}

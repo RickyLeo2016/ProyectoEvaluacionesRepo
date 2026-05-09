@@ -1,0 +1,128 @@
+<div class="drag-order-container">
+
+  <!-- HEADER -->
+  <div class="header mb-3">
+
+    <div>
+
+      <h6 class="mb-1">
+        Orden correcto
+      </h6>
+
+      <small class="text-muted">
+        Arrastra los elementos para definir el orden correcto
+      </small>
+
+    </div>
+
+    <button
+      class="btn btn-primary"
+      (click)="addItem()"
+    >
+
+      + Agregar
+
+    </button>
+
+  </div>
+
+  <!-- LIST -->
+  <div
+    cdkDropList
+    class="list"
+    (cdkDropListDropped)="drop($event)"
+  >
+
+    <div
+      *ngFor="let item of items; let i = index; trackBy: trackById"
+      cdkDrag
+      class="drag-item"
+    >
+
+      <div class="row-item">
+
+        <!-- HANDLE -->
+        <div
+          class="drag-handle"
+          cdkDragHandle
+        >
+          ☰
+        </div>
+
+        <!-- INDEX -->
+        <div class="index">
+
+          {{ i + 1 }}
+
+        </div>
+
+        <!-- INPUT -->
+        <div class="input-container">
+
+          <input
+            class="form-control"
+            [(ngModel)]="item.text"
+            (ngModelChange)="emit()"
+            placeholder="Ingrese un paso"
+          />
+
+        </div>
+
+        <!-- DELETE -->
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="removeItem(i)"
+          [disabled]="items.length <= 2"
+        >
+
+          <i class="fas fa-trash"></i>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview mt-4">
+
+    <div class="preview-header">
+
+      <span>
+        Vista previa
+      </span>
+
+      <small>
+        Orden correcto
+      </small>
+
+    </div>
+
+    <div class="preview-list">
+
+      <div
+        *ngFor="let item of items; let i = index; trackBy: trackById"
+        class="preview-item"
+      >
+
+        <div class="preview-index">
+
+          {{ i + 1 }}
+
+        </div>
+
+        <div class="preview-content">
+
+          {{ item.text || 'Sin contenido' }}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

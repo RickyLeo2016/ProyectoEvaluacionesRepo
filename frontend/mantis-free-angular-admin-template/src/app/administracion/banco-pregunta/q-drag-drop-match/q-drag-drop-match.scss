@@ -1,0 +1,187 @@
+.match-container {
+
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap: 24px;
+}
+
+/* =========================
+   HEADER
+========================= */
+.section-header {
+
+  font-weight: 600;
+
+  margin-bottom: 16px;
+
+  font-size: 16px;
+}
+
+/* =========================
+   LEFT
+========================= */
+.left-item {
+
+  margin-bottom: 18px;
+}
+
+/* =========================
+   DROP ZONE
+========================= */
+.drop-zone {
+
+  min-height: 60px;
+
+  border: 2px dashed #ced4da;
+
+  border-radius: 12px;
+
+  background: #f8f9fa;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px;
+
+  transition:
+    border-color .15s ease,
+    background .15s ease;
+}
+
+.drop-zone:hover {
+
+  border-color: #0d6efd;
+
+  background: #eef4ff;
+}
+
+/* =========================
+   PLACEHOLDER
+========================= */
+.placeholder {
+
+  color: #adb5bd;
+
+  font-size: 13px;
+}
+
+/* =========================
+   MATCHED
+========================= */
+.matched {
+
+  width: 100%;
+
+  background: #e7f1ff;
+
+  border: 1px solid #b6d4fe;
+
+  color: #084298;
+
+  border-radius: 10px;
+
+  padding: 10px 14px;
+
+  font-weight: 500;
+}
+
+/* =========================
+   POOL
+========================= */
+.pool {
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+/* =========================
+   DRAG ITEM
+========================= */
+.drag-item {
+
+  background: white;
+
+  border: 1px solid #dee2e6;
+
+  border-radius: 12px;
+
+  padding: 12px;
+
+  transition:
+    transform .15s ease,
+    box-shadow .15s ease;
+}
+
+.drag-item:hover {
+
+  box-shadow:
+    0 4px 14px rgba(0,0,0,.08);
+}
+
+/* =========================
+   DRAG HEADER
+========================= */
+.drag-header {
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  font-weight: 600;
+}
+
+/* =========================
+   HANDLE
+========================= */
+.drag-handle {
+
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: #f1f3f5;
+
+  cursor: grab;
+
+  user-select: none;
+}
+
+/* =========================
+   DRAG STATES
+========================= */
+.cdk-drag-preview {
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.25);
+}
+
+.cdk-drag-placeholder {
+
+  opacity: 0.3;
+}
+
+.cdk-drag-animating {
+
+  transition: transform 250ms ease;
+}
+
+.pool.cdk-drop-list-dragging
+.drag-item:not(.cdk-drag-placeholder) {
+
+  transition: transform 250ms ease;
+}
